@@ -28,7 +28,7 @@ Functions available so far:
 **font**: use pygame.Surface.subsurface and pygame.transform.scale  
 **line**: use pygame.draw.line  
 **map**: use pygame.Surface.subsurface and pygame.transform.scale  
-**print**: use pygame.font.Font  
+**print (!: only regular text font)**: use pygame.font.Font  
 **rect & rectb**: use pygame.draw.rect  
 **spr**: use pygame.Surface, pygame.Surface.subsurface, pygame.transform.flip, pygame.transform.scale and pygame.transform.rotate  
 **trace (!: builtins module dependant)**: use builtins.print with ANSI escape sequences for RGB color  
@@ -42,5 +42,6 @@ Some excluded functions:
 
 To do list:  
 - [ ] **mouse**: mouse input  
+- [ ] **TIC-80 smallfont**: system font variant  
 - [ ] **pix (!: numpy library dependant)**: per pixel read or write access  
 - [ ] **sync**: function for asset management (!: important)  
