@@ -24,7 +24,7 @@ Functions available so far:
 **print**: use pygame.font.Font  
 **rect & rectb**: use pygame.draw.rect  
 **spr**: use pygame.Surface, pygame.Surface.subsurface, pygame.transform.flip, pygame.transform.scale and pygame.transform.rotate  
-**trace (!: builtins module dependant)**: use builtins.print with ANSI escape sequences for RGB color
+**trace (!: builtins module dependant)**: use builtins.print with ANSI escape sequences for RGB color  
 **tri & trib**: use pygame.draw.polygon
 
 Some excluded functions:  
