@@ -1,6 +1,6 @@
 # Pygame-80
 
-![pygame80 cover](https://user-images.githubusercontent.com/74131798/136860145-dad00473-008c-47e4-a385-e338accfc1ef.png)
+![pygame80 cover](https://user-images.githubusercontent.com/74131798/136860292-9710a1d0-4b66-413f-a2c7-0a4ff203e062.png)
 
 A set of functions from TIC-80 tiny computer platform ported to Pygame 2.0.1. Many of them are designed to work with the numpy library to improve performance and per pixel access.  
 
