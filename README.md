@@ -12,6 +12,13 @@ Some of the highlights of using this library are:
 *Expandable with the use of modules and libraries  
 *Support of multiple audio and image formats  
 
+## Dependencies
+```
+pip install pygame
+pip install numpy
+```
+
+## Functions
 Functions available so far:  
 **btn**: use pygame.key.get_pressed  
 **cls**: use pygame.Surface.fill  
