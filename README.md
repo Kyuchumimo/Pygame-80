@@ -13,15 +13,15 @@ Some of the highlights of using this library are:
 *Support of multiple audio and image formats  
 
 Functions available so far:  
-btn: use pygame.key.get_pressed  
-cls: use pygame.Surface.fill  
-circ & circb: use pygame.draw.circle  
-elli & ellib: use pygame.draw.elipse  
-exit: use pygame.quit and raise SystemExit  
-font: use pygame.Surface.subsurface and pygame.transform.scale  
-line: use pygame.draw.line  
-map: use pygame.Surface.subsurface and pygame.transform.scale  
-print: use pygame.font.Font
-rect & rectb: use pygame.draw.rect  
-spr: use pygame.Surface, pygame.Surface.subsurface, pygame.transform.flip, pygame.transform.scale and pygame.transform.rotate
-trace (builtins module dependant!): use builtins.print with ANSI escape sequences for RGB color
+**btn**: use pygame.key.get_pressed  
+**cls**: use pygame.Surface.fill  
+**circ & circb**: use pygame.draw.circle  
+**elli & ellib**: use pygame.draw.elipse  
+**exit**: use pygame.quit and raise SystemExit  
+**font**: use pygame.Surface.subsurface and pygame.transform.scale  
+**line**: use pygame.draw.line  
+**map**: use pygame.Surface.subsurface and pygame.transform.scale  
+**print**: use pygame.font.Font
+**rect & rectb**: use pygame.draw.rect  
+**spr**: use pygame.Surface, pygame.Surface.subsurface, pygame.transform.flip, pygame.transform.scale and pygame.transform.rotate  
+**trace (builtins module dependant!)**: use builtins.print with ANSI escape sequences for RGB color
