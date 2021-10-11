@@ -45,3 +45,4 @@ To do list:
 - [ ] **TIC-80 smallfont**: system font variant  
 - [ ] **pix (!: numpy library dependant)**: per pixel read or write access  
 - [ ] **sync**: function for asset management (!: important)  
+- [ ] **wiki**: for show examples and tutorials  
