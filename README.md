@@ -24,4 +24,16 @@ Functions available so far:
 **print**: use pygame.font.Font  
 **rect & rectb**: use pygame.draw.rect  
 **spr**: use pygame.Surface, pygame.Surface.subsurface, pygame.transform.flip, pygame.transform.scale and pygame.transform.rotate  
-**trace (builtins module dependant!)**: use builtins.print with ANSI escape sequences for RGB color
+**trace (!: builtins module dependant)**: use builtins.print with ANSI escape sequences for RGB color
+**tri & trib**: use pygame.draw.polygon
+
+Some excluded functions:  
+**peek & peek4**: Memory Mapping  
+**poke & poke4**: Memory Mapping  
+**memcpy & memset**: Memory Mapping  
+**fset & fget**: Sprite flags  
+
+To do list:  
+**mouse**: mouse input  
+**pix (!: numpy library dependant)**: per pixel read or write access  
+**sync**: function for asset management (!: important)  
