@@ -8,7 +8,7 @@ Some of the highlights of using this library are:
 * TIC-80 friendly  
 * Highly customizable (any screen resolution, different screen modes, any number of audio channels)  
 * Python as a programming language  
-* Practically no memory restrictions regarding the number of assets that can be used (tilesets, spritesheets, music, sfx)  
+* Practically no memory restrictions regarding the number of assets that can be used (tilesets, spritesheets, music, sfx, color palette)  
 * Expandable with the use of modules and libraries  
 * Support of multiple audio and image formats  
 
