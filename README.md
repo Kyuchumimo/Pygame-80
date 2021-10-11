@@ -21,7 +21,7 @@ Functions available so far:
 **font**: use pygame.Surface.subsurface and pygame.transform.scale  
 **line**: use pygame.draw.line  
 **map**: use pygame.Surface.subsurface and pygame.transform.scale  
-**print**: use pygame.font.Font
+**print**: use pygame.font.Font  
 **rect & rectb**: use pygame.draw.rect  
 **spr**: use pygame.Surface, pygame.Surface.subsurface, pygame.transform.flip, pygame.transform.scale and pygame.transform.rotate  
 **trace (builtins module dependant!)**: use builtins.print with ANSI escape sequences for RGB color
