@@ -18,6 +18,12 @@ pip install pygame
 pip install numpy
 ```
 
+To run the program, you can use Thonny IDE or GNU/Linux shell or Windows shell
+
+- **Thonny IDE**: Open pygame80.py and press F5 or CTRL+R or CTRL+T
+- **GNU/Linux shell**:~@ python3 /path/pygame80.py
+- **Windows shell**: >python /path/pygame80.py
+
 ## Functions
 Functions available so far:  
 **btn**: use pygame.key.get_pressed  
