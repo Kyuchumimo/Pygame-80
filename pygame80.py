@@ -3,9 +3,18 @@ import pygame
 import numpy as np
 
 pygame.init()
+
+###PARAMETERS###
+#PIXEL DISPLAY
 screen = pygame.display.set_mode([240,136],pygame.SCALED)
-pygame.display.set_caption("Pygame-80 by Kyuchumimo v211011")
+
+pygame.display.set_caption("Pygame-80 by Kyuchumimo v211012")
 clock = pygame.time.Clock()
+
+#MUSIC CHANNELS
+pygame.mixer.set_num_channels(4)
+
+#####################################
 
 #TIC-80'S BTN() FUNCTION, https://github.com/nesbox/TIC-80/wiki/btn
 """
@@ -135,6 +144,33 @@ def map(x=0,y=0,w=30,h=17,sx=0,sy=0,colorkey=-1,scale=1,remap=None):
             #screen.blit(chr[m0[i][j]],[(j*16)-xm,(i*16)+ym]) #DRAW A MAP THROUGH A LIST OF INDEPENDENT IMAGES (MEDIUM)
             #spr(m0[i][j],(sx+(j*8))-(x*8),sy+(i*8),'#FFFFFF',1,0,0,1,1) #DRAW A MAP FROM A SPRITE SHEET/TILESET WITH SPR
 
+#TIC-80'S MGET() FUNCTION, https://github.com/nesbox/TIC-80/wiki/mget
+"""
+x, y : tilemap coordinates
+"""
+def mget(x,y):
+    return VRAM[y,x]
+
+#TIC-80'S MSET() FUNCTION, https://github.com/nesbox/TIC-80/wiki/mget
+"""
+x, y : tilemap coordinates
+tile_id : The background tile (0-255) to place in map at specified coordinates.
+"""
+def mset(x,y,tile_id):
+    VRAM[y,x] = tile_id
+
+#TIC-80'S PIX() FUNCTION, https://github.com/nesbox/TIC-80/wiki/pix
+"""
+x, y : coordinates of the pixel
+color : the the RGB list color to draw
+"""
+def pix(x,y,color=None):
+    scn = pygame.surfarray.pixels3d(screen)
+    if color==None:
+        return str(scn[x,y])
+    else:
+        scn[x,y] = color
+
 #TIC-80'S PRINT() FUNCTION, https://github.com/nesbox/TIC-80/wiki/print
 """
 text : any string to be printed to the screen
@@ -170,6 +206,23 @@ color : the RGB list or HEX color that will be used to color the rectangle's bor
 """
 def rectb(x,y,w,h,color):
     pygame.draw.rect(screen,color,[x,y,w,h],1)
+
+#TIC-80'S SFX() FUNCTION, https://github.com/nesbox/TIC-80/wiki/sfx
+"""
+id : the SFX id (0..n), or -1 to stop playing
+note [UNSUPPORTED]: the note number (0..95) or name (ex: C#3)
+duration [UNSUPPORTED]: the duration (number of frames) (-1 by default, which plays continuously)
+channel : the audio channel to use (0..n)
+volume : the volume (0..1) (defaults to 1)
+speed [UNSUPPORTED]: the speed (-4..3) (defaults to 0)
+"""
+def sfx(id,note=None,duration=None,channel=0,volume=1,speed=None):
+    if id is not -1:
+        snd = pygame.mixer.Sound("assets/sfx/{}.ogg".format(id))
+        snd.set_volume(volume)
+        pygame.mixer.Channel(channel).play(snd)
+    else:
+        pygame.mixer.Channel(channel).stop()
 
 #TIC-80'S SPR() FUNCTION, https://github.com/nesbox/TIC-80/wiki/spr
 """
