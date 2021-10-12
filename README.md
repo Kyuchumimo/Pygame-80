@@ -34,8 +34,12 @@ Functions available so far:
 **font**: use pygame.Surface.subsurface and pygame.transform.scale  
 **line**: use pygame.draw.line  
 **map**: use pygame.Surface.subsurface and pygame.transform.scale  
+**mget**: VRAM 2D array indexing, return  
+**mset**: VRAM 2D array indexing, store
+**pix (!: numpy library dependant)**: use pygame.surfarray.pixels3d  
 **print (!: only regular text font)**: use pygame.font.Font  
 **rect & rectb**: use pygame.draw.rect  
+**sfx (!: note, duration and speed parameters unsupported by Pygame)**: use pygame.mixer.Sound, pygame.mixer.Channel and pygame.mixer.Sound.set_volume  
 **spr (!: 0-255 index only)**: use pygame.Surface, pygame.Surface.subsurface, pygame.transform.flip, pygame.transform.scale and pygame.transform.rotate  
 **trace (!: builtins built-in module dependant)**: use builtins.print with ANSI escape sequences for RGB color  
 **tri & trib**: use pygame.draw.polygon
@@ -49,6 +53,6 @@ Some excluded functions:
 To do list:  
 - [ ] **mouse**: mouse input  
 - [ ] **TIC-80 smallfont**: system font variant  
-- [ ] **pix (!: numpy library dependant)**: per pixel read or write access  
+- [x] **pix (!: numpy library dependant)**: per pixel read or write access  
 - [ ] **sync**: function for asset management (!: important)  
 - [ ] **wiki**: for show examples and tutorials  
