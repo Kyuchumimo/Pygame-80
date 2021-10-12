@@ -36,7 +36,7 @@ Functions available so far:
 **map**: use pygame.Surface.subsurface and pygame.transform.scale  
 **print (!: only regular text font)**: use pygame.font.Font  
 **rect & rectb**: use pygame.draw.rect  
-**spr**: use pygame.Surface, pygame.Surface.subsurface, pygame.transform.flip, pygame.transform.scale and pygame.transform.rotate  
+**spr (!: 0-255 spr index only)**: use pygame.Surface, pygame.Surface.subsurface, pygame.transform.flip, pygame.transform.scale and pygame.transform.rotate  
 **trace (!: builtins module dependant)**: use builtins.print with ANSI escape sequences for RGB color  
 **tri & trib**: use pygame.draw.polygon
 
