@@ -34,8 +34,7 @@ Functions available so far:
 **font**: use pygame.Surface.subsurface and pygame.transform.scale  
 **line**: use pygame.draw.line  
 **map**: use pygame.Surface.subsurface and pygame.transform.scale  
-**mget**: VRAM 2D array indexing, return  
-**mset**: VRAM 2D array indexing, store  
+**mget & mset**: VRAM 2D array indexing, read/write  
 **pix (!: numpy library dependant)**: use pygame.surfarray.pixels3d  
 **print (!: only regular text font)**: use pygame.font.Font  
 **rect & rectb**: use pygame.draw.rect  
