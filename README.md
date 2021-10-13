@@ -50,8 +50,11 @@ Some excluded functions:
 **fset & fget**: Sprite flags  
 
 To do list:  
+- [ ] **btnp**: button input  
+- [ ] **key & keyp**: key input  
+- [ ] **textri (!: pygame.gfxdraw library dependant)**: textured triangle  
 - [ ] **mouse**: mouse input  
 - [ ] **TIC-80 smallfont**: system font variant  
 - [x] **pix (!: numpy library dependant)**: per pixel read or write access  
 - [ ] **sync**: function for asset management (!: important)  
-- [ ] **wiki**: for show examples and tutorials  
+- [ ] **wiki (3/21)**: for show examples and tutorials  
