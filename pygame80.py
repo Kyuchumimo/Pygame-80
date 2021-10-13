@@ -18,7 +18,7 @@ pygame.mixer.set_num_channels(4)
 
 #TIC-80'S BTN() FUNCTION, https://github.com/nesbox/TIC-80/wiki/btn
 """
-id : id (0..31) of the key we want to interrogate (see the key map for reference)
+id : id (0..7) of the key we want to interrogate (see the key map for reference)
 """
 def btn(id):
     return pygame.key.get_pressed()[list([pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT, pygame.K_z, pygame.K_x, pygame.K_a, pygame.K_s])[id]]
