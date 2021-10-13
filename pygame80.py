@@ -253,6 +253,13 @@ def spr(id,x,y,colorkey=-1,scale=1,flip=0,rotate=0,w=1,h=1):
     
     screen.blit(obj,[x,y])
 
+#TIC-80'S TIME() FUNCTION, https://github.com/nesbox/TIC-80/wiki/time
+"""
+ticks : the number of milliseconds elapsed since the game was started
+"""
+def time():
+    return pygame.time.get_ticks()
+
 #TIC-80'S TRACE() FUNCTION, https://github.com/nesbox/TIC-80/wiki/trace
 """
 message : the message to print in the console. Can be a 'string' or variable.
