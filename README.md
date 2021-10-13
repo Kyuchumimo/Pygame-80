@@ -58,4 +58,4 @@ To run the demo program, you can use Thonny IDE or GNU/Linux shell or Windows sh
 - [ ] **TIC-80 smallfont**: system font variant  
 - [x] **pix (!: numpy library dependant)**: per pixel read or write access  
 - [ ] **sync**: function for asset management (!: important)  
-- [ ] **wiki (3/21)**: for show examples and tutorials  
+- [ ] **wiki (4/22)**: for show examples and tutorials  
