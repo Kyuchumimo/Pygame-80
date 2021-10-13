@@ -51,7 +51,7 @@ Some excluded functions:
 
 To do list:  
 - [ ] **btnp**: button input  
-- [ ] **key & keyp**: key input  
+- [ ] **key & keyp**: keyboard input  
 - [ ] **textri (!: pygame.gfxdraw library dependant)**: textured triangle  
 - [ ] **mouse**: mouse input  
 - [ ] **TIC-80 smallfont**: system font variant  
