@@ -25,7 +25,7 @@ To run the demo program, you can use Thonny IDE or GNU/Linux shell or Windows sh
 - **Windows shell**: >python /path/pygame80.py
 
 ## Functions
-Functions available so far:  
+### Functions available so far:  
 **btn**: use pygame.key.get_pressed  
 **cls**: use pygame.Surface.fill  
 **circ & circb**: use pygame.draw.circle  
@@ -43,13 +43,13 @@ Functions available so far:
 **trace (!: builtins built-in module dependant)**: use builtins.print with ANSI escape sequences for RGB color  
 **tri & trib**: use pygame.draw.polygon
 
-Some excluded functions:  
+### Some excluded functions:  
 **peek & peek4**: Memory Mapping  
 **poke & poke4**: Memory Mapping  
 **memcpy & memset**: Memory Mapping  
 **fset & fget**: Sprite flags  
 
-To do list:  
+### To do list:  
 - [ ] **btnp**: button input  
 - [ ] **key & keyp**: keyboard input  
 - [ ] **textri (!: pygame.gfxdraw library dependant)**: textured triangle  
