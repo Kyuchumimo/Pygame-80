@@ -91,8 +91,8 @@ def font(text,x,y,colorkey=-1,w=9,h=8,fixed=False,scale=1):
     ts = pygame.image.load_basic("path/file.bmp")
     text = text.encode('ascii')
     
-    if scale is not 1: ts = pygame.transform.scale(ts,[(pygame.Surface.get_size(ts)[0])*scale,(pygame.Surface.get_size(ts)[1])*scale])
-    if colorkey is not -1: ts.set_colorkey(colorkey)
+    if scale != 1: ts = pygame.transform.scale(ts,[(pygame.Surface.get_size(ts)[0])*scale,(pygame.Surface.get_size(ts)[1])*scale])
+    if colorkey != -1: ts.set_colorkey(colorkey)
     
     if fixed==False:
         w=9
@@ -132,8 +132,8 @@ def map(x=0,y=0,w=30,h=17,sx=0,sy=0,colorkey=-1,scale=1,remap=None):
     if remap is not None: exec(remap)
     #if remap==None: remap=(VRAM,VRAM,VRAM)
     
-    if scale is not 1: ts = pygame.transform.scale(ts,[(pygame.Surface.get_size(ts)[0])*scale,(pygame.Surface.get_size(ts)[1])*scale])
-    if colorkey is not -1: ts.set_colorkey(colorkey)
+    if scale != 1: ts = pygame.transform.scale(ts,[(pygame.Surface.get_size(ts)[0])*scale,(pygame.Surface.get_size(ts)[1])*scale])
+    if colorkey != -1: ts.set_colorkey(colorkey)
     
     #TILE BASED BACKGROUND
     for i in range(y,y+h): #ROWS
@@ -167,7 +167,8 @@ color : the the RGB list color to draw
 def pix(x,y,color=None):
     scn = pygame.surfarray.pixels3d(screen)
     if color==None:
-        return str(scn[x,y])
+        return (scn[x,y]).tolist() #FASTER
+        #return list(scn[x,y])
     else:
         scn[x,y] = color
 
@@ -186,6 +187,8 @@ def print(text,x=0,y=0,color=[0xf4,0xf4,0xf4],fixed=None,scale=1):
     for i in range(1,len(text.splitlines())):
         y += 6*scale
         screen.blit(pygame.font.Font("assets/tic-80 regular.ttf", 8*scale).render(str(text.splitlines()[i]),False,color),[x,y]) #SYSTEM FONT
+    
+    return pygame.font.Font("assets/tic-80 regular.ttf", 8*scale).size(text)[0]
 
 #TIC-80'S RECT() FUNCTION, https://github.com/nesbox/TIC-80/wiki/rect
 """
@@ -217,7 +220,7 @@ volume : the volume (0..1) (defaults to 1)
 speed [UNSUPPORTED]: the speed (-4..3) (defaults to 0)
 """
 def sfx(id,note=None,duration=None,channel=0,volume=1,speed=None):
-    if id is not -1:
+    if id != -1:
         snd = pygame.mixer.Sound("assets/sfx/{}.ogg".format(id))
         snd.set_volume(volume)
         pygame.mixer.Channel(channel).play(snd)
@@ -239,7 +242,7 @@ h : height of composite sprite
 def spr(id,x,y,colorkey=-1,scale=1,flip=0,rotate=0,w=1,h=1):
     ts = pygame.image.load_basic("assets/spr/0.bmp") #[PATTERN TABLE]
     
-    if scale is not 1: ts = pygame.transform.scale(ts,[(pygame.Surface.get_size(ts)[0])*scale,(pygame.Surface.get_size(ts)[1])*scale])
+    if scale != 1: ts = pygame.transform.scale(ts,[(pygame.Surface.get_size(ts)[0])*scale,(pygame.Surface.get_size(ts)[1])*scale])
     
     obj = pygame.Surface([w*(8*scale),h*(8*scale)])
     
@@ -247,9 +250,9 @@ def spr(id,x,y,colorkey=-1,scale=1,flip=0,rotate=0,w=1,h=1):
         for j in range(0,w): #COLUMNS
             obj.blit(ts.subsurface([(id+((i*16)+j))%16*(8*scale),(id+((i*16)+j))%256//16*(8*scale),scale*8,scale*8]),[j*(8*scale),i*(8*scale)])
             
-    if flip is not 0: obj = pygame.transform.flip(obj,((flip >> 0 & 1) != 0),((flip >> 1 & 1) != 0))
-    if rotate is not 0: obj = pygame.transform.rotate(obj,rotate*-90)
-    if colorkey is not -1: obj.set_colorkey(colorkey)
+    if flip != 0: obj = pygame.transform.flip(obj,((flip >> 0 & 1) != 0),((flip >> 1 & 1) != 0))
+    if rotate != 0: obj = pygame.transform.rotate(obj,rotate*-90)
+    if colorkey != -1: obj.set_colorkey(colorkey)
     
     screen.blit(obj,[x,y])
 
