@@ -1,6 +1,6 @@
 # Pygame-80
 
-![pygame80 cover](https://user-images.githubusercontent.com/74131798/136860292-9710a1d0-4b66-413f-a2c7-0a4ff203e062.png)
+![pygame80](https://user-images.githubusercontent.com/74131798/137247572-a0919aa6-76d7-4139-a688-234a28cfc4d0.gif)
 
 A set of functions from TIC-80 tiny computer platform ported to Pygame 2.0.1. Many of them are designed to work with the numpy library to improve performance and per pixel access.  
 
@@ -58,4 +58,4 @@ To run the demo program, you can use Thonny IDE or GNU/Linux shell or Windows sh
 - [ ] **TIC-80 smallfont**: system font variant  
 - [x] **pix (!: numpy library dependant)**: per pixel read or write access  
 - [ ] **sync**: function for asset management (!: important)  
-- [ ] **wiki (4/22)**: for show examples and tutorials  
+- [ ] **wiki (10/22)**: for show examples and tutorials  
