@@ -55,7 +55,7 @@ To run the demo program, you can use Thonny IDE or GNU/Linux shell or Windows sh
 - [ ] **key & keyp**: keyboard input  
 - [ ] **textri (!: pygame.gfxdraw library dependant)**: textured triangle  
 - [ ] **mouse**: mouse input  
-- [ ] **TIC-80 smallfont**: system font variant  
+- [x] **TIC-80 smallfont**: system font variant  
 - [x] **pix (!: numpy library dependant)**: per pixel read or write access  
 - [ ] **sync**: function for asset management (!: important)  
-- [ ] **wiki (10/22)**: for show examples and tutorials  
+- [ ] **wiki (11/22)**: for show examples and tutorials  
