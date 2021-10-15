@@ -38,7 +38,7 @@ To run the demo program, you can use Thonny IDE or GNU/Linux shell or Windows sh
 **pix (!: numpy library dependant)**: use pygame.surfarray.pixels3d  
 **print**: use pygame.font.Font  
 **rect & rectb**: use pygame.draw.rect  
-**sfx (!: note, duration and speed parameters unsupported by Pygame)**: use pygame.mixer.Sound, pygame.mixer.Channel and pygame.mixer.Sound.set_volume  
+**sfx (!: note and speed parameters unsupported by Pygame)**: use pygame.mixer.Sound, pygame.mixer.Channel and pygame.mixer.Sound.set_volume  
 **spr (!: 0-255 index only)**: use pygame.Surface, pygame.Surface.subsurface, pygame.transform.flip, pygame.transform.scale and pygame.transform.rotate  
 **time**: use pygame.time.get_ticks  
 **trace (!: builtins built-in module dependant)**: use builtins.print with ANSI escape sequences for RGB color  
