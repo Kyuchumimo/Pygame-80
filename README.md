@@ -46,10 +46,8 @@ To run the demo program, you can use Thonny IDE or GNU/Linux shell or Windows sh
 **tri & trib**: use pygame.draw.polygon
 
 ### Some excluded functions:  
-**TIC, SCN(n), OVR & BDR**: Callbacks  
-**peek & peek4**: Memory Mapping  
-**poke & poke4**: Memory Mapping  
-**memcpy & memset**: Memory Mapping  
+**TIC, SCN(n), OVR, BDR**: Callbacks  
+**peek & peek4, poke & poke4, memcpy & memset**: Memory Mapping  
 **fset & fget**: Sprite flags  
 
 ### To do list:  
