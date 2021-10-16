@@ -280,8 +280,8 @@ def tstamp():
 message : the message to print in the console. Can be a 'string' or variable.
 color : the RGB list of a color
 """
-import builtins
 def trace(message,color=[0xf4,0xf4,0xf4]):
+    import builtins
     builtins.print("\033[38;2;{};{};{}m{} \033[38;2;255;255;255m".format(color[0],color[1],color[2], message))
 
 #TIC-80'S TRI() FUNCTION, https://github.com/nesbox/TIC-80/wiki/tri
