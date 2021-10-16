@@ -1,15 +1,12 @@
-import builtins
 import pygame
 import numpy as np
 
 pygame.init()
 
 ###PARAMETERS###
-#PIXEL DISPLAY
-screen = pygame.display.set_mode([240,136],pygame.SCALED)
-
+#WINDOW
 pygame.display.set_caption("Pygame-80 by Kyuchumimo v211012")
-clock = pygame.time.Clock()
+screen = pygame.display.set_mode([240,136],pygame.SCALED)
 
 #MUSIC CHANNELS
 pygame.mixer.set_num_channels(4)
@@ -18,6 +15,8 @@ pygame.mixer.set_num_channels(4)
 
 #TIC-80'S BTN() FUNCTION, https://github.com/nesbox/TIC-80/wiki/btn
 """
+btn [id] -> pressed
+Parameters:
 id : id (0..7) of the key we want to interrogate (see the key map for reference)
 """
 def btn(id):
@@ -25,6 +24,8 @@ def btn(id):
 
 #TIC-80'S CLS() FUNCTION, https://github.com/nesbox/TIC-80/wiki/cls
 """
+cls [color=[0x1a,0x1c,0x2c]]
+Parameters:
 color : RGB list or HEX color
 """
 def cls(color=[0x1a,0x1c,0x2c]):
@@ -81,14 +82,14 @@ def exit():
 text : the string to be printed
 x : x coordinate of print position
 y : y coordinate of print position
-colorkey : the RGB list or HEX color of the color that will be used as transparent color. Not setting this parameter will make the map opaque.
+colorkey : the RGB list or HEX color of the color that will be used as transparent color. Not setting this parameter will make the font opaque.
 w : distance between characters, in pixels
 h : vertical distance between characters, in pixels, when printing multi-line text.
 fixed : indicates whether the font is fixed width (defaults to false ie variable width)
 scale : font scaling (defaults to 1)
 """
 def font(text,x,y,colorkey=-1,w=9,h=8,fixed=False,scale=1):
-    ts = pygame.image.load_basic("path/file.bmp")
+    ts = pygame.image.load_basic("assets/spr/{}.bmp".format(0))
     text = text.encode('ascii')
     
     if scale != 1: ts = pygame.transform.scale(ts,[(pygame.Surface.get_size(ts)[0])*scale,(pygame.Surface.get_size(ts)[1])*scale])
@@ -126,7 +127,7 @@ scale : Map scaling.
 remap [PARTIAL] : An optional function called before every tile is drawn. Using this callback function you can show or hide tiles, create tile animations or flip/rotate tiles during the map rendering stage: callback [tile [x y] ] -> [tile [flip [rotate] ] ] 
 """
 def map(x=0,y=0,w=30,h=17,sx=0,sy=0,colorkey=-1,scale=1,remap=None):
-    #if m==0: ts = pygame.image.load_basic("assets/map/0.bmp") #[PATTERN TABLE]
+    if m==0: ts = pygame.image.load_basic("assets/map/{}.bmp".format(0)) #[PATTERN TABLE]
     
     PPU=np.copy(VRAM)
     if remap is not None: exec(remap)
@@ -191,7 +192,7 @@ def print(text,x=0,y=0,color=[0xf4,0xf4,0xf4],fixed=None,scale=1,smallfont=False
         y += 6*scale
         screen.blit(pygame.font.Font("assets/tic-80 regular.ttf", 8*scale).render(str(text.splitlines()[i]),False,color),[x,y]) #SYSTEM FONT
     
-    return pygame.font.Font("assets/tic-80 regular.ttf", 8*scale).size(text)[0]
+    return pygame.font.Font("assets/tic-80 regular.ttf", 8*scale).size(max(text.splitlines()))[0]
 
 #TIC-80'S RECT() FUNCTION, https://github.com/nesbox/TIC-80/wiki/rect
 """
@@ -216,17 +217,17 @@ def rectb(x,y,w,h,color):
 #TIC-80'S SFX() FUNCTION, https://github.com/nesbox/TIC-80/wiki/sfx
 """
 id : the SFX id (0..n), or -1 to stop playing
-note [UNSUPPORTED]: the note number (0..95) or name (ex: C#3)
-duration [UNSUPPORTED]: the duration (number of frames) (-1 by default, which plays continuously)
-channel : the audio channel to use (0..n)
-volume : the volume (0..1) (defaults to 1)
-speed [UNSUPPORTED]: the speed (-4..3) (defaults to 0)
+note [NOT SUPPORTED]: the note number (0..95) or name (ex: C#3)
+duration : the duration (number of frames) (0 by default, which plays continuously)
+channel : the audio channel to use (0..defaults to 3)
+volume : the volume (0..15) (defaults to 15)
+speed [NOT SUPPORTED]: the speed (-4..3) (defaults to 0)
 """
-def sfx(id,note=None,duration=None,channel=0,volume=1,speed=None):
+def sfx(id,note=None,duration=0,channel=0,volume=15,speed=None):
     if id != -1:
         snd = pygame.mixer.Sound("assets/sfx/{}.ogg".format(id))
-        snd.set_volume(volume)
-        pygame.mixer.Channel(channel).play(snd)
+        snd.set_volume((volume%16)/15)
+        pygame.mixer.Channel(channel).play(snd,0,duration*(1000/60))
     else:
         pygame.mixer.Channel(channel).stop()
 
@@ -243,7 +244,7 @@ w : width of composite sprite
 h : height of composite sprite
 """
 def spr(id,x,y,colorkey=-1,scale=1,flip=0,rotate=0,w=1,h=1):
-    ts = pygame.image.load_basic("assets/spr/0.bmp") #[PATTERN TABLE]
+    ts = pygame.image.load_basic("assets/spr/{}.bmp".format(0)) #[PATTERN TABLE]
     
     if scale != 1: ts = pygame.transform.scale(ts,[(pygame.Surface.get_size(ts)[0])*scale,(pygame.Surface.get_size(ts)[1])*scale])
     
@@ -266,11 +267,20 @@ ticks : the number of milliseconds elapsed since the game was started
 def time():
     return pygame.time.get_ticks()
 
+#TIC-80'S TSTAMP() FUNCTION, https://github.com/nesbox/TIC-80/wiki/tstamp
+"""
+timestamp : the current Unix timestamp in seconds
+"""
+def tstamp():
+    import time
+    return time.time()//1
+
 #TIC-80'S TRACE() FUNCTION, https://github.com/nesbox/TIC-80/wiki/trace
 """
 message : the message to print in the console. Can be a 'string' or variable.
 color : the RGB list of a color
 """
+import builtins
 def trace(message,color=[0xf4,0xf4,0xf4]):
     builtins.print("\033[38;2;{};{};{}m{} \033[38;2;255;255;255m".format(color[0],color[1],color[2], message))
 
@@ -318,4 +328,4 @@ while True:
     if pygame.key.get_pressed()[pygame.K_ESCAPE]: pygame.quit(); exit()
     
     pygame.display.flip()
-    clock.tick(60)
+    pygame.time.Clock().tick(60)
