@@ -101,9 +101,9 @@ def font(text,x,y,colorkey=-1,w=9,h=8,fixed=False,scale=1):
     for i in range(len(text)):
         if text[i]==10:
             i_line_offset = i + 1
-            y += h
+            y += h*scale
         else:
-            screen.blit(ts.subsurface([text[i]%16*(8*scale),text[i]%256//16*(8*scale),(8*scale),(8*scale)]),[(x+((i-i_line_offset)*w))*scale,y*scale])
+            screen.blit(ts.subsurface([text[i]%16*(8*scale),text[i]%256//16*(8*scale),(8*scale),(8*scale)]),[x+((i-i_line_offset)*w)*scale,y])
 
 #TIC-80'S LINE() FUNCTION, https://github.com/nesbox/TIC-80/wiki/line
 """
