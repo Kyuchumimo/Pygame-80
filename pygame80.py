@@ -183,16 +183,17 @@ scale : font scaling
 smallfont : use small font if true
 """
 def print(text,x=0,y=0,color=[0xf4,0xf4,0xf4],fixed=None,scale=1,smallfont=False):
+    for i in range(0,len(str(text).splitlines())):
+        if i>0: y += 6*scale
+        if smallfont==False:
+            screen.blit(pygame.font.Font("assets/tic-80 regular.ttf", 8*scale).render(str(text).splitlines()[i],False,color),[x,y]) #SYSTEM FONT
+        else:
+            screen.blit(pygame.font.Font("assets/tic-80 narrow.ttf", 8*scale).render(str(text).splitlines()[i],False,color),[x,y]) #SYSTEM SMALLFONT
+    
     if smallfont==False:
-        screen.blit(pygame.font.Font("assets/tic-80 regular.ttf", 8*scale).render(str(text.splitlines()[0]),False,color),[x,y]) #SYSTEM FONT
+        return pygame.font.Font("assets/tic-80 regular.ttf", 8*scale).size(max(str(text).splitlines()))[0]
     else:
-        screen.blit(pygame.font.Font("assets/tic-80 narrow.ttf", 8*scale).render(str(text.splitlines()[0]),False,color),[x,y]) #SYSTEM SMALLFONT
-    
-    for i in range(1,len(text.splitlines())):
-        y += 6*scale
-        screen.blit(pygame.font.Font("assets/tic-80 regular.ttf", 8*scale).render(str(text.splitlines()[i]),False,color),[x,y]) #SYSTEM FONT
-    
-    return pygame.font.Font("assets/tic-80 regular.ttf", 8*scale).size(max(text.splitlines()))[0]
+        return pygame.font.Font("assets/tic-80 narrow.ttf", 8*scale).size(max(str(text).splitlines()))[0]
 
 #TIC-80'S RECT() FUNCTION, https://github.com/nesbox/TIC-80/wiki/rect
 """
