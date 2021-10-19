@@ -30,7 +30,7 @@ To run the demo program, you can use Thonny IDE or GNU/Linux shell or Windows sh
 **cls**: use pygame.Surface.fill  
 **circ & circb**: use pygame.draw.circle  
 **elli & ellib**: use pygame.draw.elipse  
-**exit**: use pygame.quit and raise SystemExit  
+**exit (!: sys built-in module dependant)**: use pygame.quit and raise SystemExit  
 **font**: use pygame.Surface.subsurface and pygame.transform.scale  
 **key**: use pygame.key.get_pressed  
 **line**: use pygame.draw.line  
