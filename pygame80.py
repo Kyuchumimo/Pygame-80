@@ -325,7 +325,7 @@ def sfx(id,note=None,duration=0,channel=0,volume=15,speed=None):
 #TIC-80'S SPR() FUNCTION, https://github.com/nesbox/TIC-80/wiki/spr
 def spr(id,x,y,colorkey=-1,scale=1,flip=0,rotate=0,w=1,h=1):
     """
-    id : index of the sprite (0..n)
+    id : index of the sprite (0..255)
     x : x coordinate where the sprite will be drawn, starting from top left corner.
     y : y coordinate where the sprite will be drawn, starting from top left corner.
     colorkey : RGB list or HEX color in the sprite that will be used as transparent color. Use -1 if you want an opaque sprite.
@@ -335,7 +335,9 @@ def spr(id,x,y,colorkey=-1,scale=1,flip=0,rotate=0,w=1,h=1):
     w : width of composite sprite
     h : height of composite sprite
     """
-    ts = pygame.image.load_basic("assets/spr/{}.bmp".format(0)) #[PATTERN TABLE]
+    ts = pygame.Surface([128,256])
+    ts.blit(pygame.image.load_basic("assets/map/{}.bmp".format(0)),[0,0])
+    ts.blit(pygame.image.load_basic("assets/spr/{}.bmp".format(0)),[0,128])
     
     if scale != 1: ts = pygame.transform.scale(ts,[(pygame.Surface.get_size(ts)[0])*scale,(pygame.Surface.get_size(ts)[1])*scale])
     
@@ -343,7 +345,7 @@ def spr(id,x,y,colorkey=-1,scale=1,flip=0,rotate=0,w=1,h=1):
     
     for i in range(0,h): #ROWS
         for j in range(0,w): #COLUMNS
-            obj.blit(ts.subsurface([(id+((i*16)+j))%16*(8*scale),(id+((i*16)+j))%256//16*(8*scale),scale*8,scale*8]),[j*(8*scale),i*(8*scale)])
+            obj.blit(ts.subsurface([(id+((i*16)+j))%16*(8*scale),(id+((i*16)+j))%512//16*(8*scale),scale*8,scale*8]),[j*(8*scale),i*(8*scale)])
             
     if flip != 0: obj = pygame.transform.flip(obj,((flip >> 0 & 1) != 0),((flip >> 1 & 1) != 0))
     if rotate != 0: obj = pygame.transform.rotate(obj,rotate*-90)
