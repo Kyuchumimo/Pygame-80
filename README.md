@@ -50,6 +50,7 @@ To run the demo program, you can use Thonny IDE or GNU/Linux shell or Windows sh
 **TIC, SCN(n), OVR, BDR**: Callbacks  
 **peek & peek4, poke & poke4, memcpy & memset**: Memory Mapping  
 **fset & fget**: Sprite flags  
+**Blit Segment / Low BPP graphics**: Bit depth  
 
 ### To do list:  
 - [ ] **btnp**: button input  
