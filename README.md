@@ -46,7 +46,7 @@ To run the demo program, you can use Thonny IDE or GNU/Linux shell or Windows sh
 **tstamp (!: time built-in module dependant)**: use time.time()  
 **tri & trib**: use pygame.draw.polygon
 
-### Some excluded functions:  
+### Some excluded features:  
 **TIC, SCN(n), OVR, BDR**: Callbacks  
 **peek & peek4, poke & poke4, memcpy & memset**: Memory Mapping  
 **fset & fget**: Sprite flags  
