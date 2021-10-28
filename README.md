@@ -51,6 +51,7 @@ To run the demo program, you can use Thonny IDE or GNU/Linux shell or Windows sh
 **peek & peek4, poke & poke4, memcpy & memset**: Memory Mapping  
 **fset & fget**: Sprite flags  
 **Blit Segment / Low BPP graphics**: Bit depth  
+**16 color palette**
 
 ### To do list:  
 - [ ] **btnp**: button input  
