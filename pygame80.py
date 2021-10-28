@@ -245,15 +245,56 @@ def pix(x,y,color=None):
     else:
         scn[x,y] = color
 
+#TIC-80'S PMEM() FUNCTION, https://github.com/nesbox/TIC-80/wiki/pmem
+def pmem(index,val=None):
+    """
+    Usage:
+            pmem index -> val Retrieve data from persistent memory
+            pmem index val -> val Save data to persistent memory
+    Parameters:
+            index : an index (0..255) into the persistent memory file.
+            val : the value you want to store. Omit this parameter to read vs write.
+    Output:
+             val : when the function is call with only an index parameter, it returns the current value saved in that memory slot.
+            
+    """
+    import os
+    import json
+    if val==None:
+        try:
+            with open('{}.sav'.format(os.path.splitext(os.path.basename(__file__))[0]), 'r') as file:
+                data = json.load(file)
+                return data["{}".format(int(index)%256)]
+        except (FileNotFoundError, json.decoder.JSONDecodeError, KeyError) as error:
+            pass
+    else:
+        try:
+            with open('{}.sav'.format(os.path.splitext(os.path.basename(__file__))[0]), 'r') as file:
+                data = json.load(file)
+                data[str(int(index%256))] = int(val)%2**32
+            with open('{}.sav'.format(os.path.splitext(os.path.basename(__file__))[0]), 'w') as file:
+                json.dump(data,file)
+        except (FileNotFoundError, json.decoder.JSONDecodeError) as error:
+            with open('{}.sav'.format(os.path.splitext(os.path.basename(__file__))[0]), 'w') as file:
+                data = dict()
+                data["{}".format(int(index)%256)] = int(val)%2**32
+                json.dump(data,file)
+
 #TIC-80'S PRINT() FUNCTION, https://github.com/nesbox/TIC-80/wiki/print
 def print(text,x=0,y=0,color=[0xf4,0xf4,0xf4],fixed=None,scale=1,smallfont=False):
     """
-    text : any string to be printed to the screen
-    x, y : coordinates for printing the text
-    color : the RGB list or HEX color to use to draw the text to the screen
-    fixed [UNUSED] : a flag indicating whether fixed width printing is required
-    scale : font scaling
-    smallfont : use small font if true
+    Usage:
+            print text [x=0 y=0] [color=12] [fixed=false] [scale=1] [smallfont=false] -> text width
+    Parameters:
+            text : any string to be printed to the screen
+            x, y : coordinates for printing the text
+            color : the RGB list or HEX color to use to draw the text to the screen
+            fixed [UNUSED] : a flag indicating whether fixed width printing is required
+            scale : font scaling
+            smallfont : use small font if true
+    Output:
+            text width : returns the width of the text in pixels.
+    
     """
     for i in range(0,len(str(text).splitlines())):
         if i>0: y += 6*scale
