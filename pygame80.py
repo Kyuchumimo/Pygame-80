@@ -258,24 +258,24 @@ def pmem(index,val=None):
              val : when the function is call with only an index parameter, it returns the current value saved in that memory slot.
             
     """
-    import os
+    from pathlib import Path
     import json
     if val==None:
         try:
-            with open('{}.sav'.format(os.path.splitext(os.path.basename(__file__))[0]), 'r') as file:
+            with open('{}.sav'.format(Path(__file__).stem), 'r') as file:
                 data = json.load(file)
                 return data["{}".format(int(index)%256)]
         except (FileNotFoundError, json.decoder.JSONDecodeError, KeyError) as error:
             pass
     else:
         try:
-            with open('{}.sav'.format(os.path.splitext(os.path.basename(__file__))[0]), 'r') as file:
+            with open('{}.sav'.format(Path(__file__).stem), 'r') as file:
                 data = json.load(file)
                 data[str(int(index%256))] = int(val)%2**32
-            with open('{}.sav'.format(os.path.splitext(os.path.basename(__file__))[0]), 'w') as file:
+            with open('{}.sav'.format(Path(__file__).stem), 'w') as file:
                 json.dump(data,file)
         except (FileNotFoundError, json.decoder.JSONDecodeError) as error:
-            with open('{}.sav'.format(os.path.splitext(os.path.basename(__file__))[0]), 'w') as file:
+            with open('{}.sav'.format(Path(__file__).stem), 'w') as file:
                 data = dict()
                 data["{}".format(int(index)%256)] = int(val)%2**32
                 json.dump(data,file)
