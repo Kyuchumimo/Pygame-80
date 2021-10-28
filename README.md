@@ -37,6 +37,7 @@ To run the demo program, you can use Thonny IDE or GNU/Linux shell or Windows sh
 **map**: use pygame.Surface.subsurface and pygame.transform.scale  
 **mget & mset**: VRAM 2D array indexing, read/write  
 **pix (!: numpy library dependant)**: use pygame.surfarray.pixels3d  
+**pmem (!: os, sys, json module dependant)**: use os.path.splitext, sys.argv, json.load and json.dump  
 **print**: use pygame.font.Font  
 **rect & rectb**: use pygame.draw.rect  
 **sfx (!: note and speed parameters not supported by Pygame)**: use pygame.mixer.Sound, pygame.mixer.Channel and pygame.mixer.Sound.set_volume  
