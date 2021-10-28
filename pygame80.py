@@ -5,8 +5,10 @@ pygame.init()
 
 ###PARAMETERS###
 #WINDOW
+pygame.display.set_icon(pygame.image.load_basic('assets/icon.bmp'))
 pygame.display.set_caption("Pygame-80 by Kyuchumimo v211012")
 screen = pygame.display.set_mode([240,136],pygame.SCALED)
+clock = pygame.time.Clock()
 
 #MUSIC CHANNELS
 pygame.mixer.set_num_channels(4)
