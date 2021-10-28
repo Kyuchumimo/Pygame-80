@@ -168,6 +168,7 @@ def line(x0,y0,x1,y1,color):
     pygame.draw.line(screen,color,[x0,y0],[x1,y1])
 
 #TIC-80'S MAP() FUNCTION, https://github.com/nesbox/TIC-80/wiki/map
+VRAM = np.copy(np.loadtxt("assets/map/{}.csv".format(0),dtype='int',delimiter=','))
 def map(x=0,y=0,w=30,h=17,sx=0,sy=0,colorkey=-1,scale=1,remap=None):
     """
     x : The leftmost map cell to be drawn.
@@ -180,9 +181,9 @@ def map(x=0,y=0,w=30,h=17,sx=0,sy=0,colorkey=-1,scale=1,remap=None):
     scale : Map scaling.
     remap [PARTIAL] : An optional function called before every tile is drawn. Using this callback function you can show or hide tiles, create tile animations or flip/rotate tiles during the map rendering stage: callback [tile [x y] ] -> [tile [flip [rotate] ] ] 
     """
-    if m==0: ts = pygame.image.load_basic("assets/map/{}.bmp".format(0)) #[PATTERN TABLE]
+    ts = pygame.image.load_basic("assets/map/{}.bmp".format(0)) #[PATTERN TABLE]
     
-    PPU=np.copy(VRAM)
+    PPU = np.copy(VRAM)
     if remap is not None: exec(remap)
     #if remap==None: remap=(VRAM,VRAM,VRAM)
     
