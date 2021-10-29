@@ -4,6 +4,8 @@
 
 A set of functions from TIC-80 tiny computer platform ported to Pygame>=2.0.1 + Python>=3.7. Many of them are designed to work with the NumPy library to improve performance, per pixel access and CSV files access.  
 
+**THIS LIBRARY IS STILL UNDER DEVELOPMENT, SO THE BEHAVIOR OF THE FUNCTIONS MAY CHANGE FROM VERSION TO VERSION**  
+
 Some of the highlights of using this library are:  
 * TIC-80 friendly  
 * Highly customizable (any screen resolution, different screen modes, any number of audio channels, custom FPS)  
