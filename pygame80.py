@@ -280,7 +280,7 @@ def pmem(index,val=None):
                 json.dump(data,file)
 
 #TIC-80'S PRINT() FUNCTION, https://github.com/nesbox/TIC-80/wiki/print
-def print(text,x=0,y=0,color=[0xf4,0xf4,0xf4],fixed=None,scale=1,smallfont=False):
+def print(text,x=0,y=0,color=[0xf4,0xf4,0xf4],fixed=False,scale=1,smallfont=False):
     """
     Usage:
             print text [x=0 y=0] [color=12] [fixed=false] [scale=1] [smallfont=false] -> text width
@@ -288,7 +288,7 @@ def print(text,x=0,y=0,color=[0xf4,0xf4,0xf4],fixed=None,scale=1,smallfont=False
             text : any string to be printed to the screen
             x, y : coordinates for printing the text
             color : the RGB list or HEX color to use to draw the text to the screen
-            fixed [UNUSED] : a flag indicating whether fixed width printing is required
+            fixed : a flag indicating whether fixed width printing is required
             scale : font scaling
             smallfont : use small font if true
     Output:
@@ -296,16 +296,28 @@ def print(text,x=0,y=0,color=[0xf4,0xf4,0xf4],fixed=None,scale=1,smallfont=False
     
     """
     for i in range(0,len(str(text).splitlines())):
-        if i>0: y += 6*scale
-        if smallfont==False:
-            screen.blit(pygame.font.Font("assets/tic-80 regular.ttf", 8*scale).render(str(text).splitlines()[i],False,color),[x,y]) #SYSTEM FONT
+        if i>0: y += 6*scalevariable
+        if fixed==False:
+            if smallfont==False:
+                screen.blit(pygame.font.Font("assets/tic-80 regular.ttf", 8*scale).render(str(text).splitlines()[i],False,color),[x,y]) #SYSTEM FONT
+            else:
+                screen.blit(pygame.font.Font("assets/tic-80 narrow.ttf", 8*scale).render(str(text).splitlines()[i],False,color),[x,y]) #SYSTEM SMALLFONT
         else:
-            screen.blit(pygame.font.Font("assets/tic-80 narrow.ttf", 8*scale).render(str(text).splitlines()[i],False,color),[x,y]) #SYSTEM SMALLFONT
+            if smallfont==False:
+                screen.blit(pygame.font.Font("assets/tic-80 regular mono.ttf", 8*scale).render(str(text).splitlines()[i],False,color),[x,y]) #SYSTEM FONT FIXED
+            else:
+                screen.blit(pygame.font.Font("assets/tic-80 narrow mono.ttf", 8*scale).render(str(text).splitlines()[i],False,color),[x,y]) #SYSTEM SMALLFONT FIXED
     
-    if smallfont==False:
-        return pygame.font.Font("assets/tic-80 regular.ttf", 8*scale).size(max(str(text).splitlines()))[0]
+    if fixed==False:
+        if smallfont==False:
+            return pygame.font.Font("assets/tic-80 regular.ttf", 8*scale).size(max(str(text).splitlines()))[0]
+        else:
+            return pygame.font.Font("assets/tic-80 narrow.ttf", 8*scale).size(max(str(text).splitlines()))[0]
     else:
-        return pygame.font.Font("assets/tic-80 narrow.ttf", 8*scale).size(max(str(text).splitlines()))[0]
+        if smallfont==False:
+            return pygame.font.Font("assets/tic-80 regular mono.ttf", 8*scale).size(max(str(text).splitlines()))[0]
+        else:
+            return pygame.font.Font("assets/tic-80 narrow mono.ttf", 8*scale).size(max(str(text).splitlines()))[0]
 
 #TIC-80'S RECT() FUNCTION, https://github.com/nesbox/TIC-80/wiki/rect
 def rect(x,y,w,h,color):
