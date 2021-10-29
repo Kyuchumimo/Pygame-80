@@ -18,11 +18,10 @@ pip install pygame
 pip install numpy
 ```
 
-To run the demo program, you can use Thonny IDE or GNU/Linux shell or Windows shell
+To run the demo program, you can use a GNU/Linux shell or Windows shell
 
-- **Thonny IDE**: Open pygame80.py and press F5 or CTRL+R or CTRL+T
-- **GNU/Linux shell**:~@ python3 /path/pygame80.py
-- **Windows shell**: >python /path/pygame80.py
+- **GNU/Linux shell**:~$ python3 pygame80.py pythondemo.py
+- **Windows shell**: >python pygame80.py pythondemo.py
 
 ## Functions
 ### Functions available so far:  
