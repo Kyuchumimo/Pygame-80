@@ -31,7 +31,7 @@ To run the demo program, you can use a GNU/Linux shell or Windows shell
 **cls**: use pygame.Surface.fill  
 **circ & circb**: use pygame.draw.circle  
 **elli & ellib**: use pygame.draw.elipse  
-**exit (!: sys built-in module dependant)**: use sys.exit
+**exit (!: sys built-in module dependant)**: use sys.exit  
 **font**: use pygame.Surface.subsurface and pygame.transform.scale  
 **key**: use pygame.key.get_pressed  
 **line**: use pygame.draw.line  
