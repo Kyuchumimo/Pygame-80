@@ -467,26 +467,13 @@ def trib(x1,y1,x2,y2,x3,y3,color):
 
 #####################################
 
-sw16=[[0x1a,0x1c,0x2c], [0x5d,0x27,0x5d], [0xb1,0x3e,0x53], [0xef,0x7d,0x57], [0xff,0xcd,0x75], [0xa7,0xf0,0x70], [0x38,0xb7,0x64], [0x25,0x71,0x79], [0x29,0x36,0x6f], [0x3b,0x5d,0xc9], [0x41,0xa6,0xf6], [0x73,0xef,0xf7], [0xf4,0xf4,0xf4], [0x94,0xb0,0xc2], [0x56,0x6c,0x86], [0x33,0x3c,0x57]]
-t=0
-x=96
-y=24
-
-while True:
-    
-    if btn(0): y=y-1
-    if btn(1): y=y+1
-    if btn(2): x=x-1
-    if btn(3): x=x+1
-    
-    cls(sw16[13])
-    spr(1+t%60//30*2,x,y,sw16[14],3,0,0,2,2)
-    print("HELLO WORLD!",84,84)
-    t=t+1
-
-#####################################
+import sys
+with open(sys.argv[1], 'r') as code:
+    exec(code.read() +
+"""
     if pygame.event.get(pygame.QUIT): exit()
     if pygame.key.get_pressed()[pygame.K_ESCAPE]: pygame.quit(); exit()
     
     pygame.display.flip()
-    pygame.time.Clock().tick(60)
+    clock.tick(60)
+""")
