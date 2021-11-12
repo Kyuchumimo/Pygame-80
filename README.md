@@ -56,6 +56,7 @@ To run the demo program, you can use a GNU/Linux shell or Windows shell
 **16 color palette**
 
 ### To do list:  
+- [ ] **OPTIMIZATION**: A dictionary called TIC to save multiple objects in a single variable like pygame.images, pygame.font, pygame.display or pygame.clock and thus avoid accessing files from the system disk memory each frame, but the most important is pygame.images and pygame.font.
 - [ ] **btnp**: button input  
 - [ ] **key & keyp**: keyboard input  
 - [ ] **textri (!: pygame.gfxdraw library dependant)**: textured triangle  
