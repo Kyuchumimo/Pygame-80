@@ -1,3 +1,4 @@
+import sys
 import pygame
 import numpy as np
 
@@ -5,13 +6,14 @@ pygame.init()
 
 ###PARAMETERS###
 #WINDOW
-pygame.display.set_icon(pygame.image.load_basic('assets/icon.bmp'))
+#pygame.display.set_icon(pygame.image.load_basic('assets/icon.bmp'))
 pygame.display.set_caption("Pygame-80 by Kyuchumimo v211012")
 screen = pygame.display.set_mode([240,136],pygame.SCALED)
-clock = pygame.time.Clock()
 
 #MUSIC CHANNELS
 pygame.mixer.set_num_channels(4)
+
+TIC = {"tiles":0, "sprites":0, "map":0, "nametable":np.loadtxt("assets/map/{}.csv".format(0),dtype='int',delimiter=','), "font":(pygame.font.Font("assets/tic-80_regular.ttf", 8), pygame.font.Font("assets/tic-80_narrow.ttf", 8), pygame.font.Font("assets/tic-80_regular-mono.ttf", 8), pygame.font.Font("assets/tic-80_narrow-mono.ttf", 8)), "clock":pygame.time.Clock()}
 
 #####################################
 
@@ -126,7 +128,7 @@ def font(text,x,y,colorkey=-1,w=9,h=8,fixed=False,scale=1):
     Description:
             This function will draw text to the screen using the foreground spritesheet as the font. Sprite #256 is used for ASCII code 0, #257 for code 1 and so on. The character 'A' has the ASCII code 65 so will be drawn using the sprite with sprite #321 (256+65).
     """
-    ts = pygame.image.load_basic("assets/spr/{}.bmp".format(1))
+    ts = pygame.image.load_basic("assets/spr/{}.bmp".format(0))
     text = text.encode('ascii')
     
     if scale != 1: ts = pygame.transform.scale(ts,[(pygame.Surface.get_size(ts)[0])*scale,(pygame.Surface.get_size(ts)[1])*scale])
@@ -170,7 +172,6 @@ def line(x0,y0,x1,y1,color):
     pygame.draw.line(screen,color,[x0,y0],[x1,y1])
 
 #TIC-80'S MAP() FUNCTION, https://github.com/nesbox/TIC-80/wiki/map
-VRAM = np.copy(np.loadtxt("assets/map/{}.csv".format(0),dtype='int',delimiter=','))
 def map(x=0,y=0,w=30,h=17,sx=0,sy=0,colorkey=-1,scale=1,remap=None):
     """
     x : The leftmost map cell to be drawn.
@@ -183,9 +184,9 @@ def map(x=0,y=0,w=30,h=17,sx=0,sy=0,colorkey=-1,scale=1,remap=None):
     scale : Map scaling.
     remap [PARTIAL] : An optional function called before every tile is drawn. Using this callback function you can show or hide tiles, create tile animations or flip/rotate tiles during the map rendering stage: callback [tile [x y] ] -> [tile [flip [rotate] ] ] 
     """
-    ts = pygame.image.load_basic("assets/map/{}.bmp".format(0)) #[PATTERN TABLE]
+    ts = pygame.image.load_basic("assets/map/{}.bmp".format(TIC["tiles"])) #[PATTERN TABLE]
+    PPU = np.copy(TIC["nametable"])
     
-    PPU = np.copy(VRAM)
     if remap is not None: exec(remap)
     #if remap==None: remap=(VRAM,VRAM,VRAM)
     
@@ -288,36 +289,36 @@ def print(text,x=0,y=0,color=[0xf4,0xf4,0xf4],fixed=False,scale=1,smallfont=Fals
             text : any string to be printed to the screen
             x, y : coordinates for printing the text
             color : the RGB list or HEX color to use to draw the text to the screen
-            fixed : a flag indicating whether fixed width printing is required
+            fixed [UNUSED] : a flag indicating whether fixed width printing is required
             scale : font scaling
             smallfont : use small font if true
     Output:
             text width : returns the width of the text in pixels.
     
     """
-    for i in range(0,len(str(text).splitlines())):
-        if i>0: y += 6*scalevariable
+    for i in range(len(str(text).splitlines())):
+        if i>0: y += 6*scale
         if fixed==False:
             if smallfont==False:
-                screen.blit(pygame.font.Font("assets/tic-80 regular.ttf", 8*scale).render(str(text).splitlines()[i],False,color),[x,y]) #SYSTEM FONT
+                screen.blit(pygame.transform.scale(TIC["font"][0].render(str(text).splitlines()[i],False,color),np.array(pygame.font.Font.size(TIC["font"][0],str(text)))*scale),[x,y]) #SYSTEM FONT
             else:
-                screen.blit(pygame.font.Font("assets/tic-80 narrow.ttf", 8*scale).render(str(text).splitlines()[i],False,color),[x,y]) #SYSTEM SMALLFONT
+                screen.blit(pygame.transform.scale(TIC["font"][1].render(str(text).splitlines()[i],False,color),np.array(pygame.font.Font.size(TIC["font"][1],str(text)))*scale),[x,y]) #SYSTEM SMALLFONT
         else:
             if smallfont==False:
-                screen.blit(pygame.font.Font("assets/tic-80 regular mono.ttf", 8*scale).render(str(text).splitlines()[i],False,color),[x,y]) #SYSTEM FONT FIXED
+                screen.blit(pygame.transform.scale(TIC["font"][2].render(str(text).splitlines()[i],False,color),np.array(pygame.font.Font.size(TIC["font"][2],str(text)))*scale),[x,y]) #SYSTEM FONT FIXED
             else:
-                screen.blit(pygame.font.Font("assets/tic-80 narrow mono.ttf", 8*scale).render(str(text).splitlines()[i],False,color),[x,y]) #SYSTEM SMALLFONT FIXED
+                screen.blit(pygame.transform.scale(TIC["font"][3].render(str(text).splitlines()[i],False,color),np.array(pygame.font.Font.size(TIC["font"][3],str(text)))*scale),[x,y]) #SYSTEM SMALLFONT FIXED
     
     if fixed==False:
         if smallfont==False:
-            return pygame.font.Font("assets/tic-80 regular.ttf", 8*scale).size(max(str(text).splitlines()))[0]
+            return TIC["font"][0].size(max(str(text).splitlines()))[0]*scale
         else:
-            return pygame.font.Font("assets/tic-80 narrow.ttf", 8*scale).size(max(str(text).splitlines()))[0]
+            return TIC["font"][1].size(max(str(text).splitlines()))[0]*scale
     else:
         if smallfont==False:
-            return pygame.font.Font("assets/tic-80 regular mono.ttf", 8*scale).size(max(str(text).splitlines()))[0]
+            return TIC["font"][2].size(max(str(text).splitlines()))[0]*scale
         else:
-            return pygame.font.Font("assets/tic-80 narrow mono.ttf", 8*scale).size(max(str(text).splitlines()))[0]
+            return TIC["font"][3].size(max(str(text).splitlines()))[0]*scale
 
 #TIC-80'S RECT() FUNCTION, https://github.com/nesbox/TIC-80/wiki/rect
 def rect(x,y,w,h,color):
@@ -371,7 +372,7 @@ def sfx(id,note=None,duration=0,channel=0,volume=15,speed=None):
             Volume can be between 0 and 15.
     """
     if id != -1:
-        snd = pygame.mixer.Sound("assets/sfx/{}.ogg".format(id))
+        snd = pygame.mixer.Sound("assets/sfx/{}.ogg".format(int(id)))
         snd.set_volume((volume%16)/15)
         pygame.mixer.Channel(channel).play(snd,0,duration*(1000/60))
     else:
@@ -380,7 +381,7 @@ def sfx(id,note=None,duration=0,channel=0,volume=15,speed=None):
 #TIC-80'S SPR() FUNCTION, https://github.com/nesbox/TIC-80/wiki/spr
 def spr(id,x,y,colorkey=-1,scale=1,flip=0,rotate=0,w=1,h=1):
     """
-    id : index of the sprite (0..255)
+    id : index of the sprite (0..511)
     x : x coordinate where the sprite will be drawn, starting from top left corner.
     y : y coordinate where the sprite will be drawn, starting from top left corner.
     colorkey : RGB list or HEX color in the sprite that will be used as transparent color. Use -1 if you want an opaque sprite.
@@ -391,8 +392,8 @@ def spr(id,x,y,colorkey=-1,scale=1,flip=0,rotate=0,w=1,h=1):
     h : height of composite sprite
     """
     ts = pygame.Surface([128,256])
-    ts.blit(pygame.image.load_basic("assets/map/{}.bmp".format(0)),[0,0])
-    ts.blit(pygame.image.load_basic("assets/spr/{}.bmp".format(0)),[0,128])
+    ts.blit(pygame.image.load_basic("assets/map/{}.bmp".format(TIC["tiles"])),[0,0])
+    ts.blit(pygame.image.load_basic("assets/spr/{}.bmp".format(TIC["sprites"])),[0,128])
     
     if scale != 1: ts = pygame.transform.scale(ts,[(pygame.Surface.get_size(ts)[0])*scale,(pygame.Surface.get_size(ts)[1])*scale])
     
@@ -407,6 +408,13 @@ def spr(id,x,y,colorkey=-1,scale=1,flip=0,rotate=0,w=1,h=1):
     if colorkey != -1: obj.set_colorkey(colorkey)
     
     screen.blit(obj,[x,y])
+
+"""
+#TIC-80'S TEXTRI() FUNCTION, https://github.com/nesbox/TIC-80/wiki/textri
+def textri(x1,y1,x2,y2,x3,y3,u1=0,v1=0,u2=0,v2=0,u3=0,v3=0,use_map=False,trans=-1):
+    import pygame.gfxdraw
+    pygame.gfxdraw.textured_polygon(screen,[(x1, y1), (x2, y2), (x3, y3)],pygame.image.load_basic("assets/spr/{}.bmp".format(0)),0,0)
+"""
 
 #TIC-80'S TIME() FUNCTION, https://github.com/nesbox/TIC-80/wiki/time
 def time():
@@ -487,5 +495,5 @@ with open(sys.argv[1], 'r') as code:
     if pygame.key.get_pressed()[pygame.K_ESCAPE]: pygame.quit(); exit()
     
     pygame.display.flip()
-    clock.tick(60)
+    TIC["clock"].tick(60)
 """)
