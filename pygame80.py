@@ -35,6 +35,7 @@ def btn(id):
 def clip(*args):
     """
     Usage:
+            clip Unsets the clipping region (draws to the full screen)
             clip x y width height Sets the clipping region
     Parameters:    
             x, y : coordinates of the top left of the clipping region
@@ -42,6 +43,8 @@ def clip(*args):
             height : height of the clipping region in pixels
     Description:
             This function limits drawing to a clipping region or 'viewport' defined by x,y, width, and height. Any pixels falling outside of this area will not be drawn.
+
+            Calling clip() with no parameters will reset the drawing area to the entire screen.
     """
     if len(args) == 0:
         screen.set_clip(0,0,pygame.Surface.get_size(screen)[0],pygame.Surface.get_size(screen)[1])
