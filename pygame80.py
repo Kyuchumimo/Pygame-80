@@ -31,6 +31,25 @@ def btn(id):
     keymap = [[pygame.K_UP], [pygame.K_DOWN], [pygame.K_LEFT], [pygame.K_RIGHT], [pygame.K_z], [pygame.K_x], [pygame.K_a], [pygame.K_s]]
     return any(pygame.key.get_pressed()[i] for i in keymap[id])
 
+#TIC-80'S CLIP() FUNCTION, https://github.com/nesbox/TIC-80/wiki/clip
+def clip(*args):
+    """
+    Usage:
+            clip x y width height Sets the clipping region
+    Parameters:    
+            x, y : coordinates of the top left of the clipping region
+            width : width of the clipping region in pixels
+            height : height of the clipping region in pixels
+    Description:
+            This function limits drawing to a clipping region or 'viewport' defined by x,y, width, and height. Any pixels falling outside of this area will not be drawn.
+    """
+    if len(args) == 0:
+        screen.set_clip(0,0,pygame.Surface.get_size(screen)[0],pygame.Surface.get_size(screen)[1])
+    elif len(args) == 4:
+        screen.set_clip([args[0],args[1],args[2],args[3]])
+    else:
+        raise Exception("invalid parameters, use clip(x,y,w,h) or clip()\n")
+
 #TIC-80'S CLS() FUNCTION, https://github.com/nesbox/TIC-80/wiki/cls
 def cls(color=[0x1a,0x1c,0x2c]):
     """
