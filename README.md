@@ -60,7 +60,7 @@ To run the demo program, you can use a GNU/Linux shell or Windows shell
 - [ ] **btnp**: button input  
 - [ ] **key & keyp**: keyboard input  
 - [ ] **textri (!: pygame.gfxdraw library dependant)**: textured triangle  
-- [ ] **mouse**: mouse input  
+- [x] **mouse**: mouse input  
 - [x] **TIC-80 smallfont**: system font variant  
 - [x] **pix (!: numpy library dependant)**: per pixel read or write access  
 - [ ] **sync**: function for asset management (!: important)  
