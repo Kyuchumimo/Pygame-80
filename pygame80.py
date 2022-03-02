@@ -227,6 +227,7 @@ def mset(x,y,tile_id):
     """
     TIC["nametable"][y,x] = tile_id
 
+#TIC-80'S MOUSE() FUNCTION, https://github.com/nesbox/TIC-80/wiki/mouse
 def mouse():
     """
     Usage:
