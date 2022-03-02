@@ -28,7 +28,7 @@ To run the demo program, you can use a GNU/Linux shell or Windows shell
 ## Functions
 ### Functions available so far:  
 **btn**: use pygame.key.get_pressed  
-**clip**: use pygame.Surface.set_clip
+**clip**: use pygame.Surface.set_clip  
 **cls**: use pygame.Surface.fill  
 **circ & circb**: use pygame.draw.circle  
 **elli & ellib**: use pygame.draw.elipse  
