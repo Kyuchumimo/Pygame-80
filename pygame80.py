@@ -227,6 +227,27 @@ def mset(x,y,tile_id):
     """
     TIC["nametable"][y,x] = tile_id
 
+def mouse():
+    """
+    Usage:
+            mouse -> x y left middle right scrollx scrolly
+    Parameters:
+            x y : coordinates of the mouse pointer
+            left : left button is down (true/false)
+            middle : middle button is down (true/false)
+            right : right button is down (true/false)
+            scrollx : x scroll delta since last frame (-1..1)
+            scrolly : y scroll delta since last frame (-1..1)
+    Description:
+            This function returns the mouse coordinates and a boolean value for the state of each mouse button, with true indicating that a button is pressed.
+    """
+    mw_xy = 0, 0
+    for event in pygame.event.get():
+        if event.type == MOUSEWHEEL:
+             mw_xy = event.x, event.y
+    
+    return tuple((pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1],pygame.mouse.get_pressed()[0],pygame.mouse.get_pressed()[1],pygame.mouse.get_pressed()[2],mw_xy[0],mw_xy[1]))
+
 #TIC-80'S PIX() FUNCTION, https://github.com/nesbox/TIC-80/wiki/pix
 def pix(x,y,color=None):
     """
