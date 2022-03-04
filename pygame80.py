@@ -293,8 +293,8 @@ def music(*args)
     if len(args) == 0:
         pygame.mixer.music.stop()
     elif len(args) > 0:
-    pygame.mixer.music.load("assets/music/{}.mod".format(int(args[0])))
-    pygame.mixer.music.play(args[3] or -1, args[1] or 0)
+        pygame.mixer.music.load("assets/music/{}.mod".format(int(args[0])))
+        pygame.mixer.music.play(args[3] or -1, args[1] or 0)
 
 #TIC-80'S PIX() FUNCTION, https://github.com/nesbox/TIC-80/wiki/pix
 def pix(x,y,color=None):
