@@ -273,7 +273,7 @@ def mouse():
     return tuple((pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1],pygame.mouse.get_pressed()[0],pygame.mouse.get_pressed()[1],pygame.mouse.get_pressed()[2],mw_xy[0],mw_xy[1]))
 
 #TIC-80'S MUSIC() FUNCTION, https://github.com/nesbox/TIC-80/wiki/music
-def music(*args)
+def music(*args):
     """
     Usage:
             music [track=-1] [frame=-1] [row=-1](Not supported) [loop=true] [sustain=false](Not supported) [tempo=-1](Not supported) [speed=-1](Not supported)
