@@ -272,6 +272,30 @@ def mouse():
     
     return tuple((pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1],pygame.mouse.get_pressed()[0],pygame.mouse.get_pressed()[1],pygame.mouse.get_pressed()[2],mw_xy[0],mw_xy[1]))
 
+#TIC-80'S MUSIC() FUNCTION, https://github.com/nesbox/TIC-80/wiki/music
+def music(*args)
+    """
+    Usage:
+            music [track=-1] [frame=-1] [row=-1](Not supported) [loop=true] [sustain=false](Not supported) [tempo=-1](Not supported) [speed=-1](Not supported)
+            ...or to stop the music:
+            music
+    Parameters:
+            track : the id of the track to play (0..7)
+            frame : the index of the frame to play from (0..15)
+            row [NOT SUPPORTED] : the index of the row to play from (0..63)
+            loop : loop music (true) or play it once (false)
+            sustain [NOT SUPPORTED] : sustain notes after the end of each frame or stop them (true/false)
+            tempo [NOT SUPPORTED] : play track with the specified tempo
+            speed [NOT SUPPORTED] : play track with the specified speed
+    Description:
+            This function starts playing a track
+    """
+    if len(args) == 0:
+        pygame.mixer.music.stop()
+    elif len(args) > 0:
+    pygame.mixer.music.load("assets/music/{}.mod".format(int(args[0])))
+    pygame.mixer.music.play(args[3] or -1, args[1] or 0)
+
 #TIC-80'S PIX() FUNCTION, https://github.com/nesbox/TIC-80/wiki/pix
 def pix(x,y,color=None):
     """
@@ -402,11 +426,11 @@ def sfx(id,note=None,duration=0,channel=0,volume=15,speed=None):
             sfx id [note](Not supported) [duration=0] [channel=0] [volume=15] [speed=0](Not supported)
     Parameters:
             id : the SFX id (0..n), or -1 to stop playing
-            note [NOT SUPPORTED]: the note number (0..95) or name (ex: C#3)
+            note [NOT SUPPORTED] : the note number (0..95) or name (ex: C#3)
             duration : the duration (number of frames) (0 by default, which plays continuously)
             channel : the audio channel to use (0..defaults to 3)
             volume : the volume (0..15) (defaults to 15)
-            speed [NOT SUPPORTED]: the speed (-4..3) (defaults to 0)
+            speed [NOT SUPPORTED] : the speed (-4..3) (defaults to 0)
     Description:
             This function will play the sound with id in assets/sfx filepath. Calling the function with an id of -1 will stop playing the channel.
 
