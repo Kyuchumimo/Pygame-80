@@ -39,7 +39,7 @@ To run the demo program, you can use a GNU/Linux shell or Windows shell
 **map**: use pygame.Surface.subsurface and pygame.transform.scale  
 **mget & mset**: VRAM 2D array indexing, read/write  
 **mouse**: use pygame.mouse.get_pos, pygame.mouse.get_pressed and MOUSEWHEEL event  
-**music**: use pygame.mixer.music.load, pygame.mixer.music.play and pygame.mixer.music.stop  
+**music (!: sustain, tempo and speed parameters not supported by Pygame)**: use pygame.mixer.music.load, pygame.mixer.music.play and pygame.mixer.music.stop  
 **pix (!: numpy library dependant)**: use pygame.surfarray.pixels3d  
 **pmem (!: os, sys, json module dependant)**: use os.path.splitext, sys.argv, json.load and json.dump  
 **print**: use pygame.font.Font  
