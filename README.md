@@ -67,4 +67,4 @@ To run the demo program, you can use a GNU/Linux shell or Windows shell
 - [x] **TIC-80 smallfont**: system font variant  
 - [x] **pix (!: numpy library dependant)**: per pixel read or write access  
 - [ ] **sync**: function for asset management (!: important)  
-- [ ] **wiki (23/26)**: for show examples and tutorials  
+- [ ] **wiki (28/31)**: for show examples and tutorials  
