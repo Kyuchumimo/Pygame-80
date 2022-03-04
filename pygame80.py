@@ -273,28 +273,28 @@ def mouse():
     return tuple((pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1],pygame.mouse.get_pressed()[0],pygame.mouse.get_pressed()[1],pygame.mouse.get_pressed()[2],mw_xy[0],mw_xy[1]))
 
 #TIC-80'S MUSIC() FUNCTION, https://github.com/nesbox/TIC-80/wiki/music
-def music(*args):
+def music(track=-1,frame=0,row=0,loop=True,*args):
     """
     Usage:
-            music [track=-1] [frame=-1] [row=-1](Not supported) [loop=true] [sustain=false](Not supported) [tempo=-1](Not supported) [speed=-1](Not supported)
+            music [track=-1] [frame=-1] [row=-1] [loop=true] [sustain=false](Not supported) [tempo=-1](Not supported) [speed=-1](Not supported)
             ...or to stop the music:
             music
     Parameters:
             track : the id of the track to play (0..7)
             frame : the index of the frame to play from (0..15)
-            row [NOT SUPPORTED] : the index of the row to play from (0..63)
+            row : the index of the row to play from (0..63)
             loop : loop music (true) or play it once (false)
             sustain [NOT SUPPORTED] : sustain notes after the end of each frame or stop them (true/false)
             tempo [NOT SUPPORTED] : play track with the specified tempo
             speed [NOT SUPPORTED] : play track with the specified speed
     Description:
-            This function starts playing a track
+            This function starts playing a track.
     """
-    if len(args) == 0:
+    if track < 0:
         pygame.mixer.music.stop()
-    elif len(args) > 0:
-        pygame.mixer.music.load("assets/music/{}.mod".format(int(args[0])))
-        pygame.mixer.music.play(args[3] or -1, args[1] or 0)
+    else:
+        pygame.mixer.music.load("assets/music/{}.mod".format(int(track)))
+        pygame.mixer.music.play(loop and -1 or 0,float(format((((frame*64)+1)*0.1)+((row)*0.1),'.1f')))
 
 #TIC-80'S PIX() FUNCTION, https://github.com/nesbox/TIC-80/wiki/pix
 def pix(x,y,color=None):
