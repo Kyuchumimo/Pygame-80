@@ -44,6 +44,7 @@ To run the demo program, you can use a GNU/Linux shell or Windows shell
 **pmem (!: os, sys, json module dependant)**: use os.path.splitext, sys.argv, json.load and json.dump  
 **print**: use pygame.font.Font  
 **rect & rectb**: use pygame.draw.rect  
+**reset** (!: os, sys module dependant): use os.execv  
 **sfx (!: note and speed parameters not supported by Pygame)**: use pygame.mixer.Sound, pygame.mixer.Channel and pygame.mixer.Sound.set_volume  
 **spr**: use pygame.Surface, pygame.Surface.subsurface, pygame.transform.flip, pygame.transform.scale and pygame.transform.rotate  
 **time**: use pygame.time.get_ticks  
