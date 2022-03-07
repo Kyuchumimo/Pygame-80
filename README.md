@@ -32,24 +32,24 @@ To run the demo program, you can use a GNU/Linux shell or Windows shell
 **cls**: use pygame.Surface.fill  
 **circ & circb**: use pygame.draw.circle  
 **elli & ellib**: use pygame.draw.elipse  
-**exit (!: sys built-in module dependant)**: use sys.exit  
+**exit (⚠️: sys built-in module dependant)**: use sys.exit  
 **font**: use pygame.Surface.subsurface and pygame.transform.scale  
 **key**: use pygame.key.get_pressed  
 **line**: use pygame.draw.line  
-**map (!: numpy library dependant)**: use pygame.Surface.subsurface and pygame.transform.scale  
+**map (⚠️: numpy library dependant)**: use pygame.Surface.subsurface and pygame.transform.scale  
 **mget & mset**: VRAM 2D array indexing, read/write  
 **mouse**: use pygame.mouse.get_pos, pygame.mouse.get_pressed and MOUSEWHEEL event  
-**music (!: sustain, tempo and speed parameters not supported by Pygame)**: use pygame.mixer.music.load, pygame.mixer.music.play and pygame.mixer.music.stop  
-**pix (!: numpy library dependant)**: use pygame.surfarray.pixels3d  
-**pmem (!: os, sys, json module dependant)**: use os.path.splitext, sys.argv, json.load and json.dump  
+**music (⚠️: sustain, tempo and speed parameters not supported by Pygame)**: use pygame.mixer.music.load, pygame.mixer.music.play and pygame.mixer.music.stop  
+**pix (⚠️: numpy library dependant)**: use pygame.surfarray.pixels3d  
+**pmem (⚠️: os, sys, json module dependant)**: use os.path.splitext, sys.argv, json.load and json.dump  
 **print**: use pygame.font.Font  
 **rect & rectb**: use pygame.draw.rect  
-**reset(!: os, sys module dependant)**: use os.execv  
-**sfx (!: note and speed parameters not supported by Pygame)**: use pygame.mixer.Sound, pygame.mixer.Channel and pygame.mixer.Sound.set_volume  
+**reset (⚠️: os, sys module dependant)**: use os.execv  
+**sfx (⚠️: note and speed parameters not supported by Pygame)**: use pygame.mixer.Sound, pygame.mixer.Channel and pygame.mixer.Sound.set_volume  
 **spr**: use pygame.Surface, pygame.Surface.subsurface, pygame.transform.flip, pygame.transform.scale and pygame.transform.rotate  
 **time**: use pygame.time.get_ticks  
-**trace (!: builtins built-in module dependant)**: use builtins.print with ANSI escape sequences for RGB color  
-**tstamp (!: time built-in module dependant)**: use time.time()  
+**trace (⚠️: builtins built-in module dependant)**: use builtins.print with ANSI escape sequences for RGB color  
+**tstamp (⚠️: time built-in module dependant)**: use time.time()  
 **tri & trib**: use pygame.draw.polygon
 
 ### Some excluded features:  
