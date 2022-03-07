@@ -419,6 +419,19 @@ def rectb(x,y,w,h,color):
     """
     pygame.draw.rect(screen,color,[x,y,w,h],1)
 
+#TIC-80'S RESET() FUNCTION, https://github.com/nesbox/TIC-80/wiki/reset
+def reset():
+    """
+    Usage:
+            reset
+    Description:
+            Resets the program.
+    """
+    import os
+    import sys
+    
+    os.execv(sys.executable, ['python3'] + sys.argv)
+
 #TIC-80'S SFX() FUNCTION, https://github.com/nesbox/TIC-80/wiki/sfx
 def sfx(id,note=None,duration=0,channel=0,volume=15,speed=None):
     """
