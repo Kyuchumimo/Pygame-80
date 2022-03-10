@@ -14,7 +14,7 @@ screen = pygame.display.set_mode([240,136],pygame.SCALED)
 #MUSIC CHANNELS
 pygame.mixer.set_num_channels(4)
 
-TIC = {"tiles":0, "sprites":0, "map":0, "nametable":np.loadtxt("assets/map/{}.csv".format(0),dtype='int',delimiter=','), "font":(pygame.font.Font("assets/tic-80_regular.ttf", 8), pygame.font.Font("assets/tic-80_narrow.ttf", 8), pygame.font.Font("assets/tic-80_regular-mono.ttf", 8), pygame.font.Font("assets/tic-80_narrow-mono.ttf", 8)), "clock":pygame.time.Clock()}
+TIC = {"tiles":0, "sprites":0, "map":np.loadtxt("assets/map/{}.csv".format(0),dtype='int',delimiter=','), "font":(pygame.font.Font("assets/tic-80_regular.ttf", 8), pygame.font.Font("assets/tic-80_narrow.ttf", 8), pygame.font.Font("assets/tic-80_regular-mono.ttf", 8), pygame.font.Font("assets/tic-80_narrow-mono.ttf", 8)), "clock":pygame.time.Clock()}
 
 #####################################
 
@@ -152,7 +152,7 @@ def font(text,x,y,colorkey=-1,w=9,h=8,fixed=False,scale=1):
             This function will draw text to the screen using the foreground spritesheet as the font. Sprite #256 is used for ASCII code 0, #257 for code 1 and so on. The character 'A' has the ASCII code 65 so will be drawn using the sprite with sprite #321 (256+65).
     """
     ts = pygame.image.load_basic("assets/spr/{}.bmp".format(0))
-    text = str(text).encode('ascii')
+    text = text.encode('ascii')
     
     if scale != 1: ts = pygame.transform.scale(ts,[(pygame.Surface.get_size(ts)[0])*scale,(pygame.Surface.get_size(ts)[1])*scale])
     if colorkey != -1: ts.set_colorkey(colorkey)
@@ -208,7 +208,7 @@ def map(x=0,y=0,w=30,h=17,sx=0,sy=0,colorkey=-1,scale=1,remap=None):
     remap [PARTIAL] : An optional function called before every tile is drawn. Using this callback function you can show or hide tiles, create tile animations or flip/rotate tiles during the map rendering stage: callback [tile [x y] ] -> [tile [flip [rotate] ] ] 
     """
     ts = pygame.image.load_basic("assets/map/{}.bmp".format(TIC["tiles"])) #[PATTERN TABLE]
-    PPU = np.copy(TIC["nametable"])
+    PPU = np.copy(TIC["map"])
     
     if remap is not None: exec(remap)
     #if remap==None: remap=(VRAM,VRAM,VRAM)
@@ -235,7 +235,7 @@ def mget(x,y):
     Description:
             This function returns the tile at the specified TILEMAP coordinates, the top left cell of the tilemap being (0, 0).
     """
-    return TIC["nametable"][y,x]
+    return TIC["map"][y,x]
 
 #TIC-80'S MSET() FUNCTION, https://github.com/nesbox/TIC-80/wiki/mget
 def mset(x,y,tile_id):
@@ -248,7 +248,7 @@ def mset(x,y,tile_id):
     Description:
             This function will change the tile at the specified TILEMAP coordinates. By default, changes made are only kept while the current game is running.
     """
-    TIC["nametable"][y,x] = tile_id
+    TIC["map"][y,x] = tile_id
 
 #TIC-80'S MOUSE() FUNCTION, https://github.com/nesbox/TIC-80/wiki/mouse
 def mouse():
@@ -273,10 +273,10 @@ def mouse():
     return tuple((pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1],pygame.mouse.get_pressed()[0],pygame.mouse.get_pressed()[1],pygame.mouse.get_pressed()[2],mw_xy[0],mw_xy[1]))
 
 #TIC-80'S MUSIC() FUNCTION, https://github.com/nesbox/TIC-80/wiki/music
-def music(track=-1,frame=0,row=0,loop=True,*args):
+def music(track=-1,frame=0,row=0,loop=True,sustain=False,tempo=-1,speed=-1):
     """
     Usage:
-            music [track=-1] [frame=-1] [row=-1] [loop=true] [sustain=false](Not supported) [tempo=-1](Not supported) [speed=-1](Not supported)
+            music [track=-1] [frame=-1] [row=-1] [loop=True] [sustain=False][NOT SUPPORTED] [tempo=-1][NOT SUPPORTED] [speed=-1][NOT SUPPORTED]
             ...or to stop the music:
             music
     Parameters:
@@ -284,9 +284,9 @@ def music(track=-1,frame=0,row=0,loop=True,*args):
             frame : the index of the frame to play from (0..15)
             row : the index of the row to play from (0..63)
             loop : loop music (true) or play it once (false)
-            sustain [NOT SUPPORTED] : sustain notes after the end of each frame or stop them (true/false)
-            tempo [NOT SUPPORTED] : play track with the specified tempo
-            speed [NOT SUPPORTED] : play track with the specified speed
+            sustain [NOT SUPPORTED]
+            tempo [NOT SUPPORTED]
+            speed [NOT SUPPORTED]
     Description:
             This function starts playing a track.
     """
@@ -433,17 +433,17 @@ def reset():
     os.execv(sys.executable, ['python3'] + sys.argv)
 
 #TIC-80'S SFX() FUNCTION, https://github.com/nesbox/TIC-80/wiki/sfx
-def sfx(id,note=None,duration=0,channel=0,volume=15,speed=None):
+def sfx(id,note=40,duration=0,channel=0,volume=15,speed=0):
     """
     Usage:
-            sfx id [note](Not supported) [duration=0] [channel=0] [volume=15] [speed=0](Not supported)
+            sfx id [note][NOT SUPPORTED] [duration=0] [channel=0] [volume=15] [speed=0][NOT SUPPORTED]
     Parameters:
             id : the SFX id (0..n), or -1 to stop playing
-            note [NOT SUPPORTED] : the note number (0..95) or name (ex: C#3)
+            note [NOT SUPPORTED]
             duration : the duration (number of frames) (0 by default, which plays continuously)
             channel : the audio channel to use (0..defaults to 3)
             volume : the volume (0..15) (defaults to 15)
-            speed [NOT SUPPORTED] : the speed (-4..3) (defaults to 0)
+            speed [NOT SUPPORTED]
     Description:
             This function will play the sound with id in assets/sfx filepath. Calling the function with an id of -1 will stop playing the channel.
 
@@ -490,6 +490,29 @@ def spr(id,x,y,colorkey=-1,scale=1,flip=0,rotate=0,w=1,h=1):
     if colorkey != -1: obj.set_colorkey(colorkey)
     
     screen.blit(obj,[x,y])
+
+#TIC-80'S SYNC() FUNCTION, https://github.com/nesbox/TIC-80/wiki/sync
+def sync(mask=0,bank=0,tocart=False):
+    """
+    Usage:
+            sync [mask=0] [bank=0] [tocart=false]
+    Parameters:
+            mask : mask of sections you want to switch:
+                tiles   = 1<<0 -- 1
+                sprites = 1<<1 -- 2
+                map     = 1<<2 -- 4
+                sfx     = 1<<3 -- 8   [NOT SUPPORTED]
+                music   = 1<<4 -- 16  [NOT SUPPORTED]
+                palette = 1<<5 -- 32  [NOT SUPPORTED]
+                flags   = 1<<6 -- 64  [NOT SUPPORTED]
+                screen  = 1<<7 -- 128 [NOT SUPPORTED]
+            0 - will switch all the sections 1 | 2 | 4 - will switch only TILES, SPRITES and MAP sections, for example
+            bank : memory bank (0..n)
+            tocart : true - save memory from runtime to bank/cartridge, false - load data from bank/cartridge to runtime.
+    """
+    if (0b1 & mask) == 0b1: TIC["tiles"] = bank     #TILES
+    if (0b10 & mask) == 0b10: TIC["sprites"] = bank #SPRITES
+    if (0b100 & mask) == 0b100: TIC["map"] = np.loadtxt("assets/map/{}.csv".format(bank),dtype='int',delimiter=',')
 
 """
 #TIC-80'S TEXTRI() FUNCTION, https://github.com/nesbox/TIC-80/wiki/textri
