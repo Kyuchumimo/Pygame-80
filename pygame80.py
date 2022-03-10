@@ -152,7 +152,7 @@ def font(text,x,y,colorkey=-1,w=9,h=8,fixed=False,scale=1):
             This function will draw text to the screen using the foreground spritesheet as the font. Sprite #256 is used for ASCII code 0, #257 for code 1 and so on. The character 'A' has the ASCII code 65 so will be drawn using the sprite with sprite #321 (256+65).
     """
     ts = pygame.image.load_basic("assets/spr/{}.bmp".format(0))
-    text = text.encode('ascii')
+    text = str(text).encode('ascii')
     
     if scale != 1: ts = pygame.transform.scale(ts,[(pygame.Surface.get_size(ts)[0])*scale,(pygame.Surface.get_size(ts)[1])*scale])
     if colorkey != -1: ts.set_colorkey(colorkey)
