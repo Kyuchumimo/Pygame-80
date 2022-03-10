@@ -26,7 +26,7 @@ def btn(id):
     Parameters:
             id : id (0..7) of the key we want to interrogate (see the key map for reference)
     Description:
-            This function allows you to read the status of one of the buttons attached to TIC. The function returns true if the key with the supplied id is currently in the pressed state. It remains true for as long as the key is held down.
+            This function allows you to read the status of one of the buttons attached to TIC. The function returns True if the key with the supplied id is currently in the pressed state. It remains True for as long as the key is held down.
     """
     keymap = [[pygame.K_UP], [pygame.K_DOWN], [pygame.K_LEFT], [pygame.K_RIGHT], [pygame.K_z], [pygame.K_x], [pygame.K_a], [pygame.K_s]]
     return any(pygame.key.get_pressed()[i] for i in keymap[id])
@@ -138,7 +138,7 @@ def exit():
 def font(text,x,y,colorkey=-1,w=9,h=8,fixed=False,scale=1):
     """
     Usage:
-            font text, x, y, [transcolor], [char width], [char height], [fixed=false], [scale=1] -> text width
+            font text, x, y, [transcolor], [char width], [char height], [fixed=False], [scale=1] -> text width
     Parameters:
             text : the string to be printed
             x : x coordinate of print position
@@ -146,7 +146,7 @@ def font(text,x,y,colorkey=-1,w=9,h=8,fixed=False,scale=1):
             colorkey : the RGB list or HEX color of the color that will be used as transparent color. Not setting this parameter will make the font opaque.
             w : distance between characters, in pixels
             h : vertical distance between characters, in pixels, when printing multi-line text.
-            fixed : indicates whether the font is fixed width (defaults to false ie variable width)
+            fixed : indicates whether the font is fixed width (defaults to False ie variable width)
             scale : font scaling (defaults to 1)
     Description:
             This function will draw text to the screen using the foreground spritesheet as the font. Sprite #256 is used for ASCII code 0, #257 for code 1 and so on. The character 'A' has the ASCII code 65 so will be drawn using the sprite with sprite #321 (256+65).
@@ -175,7 +175,7 @@ def key(code):
     Parameters:
             code : the key code we want to check (1..65)
     Description:
-            The function returns true if the key denoted by keycode is pressed.
+            The function returns True if the key denoted by keycode is pressed.
     """
     keycodes = [[None], [pygame.K_a], [pygame.K_b], [pygame.K_c], [pygame.K_d], [pygame.K_e], [pygame.K_f], [pygame.K_g], [pygame.K_h], [pygame.K_i], [pygame.K_j], [pygame.K_k], [pygame.K_l], [pygame.K_m], [pygame.K_n], [pygame.K_o], [pygame.K_p], [pygame.K_q], [pygame.K_r], [pygame.K_s], [pygame.K_t], [pygame.K_u], [pygame.K_v], [pygame.K_w], [pygame.K_x], [pygame.K_y], [pygame.K_z], [pygame.K_0], [pygame.K_1], [pygame.K_2], [pygame.K_3], [pygame.K_4], [pygame.K_5], [pygame.K_6], [pygame.K_7], [pygame.K_8], [pygame.K_9], [pygame.K_MINUS], [pygame.K_EQUALS], [pygame.K_LEFTBRACKET], [pygame.K_RIGHTBRACKET], [pygame.K_BACKSLASH], [pygame.K_SEMICOLON], [None], [pygame.K_BACKQUOTE], [pygame.K_COMMA], [pygame.K_PERIOD], [pygame.K_SLASH], [pygame.K_SPACE], [pygame.K_TAB], [pygame.K_RETURN], [pygame.K_BACKSPACE], [pygame.K_DELETE], [pygame.K_INSERT], [pygame.K_PAGEUP], [pygame.K_PAGEDOWN], [pygame.K_HOME], [pygame.K_END], [pygame.K_UP], [pygame.K_DOWN], [pygame.K_LEFT], [pygame.K_RIGHT], [pygame.K_CAPSLOCK], [pygame.K_LCTRL, pygame.K_RCTRL], [pygame.K_LSHIFT, pygame.K_RSHIFT], [pygame.K_LALT]]
     return any(pygame.key.get_pressed()[i] for i in keycodes[code])
@@ -257,13 +257,13 @@ def mouse():
             mouse -> x y left middle right scrollx scrolly
     Parameters:
             x y : coordinates of the mouse pointer
-            left : left button is down (true/false)
-            middle : middle button is down (true/false)
-            right : right button is down (true/false)
+            left : left button is down (True/False)
+            middle : middle button is down (True/False)
+            right : right button is down (True/False)
             scrollx : x scroll delta since last frame (-1..1)
             scrolly : y scroll delta since last frame (-1..1)
     Description:
-            This function returns the mouse coordinates and a boolean value for the state of each mouse button, with true indicating that a button is pressed.
+            This function returns the mouse coordinates and a boolean value for the state of each mouse button, with True indicating that a button is pressed.
     """
     mw_xy = 0, 0
     for event in pygame.event.get():
@@ -276,14 +276,14 @@ def mouse():
 def music(track=-1,frame=0,row=0,loop=True,sustain=False,tempo=-1,speed=-1):
     """
     Usage:
-            music [track=-1] [frame=-1] [row=-1] [loop=True] [sustain=False][NOT SUPPORTED] [tempo=-1][NOT SUPPORTED] [speed=-1][NOT SUPPORTED]
+            music [track=-1] [frame=0] [row=0] [loop=True] [sustain=False][NOT SUPPORTED] [tempo=-1][NOT SUPPORTED] [speed=-1][NOT SUPPORTED]
             ...or to stop the music:
             music
     Parameters:
             track : the id of the track to play (0..7)
             frame : the index of the frame to play from (0..15)
             row : the index of the row to play from (0..63)
-            loop : loop music (true) or play it once (false)
+            loop : loop music (True) or play it once (False)
             sustain [NOT SUPPORTED]
             tempo [NOT SUPPORTED]
             speed [NOT SUPPORTED]
@@ -353,14 +353,14 @@ def pmem(index,val=None):
 def print(text,x=0,y=0,color=[0xf4,0xf4,0xf4],fixed=False,scale=1,smallfont=False):
     """
     Usage:
-            print text [x=0 y=0] [color=12] [fixed=false] [scale=1] [smallfont=false] -> text width
+            print text [x=0 y=0] [color=12] [fixed=False] [scale=1] [smallfont=False] -> text width
     Parameters:
             text : any string to be printed to the screen
             x, y : coordinates for printing the text
             color : the RGB list or HEX color to use to draw the text to the screen
             fixed : a flag indicating whether fixed width printing is required
             scale : font scaling
-            smallfont : use small font if true
+            smallfont : use small font if True
     Output:
             text width : returns the width of the text in pixels.
     
@@ -495,7 +495,7 @@ def spr(id,x,y,colorkey=-1,scale=1,flip=0,rotate=0,w=1,h=1):
 def sync(mask=0,bank=0,tocart=False):
     """
     Usage:
-            sync [mask=0] [bank=0] [tocart=false]
+            sync [mask=0] [bank=0] [tocart=False]
     Parameters:
             mask : mask of sections you want to switch:
                 tiles   = 1<<0 -- 1
@@ -508,11 +508,12 @@ def sync(mask=0,bank=0,tocart=False):
                 screen  = 1<<7 -- 128 [NOT SUPPORTED]
             0 - will switch all the sections 1 | 2 | 4 - will switch only TILES, SPRITES and MAP sections, for example
             bank : memory bank (0..n)
-            tocart : true - save memory from runtime to bank/cartridge, false - load data from bank/cartridge to runtime.
+            tocart : True - save memory from runtime to bank/cartridge, False - load data from bank/cartridge to runtime.
     """
-    if (0b1 & mask) == 0b1: TIC["tiles"] = bank     #TILES
-    if (0b10 & mask) == 0b10: TIC["sprites"] = bank #SPRITES
-    if (0b100 & mask) == 0b100: TIC["map"] = np.loadtxt("assets/map/{}.csv".format(bank),dtype='int',delimiter=',')
+    if tocart == False:
+        if (0b1 & mask) == 0b1: TIC["tiles"] = bank     #TILES
+        if (0b10 & mask) == 0b10: TIC["sprites"] = bank #SPRITES
+        if (0b100 & mask) == 0b100: TIC["map"] = np.loadtxt("assets/map/{}.csv".format(bank),dtype='int',delimiter=',')
 
 """
 #TIC-80'S TEXTRI() FUNCTION, https://github.com/nesbox/TIC-80/wiki/textri
