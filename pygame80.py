@@ -433,7 +433,7 @@ def reset():
     os.execv(sys.executable, ['python3'] + sys.argv)
 
 #TIC-80'S SFX() FUNCTION, https://github.com/nesbox/TIC-80/wiki/sfx
-def sfx(id,note=40,duration=0,channel=0,volume=15,speed=0):
+def sfx(id,note=None,duration=0,channel=0,volume=15,speed=0):
     """
     Usage:
             sfx id [note][NOT SUPPORTED] [duration=0] [channel=0] [volume=15] [speed=0][NOT SUPPORTED]
