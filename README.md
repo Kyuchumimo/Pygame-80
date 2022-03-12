@@ -54,8 +54,8 @@ To run the demo program, you can use a GNU/Linux shell or Windows shell
 **tri & trib**: use pygame.draw.polygon
 
 ### Some excluded features:  
-**TIC, SCN(n), OVR, BDR**: Callbacks  
-**peek, peek4, peek1, peek2, poke, poke4, poke1, poke2, memcpy & memset**: Memory Mapping  
+**TIC, SCN, OVR, BDR**: Callbacks  
+**peek, peek4, peek1, peek2, poke, poke4, poke1, poke2, memcpy & memset, vbank**: Memory Mapping  
 **fset & fget**: Sprite flags  
 **Blit Segment / Low BPP graphics**: Bit depth  
 **16 color palette**
