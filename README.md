@@ -47,6 +47,7 @@ To run the demo program, you can use a GNU/Linux shell or Windows shell
 **reset (⚠️: os, sys module dependant)**: use os.execv  
 **sfx (⚠️: note and speed parameters not supported by Pygame)**: use pygame.mixer.Sound, pygame.mixer.Channel and pygame.mixer.Sound.set_volume  
 **spr**: use pygame.Surface, pygame.Surface.subsurface, pygame.transform.flip, pygame.transform.scale and pygame.transform.rotate  
+**sync**: use pygame.image.load, pygame.image.save, numpy.loadtxt and numpy.savetxt  
 **time**: use pygame.time.get_ticks  
 **trace (⚠️: builtins built-in module dependant)**: use builtins.print with ANSI escape sequences for RGB color  
 **tstamp (⚠️: time built-in module dependant)**: use time.time()  
@@ -63,5 +64,4 @@ To run the demo program, you can use a GNU/Linux shell or Windows shell
 - [ ] **btnp**: button input  
 - [ ] **keyp**: keyboard input  
 - [ ] **textri (⚠️: pygame.gfxdraw library dependant)**: textured triangle  
-- [ ] **sync**: function for asset management (⚠️: important)  
-- [ ] **wiki (29/32)**: for show examples and tutorials  
+- [ ] **wiki (30/32)**: for show examples and tutorials  
