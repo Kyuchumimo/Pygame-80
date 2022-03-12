@@ -510,6 +510,8 @@ def sync(mask=0,bank=0,tocart=False):
             bank : memory bank (0..n)
             tocart : True - save memory from runtime to bank/cartridge, False - load data from bank/cartridge to runtime.
     """
+    if mask == 0: mask = 0b111
+    
     if tocart == False:
         if (0b1 & mask) == 0b1: TIC["tiles"] = pygame.image.load_basic("assets/map/{}.bmp".format(bank)) #TILES
         if (0b10 & mask) == 0b10: TIC["sprites"] = pygame.image.load_basic("assets/spr/{}.bmp".format(bank)) #SPRITES
