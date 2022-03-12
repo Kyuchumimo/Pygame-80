@@ -50,7 +50,7 @@ To run the demo program, you can use a GNU/Linux shell or Windows shell
 **sync**: use pygame.image.load, pygame.image.save, numpy.loadtxt and numpy.savetxt  
 **time**: use pygame.time.get_ticks  
 **trace (⚠️: builtins built-in module dependant)**: use builtins.print with ANSI escape sequences for RGB color  
-**tstamp (⚠️: time built-in module dependant)**: use time.time()  
+**tstamp (⚠️: time built-in module dependant)**: use time.time  
 **tri & trib**: use pygame.draw.polygon
 
 ### Some excluded features:  
