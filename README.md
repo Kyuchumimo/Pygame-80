@@ -9,7 +9,7 @@ A set of functions from TIC-80 tiny computer platform ported to Pygame 2 + Pytho
 Some of the highlights of using this library are:  
 * TIC-80 friendly  
 * Highly customizable (any screen resolution, different screen modes, any number of audio channels, custom FPS)  
-* Python as programming language  
+* Python as the main programming language  
 * Practically no memory restrictions regarding the number of assets that can be used (code size, tilesets, spritesheets, music, sfx, color palette)  
 * Expandable with the use of modules and libraries  
 * Support of multiple audio and image formats  
