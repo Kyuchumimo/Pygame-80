@@ -7,7 +7,7 @@ pygame.init()
 
 ###PARAMETERS###
 #WINDOW
-pygame.display.set_icon(pygame.image.load_basic('assets/icon.bmp'))
+#pygame.display.set_icon(pygame.image.load_basic('assets/icon.bmp'))
 pygame.display.set_caption("Pygame-80 by Kyuchumimo v211012")
 screen = pygame.display.set_mode([240,136],pygame.SCALED)
 
@@ -48,6 +48,8 @@ def btnp(id):
     
     for event in pygame.event.get(pygame.KEYDOWN):
         if event.key == keymap[id]: return True
+    
+    return False
 
 #TIC-80'S CLIP() FUNCTION, https://github.com/nesbox/TIC-80/wiki/clip
 def clip(*args):
@@ -218,6 +220,8 @@ def keyp(code):
     
     for event in pygame.event.get(pygame.KEYDOWN):
         return any(event.key == i for i in keycodes[code])
+    
+    return False
 
 #TIC-80'S LINE() FUNCTION, https://github.com/nesbox/TIC-80/wiki/line
 def line(x0,y0,x1,y1,color):
