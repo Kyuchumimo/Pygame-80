@@ -7,7 +7,7 @@ pygame.init()
 
 ###PARAMETERS###
 #WINDOW
-pygame.display.set_icon(pygame.image.load_basic('assets/icon.bmp'))
+#pygame.display.set_icon(pygame.image.load_basic('assets/icon.bmp'))
 pygame.display.set_caption("Pygame-80 by Kyuchumimo v211012")
 screen = pygame.display.set_mode([240,136],pygame.SCALED)
 
@@ -28,8 +28,26 @@ def btn(id):
     Description:
             This function allows you to read the status of one of the buttons attached to TIC. The function returns True if the key with the supplied id is currently in the pressed state. It remains True for as long as the key is held down.
     """
-    keymap = [[pygame.K_UP], [pygame.K_DOWN], [pygame.K_LEFT], [pygame.K_RIGHT], [pygame.K_z], [pygame.K_x], [pygame.K_a], [pygame.K_s]]
-    return any(pygame.key.get_pressed()[i] for i in keymap[id])
+    keymap = (pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT, pygame.K_z, pygame.K_x, pygame.K_a, pygame.K_s)
+    
+    return pygame.key.get_pressed()[keymap[id]]
+
+#TIC-80'S BTNP() FUNCTION, https://github.com/nesbox/TIC-80/wiki/btnp
+def btnp(id):
+    """
+    Usage:
+            btnp [[id, [hold][NOT SUPPORTED], [period][NOT SUPPORTED] ] -> pressed
+    Parameters:
+            id : the id (0..7) of the button we wish to interrogate - see the key map for reference
+            hold [NOT SUPPORTED]
+            period [NOT SUPPORTED]
+    Description:
+            This function allows you to read the status of one of the buttons. It returns true only if the key has been pressed since the last frame.
+    """
+    keymap = (pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT, pygame.K_z, pygame.K_x, pygame.K_a, pygame.K_s)
+    
+    for event in pygame.event.get(pygame.KEYDOWN):
+        if event.key == keymap[id]: return True
 
 #TIC-80'S CLIP() FUNCTION, https://github.com/nesbox/TIC-80/wiki/clip
 def clip(*args):
@@ -174,11 +192,32 @@ def key(code):
             key [code] -> pressed
     Parameters:
             code : the key code we want to check (1..65)
+    Returns:
+            pressed : key is currently pressed (true/false)
     Description:
             The function returns True if the key denoted by keycode is pressed.
     """
     keycodes = [[None], [pygame.K_a], [pygame.K_b], [pygame.K_c], [pygame.K_d], [pygame.K_e], [pygame.K_f], [pygame.K_g], [pygame.K_h], [pygame.K_i], [pygame.K_j], [pygame.K_k], [pygame.K_l], [pygame.K_m], [pygame.K_n], [pygame.K_o], [pygame.K_p], [pygame.K_q], [pygame.K_r], [pygame.K_s], [pygame.K_t], [pygame.K_u], [pygame.K_v], [pygame.K_w], [pygame.K_x], [pygame.K_y], [pygame.K_z], [pygame.K_0], [pygame.K_1], [pygame.K_2], [pygame.K_3], [pygame.K_4], [pygame.K_5], [pygame.K_6], [pygame.K_7], [pygame.K_8], [pygame.K_9], [pygame.K_MINUS], [pygame.K_EQUALS], [pygame.K_LEFTBRACKET], [pygame.K_RIGHTBRACKET], [pygame.K_BACKSLASH], [pygame.K_SEMICOLON], [None], [pygame.K_BACKQUOTE], [pygame.K_COMMA], [pygame.K_PERIOD], [pygame.K_SLASH], [pygame.K_SPACE], [pygame.K_TAB], [pygame.K_RETURN], [pygame.K_BACKSPACE], [pygame.K_DELETE], [pygame.K_INSERT], [pygame.K_PAGEUP], [pygame.K_PAGEDOWN], [pygame.K_HOME], [pygame.K_END], [pygame.K_UP], [pygame.K_DOWN], [pygame.K_LEFT], [pygame.K_RIGHT], [pygame.K_CAPSLOCK], [pygame.K_LCTRL, pygame.K_RCTRL], [pygame.K_LSHIFT, pygame.K_RSHIFT], [pygame.K_LALT]]
     return any(pygame.key.get_pressed()[i] for i in keycodes[code])
+
+#TIC-80'S KEYP() FUNCTION, https://github.com/nesbox/TIC-80/wiki/keyp
+def keyp(code):
+    """
+    Usage:
+            keyp [code [hold[NOT SUPPORTED] period[NOT SUPPORTED]] ] -> pressed
+    Parameters:
+            code : the key code we want to check (1..65)
+            hold [NOT SUPPORTED]
+            period [NOT SUPPORTED]
+    Returns:
+            pressed : key is pressed (true/false)
+    Description:
+            This function returns true if the given key is pressed but wasn't pressed in the previous frame. Refer to btnp for an explanation of the optional hold and period parameters
+    """
+    keycodes = [[None], [pygame.K_a], [pygame.K_b], [pygame.K_c], [pygame.K_d], [pygame.K_e], [pygame.K_f], [pygame.K_g], [pygame.K_h], [pygame.K_i], [pygame.K_j], [pygame.K_k], [pygame.K_l], [pygame.K_m], [pygame.K_n], [pygame.K_o], [pygame.K_p], [pygame.K_q], [pygame.K_r], [pygame.K_s], [pygame.K_t], [pygame.K_u], [pygame.K_v], [pygame.K_w], [pygame.K_x], [pygame.K_y], [pygame.K_z], [pygame.K_0], [pygame.K_1], [pygame.K_2], [pygame.K_3], [pygame.K_4], [pygame.K_5], [pygame.K_6], [pygame.K_7], [pygame.K_8], [pygame.K_9], [pygame.K_MINUS], [pygame.K_EQUALS], [pygame.K_LEFTBRACKET], [pygame.K_RIGHTBRACKET], [pygame.K_BACKSLASH], [pygame.K_SEMICOLON], [None], [pygame.K_BACKQUOTE], [pygame.K_COMMA], [pygame.K_PERIOD], [pygame.K_SLASH], [pygame.K_SPACE], [pygame.K_TAB], [pygame.K_RETURN], [pygame.K_BACKSPACE], [pygame.K_DELETE], [pygame.K_INSERT], [pygame.K_PAGEUP], [pygame.K_PAGEDOWN], [pygame.K_HOME], [pygame.K_END], [pygame.K_UP], [pygame.K_DOWN], [pygame.K_LEFT], [pygame.K_RIGHT], [pygame.K_CAPSLOCK], [pygame.K_LCTRL, pygame.K_RCTRL], [pygame.K_LSHIFT, pygame.K_RSHIFT], [pygame.K_LALT]]
+    
+    for event in pygame.event.get(pygame.KEYDOWN):
+        return any(event.key == i for i in keycodes[code])
 
 #TIC-80'S LINE() FUNCTION, https://github.com/nesbox/TIC-80/wiki/line
 def line(x0,y0,x1,y1,color):
@@ -305,6 +344,8 @@ def pix(x,y,color=None):
     Parameters:
             x, y : coordinates of the pixel
             color : the the RGB list color to draw
+    Returns:
+            color : the RGB list at the specified coordinates.
     Description:
             This function can read or write individual pixel color values. When called with a color argument , the pixel at the specified coordinates is set to that color. When called with only x y arguments, the color of the pixel at the specified coordinates is returned.
     """
@@ -316,37 +357,38 @@ def pix(x,y,color=None):
         scn[x,y] = color
 
 #TIC-80'S PMEM() FUNCTION, https://github.com/nesbox/TIC-80/wiki/pmem
-def pmem(index,val=None):
+def pmem(index,val32=None):
     """
     Usage:
-            pmem index -> val Retrieve data from persistent memory
-            pmem index val -> val Save data to persistent memory
+            pmem index -> val32 Retrieve data from persistent memory file
+            pmem index val32 Save new value to persistent memory file
     Parameters:
             index : an index (0..255) into the persistent memory file.
-            val : the value you want to store. Omit this parameter to read vs write.
-    Output:
-             val : when the function is call with only an index parameter, it returns the current value saved in that memory slot.
-            
+            val32 : the 32-bit integer value you want to store. Omit this parameter to read vs write.
+    Returns:
+            val32 : the current value saved to the specified memory slot.
+    Description:
+            This function allows you to save and retrieve data in one of the 256 individual 32-bit slots available in the file's persistent memory. This is useful for saving high-scores, level advancement or achievements. Data is stored as unsigned 32-bit integer (from 0 to 4294967295).
     """
     import os, sys, json
-    if val==None:
+    if val32==None:
         try:
             with open("{}.sav".format(os.path.splitext(sys.argv[1])[0]), 'r') as file:
                 data = json.load(file)
                 return data["{}".format(int(index)%256)]
         except (FileNotFoundError, json.decoder.JSONDecodeError, KeyError) as error:
-            pass
+            return 0
     else:
         try:
             with open("{}.sav".format(os.path.splitext(sys.argv[1])[0]), 'r') as file:
                 data = json.load(file)
-                data[str(int(index%256))] = int(val)%2**32
+                data[str(int(index%256))] = int(val32)%2**32
             with open("{}.sav".format(os.path.splitext(sys.argv[1])[0]), 'w') as file:
                 json.dump(data,file)
         except (FileNotFoundError, json.decoder.JSONDecodeError) as error:
             with open("{}.sav".format(os.path.splitext(sys.argv[1])[0]), 'w') as file:
                 data = dict()
-                data["{}".format(int(index)%256)] = int(val)%2**32
+                data["{}".format(int(index)%256)] = int(val32)%2**32
                 json.dump(data,file)
 
 #TIC-80'S PRINT() FUNCTION, https://github.com/nesbox/TIC-80/wiki/print
@@ -361,9 +403,10 @@ def print(text,x=0,y=0,color=[0xf4,0xf4,0xf4],fixed=False,scale=1,smallfont=Fals
             fixed : a flag indicating whether fixed width printing is required
             scale : font scaling
             smallfont : use small font if True
-    Output:
+    Returns:
             text width : returns the width of the text in pixels.
-    
+    Description:
+            This will simply print text to the screen using the font defined in assets. When set to True, the fixed width option ensures that each character will be printed in a 'box' of the same size, so the character 'i' will occupy the same width as the character 'w' for example. When fixed width is false, there will be a single space between each character.
     """
     for i in range(len(str(text).splitlines())):
         if i>0: y += 6*scale
@@ -463,15 +506,18 @@ def sfx(id,note=None,duration=0,channel=0,volume=15,speed=0):
 #TIC-80'S SPR() FUNCTION, https://github.com/nesbox/TIC-80/wiki/spr
 def spr(id,x,y,colorkey=-1,scale=1,flip=0,rotate=0,w=1,h=1):
     """
-    id : index of the sprite (0..511)
-    x : x coordinate where the sprite will be drawn, starting from top left corner.
-    y : y coordinate where the sprite will be drawn, starting from top left corner.
-    colorkey : RGB list or HEX color in the sprite that will be used as transparent color. Use -1 if you want an opaque sprite.
-    scale : scale factor applied to sprite.
-    flip : flip the sprite vertically or horizontally or both.
-    rotate : rotate the sprite by 0, 90, 180 or 270 degrees.
-    w : width of composite sprite
-    h : height of composite sprite
+    Usage:
+            print text [x=0 y=0] [color=12] [fixed=False] [scale=1] [smallfont=False] -> text width
+    Parameters:
+            id : index of the sprite (0..511)
+            x : x coordinate where the sprite will be drawn, starting from top left corner.
+            y : y coordinate where the sprite will be drawn, starting from top left corner.
+            colorkey : RGB list or HEX color in the sprite that will be used as transparent color. Use -1 if you want an opaque sprite.
+            scale : scale factor applied to sprite.
+            flip : flip the sprite vertically or horizontally or both.
+            rotate : rotate the sprite by 0, 90, 180 or 270 degrees.
+            w : width of composite sprite
+            h : height of composite sprite
     """
     ts = pygame.Surface([128,256])
     ts.blit(TIC["tiles"],[0,0])
