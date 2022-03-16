@@ -14,7 +14,7 @@ screen = pygame.display.set_mode([240,136],pygame.SCALED)
 #MUSIC CHANNELS
 pygame.mixer.set_num_channels(4)
 
-TIC = {"tiles":pygame.image.load_basic("assets/map/0.bmp"), "sprites":pygame.image.load_basic("assets/spr/0.bmp"), "map":np.loadtxt("assets/map/0.csv",dtype='int',delimiter=','), "font":(pygame.font.Font("assets/tic-80_regular.ttf", 8), pygame.font.Font("assets/tic-80_narrow.ttf", 8), pygame.font.Font("assets/tic-80_regular-mono.ttf", 8), pygame.font.Font("assets/tic-80_narrow-mono.ttf", 8)), "clock":pygame.time.Clock()}
+TIC = {"background":pygame.image.load_basic("assets/map/0.bmp"), "sprite":pygame.image.load_basic("assets/spr/0.bmp"), "map":np.loadtxt("assets/map/0.csv",dtype='int',delimiter=','), "font":(pygame.font.Font("assets/tic-80_regular.ttf", 8), pygame.font.Font("assets/tic-80_narrow.ttf", 8), pygame.font.Font("assets/tic-80_regular-mono.ttf", 8), pygame.font.Font("assets/tic-80_narrow-mono.ttf", 8)), "clock":pygame.time.Clock()}
 
 #####################################
 
@@ -171,7 +171,7 @@ def font(text,x,y,colorkey=-1,w=9,h=8,fixed=False,scale=1):
     Description:
             This function will draw text to the screen using the foreground spritesheet as the font. Sprite #256 is used for ASCII code 0, #257 for code 1 and so on. The character 'A' has the ASCII code 65 so will be drawn using the sprite with sprite #321 (256+65).
     """
-    ts = TIC["sprites"]
+    ts = TIC["sprite"]
     text = str(text).encode('ascii')
     
     if scale != 1: ts = pygame.transform.scale(ts,[(pygame.Surface.get_size(ts)[0])*scale,(pygame.Surface.get_size(ts)[1])*scale])
@@ -250,7 +250,7 @@ def map(x=0,y=0,w=30,h=17,sx=0,sy=0,colorkey=-1,scale=1,remap=None):
     scale : Map scaling.
     remap [PARTIAL] : An optional function called before every tile is drawn. Using this callback function you can show or hide tiles, create tile animations or flip/rotate tiles during the map rendering stage: callback [tile [x y] ] -> [tile [flip [rotate] ] ] 
     """
-    ts = TIC["tiles"] #[PATTERN TABLE]
+    ts = TIC["background"] #[PATTERN TABLE]
     PPU = np.copy(TIC["map"])
     
     if remap is not None: exec(remap)
@@ -524,8 +524,8 @@ def spr(id,x,y,colorkey=-1,scale=1,flip=0,rotate=0,w=1,h=1):
             h : height of composite sprite
     """
     ts = pygame.Surface([128,256])
-    ts.blit(TIC["tiles"],[0,0])
-    ts.blit(TIC["sprites"],[0,128])
+    ts.blit(TIC["background"],[0,0])
+    ts.blit(TIC["sprite"],[0,128])
     
     if scale != 1: ts = pygame.transform.scale(ts,[(pygame.Surface.get_size(ts)[0])*scale,(pygame.Surface.get_size(ts)[1])*scale])
     
@@ -563,20 +563,70 @@ def sync(mask=0,bank=0,tocart=False):
     if mask == 0: mask = 0b111
     
     if tocart == False:
-        if (0b1 & mask) == 0b1: TIC["tiles"] = pygame.image.load_basic("assets/map/{}.bmp".format(bank)) #TILES
-        if (0b10 & mask) == 0b10: TIC["sprites"] = pygame.image.load_basic("assets/spr/{}.bmp".format(bank)) #SPRITES
+        if (0b1 & mask) == 0b1: TIC["background"] = pygame.image.load_basic("assets/map/{}.bmp".format(bank)) #TILES
+        if (0b10 & mask) == 0b10: TIC["sprite"] = pygame.image.load_basic("assets/spr/{}.bmp".format(bank)) #SPRITES
         if (0b100 & mask) == 0b100: TIC["map"] = np.loadtxt("assets/map/{}.csv".format(bank),dtype='int',delimiter=',')
     elif tocart == True:
-        if (0b1 & mask) == 0b1: pygame.image.save(TIC["tiles"],"assets/map/{}.bmp".format(bank)) #TILES
-        if (0b10 & mask) == 0b10: pygame.image.save(TIC["sprites"],"assets/spr/{}.bmp".format(bank)) #SPRITES
+        if (0b1 & mask) == 0b1: pygame.image.save(TIC["background"],"assets/map/{}.bmp".format(bank)) #TILES
+        if (0b10 & mask) == 0b10: pygame.image.save(TIC["sprite"],"assets/spr/{}.bmp".format(bank)) #SPRITES
         if (0b100 & mask) == 0b100: np.savetxt("assets/map/{}.csv".format(bank),TIC["map"],fmt='%d',delimiter=',')
 
-"""
 #TIC-80'S TEXTRI() FUNCTION, https://github.com/nesbox/TIC-80/wiki/textri
-def textri(x1,y1,x2,y2,x3,y3,u1=0,v1=0,u2=0,v2=0,u3=0,v3=0,use_map=False,trans=-1):
-    import pygame.gfxdraw
-    pygame.gfxdraw.textured_polygon(screen,[(x1, y1), (x2, y2), (x3, y3)],pygame.image.load_basic("assets/spr/{}.bmp".format(0)),0,0)
-"""
+def textri(x1,y1,x2,y2,x3,y3,u1,v1,u2,v2,u3,v3,use_map=False,trans=-1):
+    """
+    """
+    texture = pygame.surfarray.array3d(TIC["sprite"])
+    
+    triangle = np.array([[x1,y1],[x2,y2],[x3,y3]])
+    texture_uv = np.array([[u1,v1],[u2,v2],[u3,v3]])
+    
+    frame = pygame.surfarray.array3d(screen)
+    
+    sorted_y = triangle[:,1].argsort()
+
+    x_start, y_start = triangle[sorted_y[0]]
+    x_middle, y_middle = triangle[sorted_y[1]]
+    x_stop, y_stop = triangle[sorted_y[2]]
+
+    x_slope_1 = (x_stop - x_start)/(y_stop - y_start + 1e-32)
+    x_slope_2 = (x_middle - x_start)/(y_middle - y_start + 1e-32)
+    x_slope_3 = (x_stop - x_middle)/(y_stop - y_middle + 1e-32)
+
+    uv_start = texture_uv[sorted_y[0]]/128
+    uv_middle = texture_uv[sorted_y[1]]/128
+    uv_stop = texture_uv[sorted_y[2]]/128
+
+    uv_slope_1 = (uv_stop - uv_start)/(y_stop - y_start + 1e-32)
+    uv_slope_2 = (uv_middle - uv_start)/(y_middle - y_start + 1e-32)
+    uv_slope_3 = (uv_stop - uv_middle)/(y_stop - y_middle + 1e-32)
+    
+    for y in range(y_start, y_stop):
+
+        x1 = x_start + int((y-y_start)*x_slope_1)
+        uv1 = uv_start + (y-y_start)*uv_slope_1
+
+        if y < y_middle:
+            x2 = x_start + int((y-y_start)*x_slope_2)
+            uv2 = uv_start + (y-y_start)*uv_slope_2
+        else:
+            x2 = x_middle + int((y-y_middle)*x_slope_3)
+            uv2 = uv_middle + (y-y_middle)*uv_slope_3
+        
+        if x1 > x2:
+            x1, x2 = x2, x1
+            uv1, uv2 = uv2, uv1
+
+        uv_slope = (uv2 - uv1)/(x2 - x1 + 1e-32)
+        
+        for x in range(x1, x2):
+            uv = uv1 + (x - x1) * uv_slope
+            u = int(uv[0]*128)%128
+            v = int(uv[1]*128)%128
+            frame[x, y] = texture[u][v]
+
+    surf = pygame.surfarray.make_surface(frame)
+    if trans != -1: surf.set_colorkey(trans)
+    screen.blit(surf,(0,0))
 
 #TIC-80'S TIME() FUNCTION, https://github.com/nesbox/TIC-80/wiki/time
 def time():
