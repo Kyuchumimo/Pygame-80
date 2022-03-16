@@ -7,14 +7,14 @@ pygame.init()
 
 ###PARAMETERS###
 #WINDOW
-pygame.display.set_icon(pygame.image.load_basic('assets/icon.bmp'))
+#pygame.display.set_icon(pygame.image.load_basic('assets/icon.bmp'))
 pygame.display.set_caption("Pygame-80 by Kyuchumimo v211012")
 screen = pygame.display.set_mode([240,136],pygame.SCALED)
 
 #MUSIC CHANNELS
 pygame.mixer.set_num_channels(4)
 
-TIC = {"background":pygame.image.load_basic("assets/map/0.bmp"), "sprite":pygame.image.load_basic("assets/spr/0.bmp"), "map":np.loadtxt("assets/map/0.csv",dtype='int',delimiter=','), "font":(pygame.font.Font("assets/tic-80_regular.ttf", 8), pygame.font.Font("assets/tic-80_narrow.ttf", 8), pygame.font.Font("assets/tic-80_regular-mono.ttf", 8), pygame.font.Font("assets/tic-80_narrow-mono.ttf", 8)), "clock":pygame.time.Clock()}
+TIC = {"TILES":pygame.image.load_basic("assets/map/0.bmp"), "SPRITES":pygame.image.load_basic("assets/spr/0.bmp"), "MAP":np.loadtxt("assets/map/0.csv",dtype='int',delimiter=','), "font":(pygame.font.Font("assets/tic-80_regular.ttf", 8), pygame.font.Font("assets/tic-80_narrow.ttf", 8), pygame.font.Font("assets/tic-80_regular-mono.ttf", 8), pygame.font.Font("assets/tic-80_narrow-mono.ttf", 8)), "clock":pygame.time.Clock()}
 
 #####################################
 
@@ -171,7 +171,7 @@ def font(text,x,y,colorkey=-1,w=9,h=8,fixed=False,scale=1):
     Description:
             This function will draw text to the screen using the foreground spritesheet as the font. Sprite #256 is used for ASCII code 0, #257 for code 1 and so on. The character 'A' has the ASCII code 65 so will be drawn using the sprite with sprite #321 (256+65).
     """
-    ts = TIC["sprite"]
+    ts = TIC["SPRITES"]
     text = str(text).encode('ascii')
     
     if scale != 1: ts = pygame.transform.scale(ts,[(pygame.Surface.get_size(ts)[0])*scale,(pygame.Surface.get_size(ts)[1])*scale])
@@ -250,8 +250,8 @@ def map(x=0,y=0,w=30,h=17,sx=0,sy=0,colorkey=-1,scale=1,remap=None):
     scale : Map scaling.
     remap [PARTIAL] : An optional function called before every tile is drawn. Using this callback function you can show or hide tiles, create tile animations or flip/rotate tiles during the map rendering stage: callback [tile [x y] ] -> [tile [flip [rotate] ] ] 
     """
-    ts = TIC["background"] #[PATTERN TABLE]
-    PPU = np.copy(TIC["map"])
+    ts = TIC["TILES"] #[PATTERN TABLE]
+    PPU = np.copy(TIC["MAP"])
     
     if remap is not None: exec(remap)
     #if remap==None: remap=(VRAM,VRAM,VRAM)
@@ -278,7 +278,7 @@ def mget(x,y):
     Description:
             This function returns the tile at the specified TILEMAP coordinates, the top left cell of the tilemap being (0, 0).
     """
-    return TIC["map"][y,x]
+    return TIC["MAP"][y,x]
 
 #TIC-80'S MSET() FUNCTION, https://github.com/nesbox/TIC-80/wiki/mget
 def mset(x,y,tile_id):
@@ -291,7 +291,7 @@ def mset(x,y,tile_id):
     Description:
             This function will change the tile at the specified TILEMAP coordinates. By default, changes made are only kept while the current game is running.
     """
-    TIC["map"][y,x] = tile_id
+    TIC["MAP"][y,x] = tile_id
 
 #TIC-80'S MOUSE() FUNCTION, https://github.com/nesbox/TIC-80/wiki/mouse
 def mouse():
@@ -524,8 +524,8 @@ def spr(id,x,y,colorkey=-1,scale=1,flip=0,rotate=0,w=1,h=1):
             h : height of composite sprite
     """
     ts = pygame.Surface([128,256])
-    ts.blit(TIC["background"],[0,0])
-    ts.blit(TIC["sprite"],[0,128])
+    ts.blit(TIC["TILES"],[0,0])
+    ts.blit(TIC["SPRITES"],[0,128])
     
     if scale != 1: ts = pygame.transform.scale(ts,[(pygame.Surface.get_size(ts)[0])*scale,(pygame.Surface.get_size(ts)[1])*scale])
     
@@ -563,19 +563,19 @@ def sync(mask=0,bank=0,tocart=False):
     if mask == 0: mask = 0b111
     
     if tocart == False:
-        if (0b1 & mask) == 0b1: TIC["background"] = pygame.image.load_basic("assets/map/{}.bmp".format(bank)) #TILES
-        if (0b10 & mask) == 0b10: TIC["sprite"] = pygame.image.load_basic("assets/spr/{}.bmp".format(bank)) #SPRITES
-        if (0b100 & mask) == 0b100: TIC["map"] = np.loadtxt("assets/map/{}.csv".format(bank),dtype='int',delimiter=',')
+        if (0b1 & mask) == 0b1: TIC["TILES"] = pygame.image.load_basic("assets/map/{}.bmp".format(bank)) #TILES
+        if (0b10 & mask) == 0b10: TIC["SPRITES"] = pygame.image.load_basic("assets/spr/{}.bmp".format(bank)) #SPRITES
+        if (0b100 & mask) == 0b100: TIC["MAP"] = np.loadtxt("assets/map/{}.csv".format(bank),dtype='int',delimiter=',')
     elif tocart == True:
-        if (0b1 & mask) == 0b1: pygame.image.save(TIC["background"],"assets/map/{}.bmp".format(bank)) #TILES
-        if (0b10 & mask) == 0b10: pygame.image.save(TIC["sprite"],"assets/spr/{}.bmp".format(bank)) #SPRITES
-        if (0b100 & mask) == 0b100: np.savetxt("assets/map/{}.csv".format(bank),TIC["map"],fmt='%d',delimiter=',')
+        if (0b1 & mask) == 0b1: pygame.image.save(TIC["TILES"],"assets/map/{}.bmp".format(bank)) #TILES
+        if (0b10 & mask) == 0b10: pygame.image.save(TIC["SPRITES"],"assets/spr/{}.bmp".format(bank)) #SPRITES
+        if (0b100 & mask) == 0b100: np.savetxt("assets/map/{}.csv".format(bank),TIC["MAP"],fmt='%d',delimiter=',')
 
 #TIC-80'S TEXTRI() FUNCTION, https://github.com/nesbox/TIC-80/wiki/textri
 def textri(x1,y1,x2,y2,x3,y3,u1,v1,u2,v2,u3,v3,use_map=False,trans=-1):
     """
     """
-    texture = pygame.surfarray.array3d(TIC["sprite"])
+    texture = pygame.surfarray.array3d(TIC["SPRITES"])
     
     triangle = np.array([[x1,y1],[x2,y2],[x3,y3]])
     texture_uv = np.array([[u1,v1],[u2,v2],[u3,v3]])
