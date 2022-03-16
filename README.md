@@ -61,7 +61,4 @@ To run the demo program, you can use a GNU/Linux shell or Windows shell
 **16 color palette**
 
 ### To do list:  
-- [ ] **btnp**: button input  
-- [ ] **keyp**: keyboard input  
-- [ ] **textri (⚠️: pygame.gfxdraw library dependant)**: textured triangle  
 - [ ] **wiki (30/32)**: for show examples and tutorials  
