@@ -600,7 +600,7 @@ def textri(x1,y1,x2,y2,x3,y3,u1,v1,u2,v2,u3,v3,use_map=False,trans=-1):
     uv_slope_2 = (uv_middle - uv_start)/(y_middle - y_start + 1e-32)
     uv_slope_3 = (uv_stop - uv_middle)/(y_stop - y_middle + 1e-32)
     
-    for y in range(y_start, y_stop):
+    for y in range(max(y_start,0), min(y_stop,pygame.Surface.get_size(screen)[1])):
 
         x1 = x_start + int((y-y_start)*x_slope_1)
         uv1 = uv_start + (y-y_start)*uv_slope_1
@@ -618,7 +618,7 @@ def textri(x1,y1,x2,y2,x3,y3,u1,v1,u2,v2,u3,v3,use_map=False,trans=-1):
 
         uv_slope = (uv2 - uv1)/(x2 - x1 + 1e-32)
         
-        for x in range(x1, x2):
+        for x in range(max(x1,0), min(x2,pygame.Surface.get_size(screen)[0])):
             uv = uv1 + (x - x1) * uv_slope
             u = int(uv[0]*128)%128
             v = int(uv[1]*128)%128
