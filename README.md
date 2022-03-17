@@ -27,14 +27,14 @@ To run the demo program, you can use a GNU/Linux shell or Windows shell
 
 ## Functions
 ### Functions available so far:  
-**btn**: use pygame.key.get_pressed  
+**btn**: use pygame.key.get_pressed & **btnp**: use pygame.event.get(pygame.KEYDOWN)  
 **clip**: use pygame.Surface.set_clip  
 **cls**: use pygame.Surface.fill  
 **circ & circb**: use pygame.draw.circle  
 **elli & ellib**: use pygame.draw.elipse  
 **exit (⚠️: sys built-in module dependant)**: use sys.exit  
 **font**: use pygame.Surface.subsurface and pygame.transform.scale  
-**key**: use pygame.key.get_pressed  
+**key**: use pygame.key.get_pressed & **keyp**: use pygame.event.get(pygame.KEYDOWN)  
 **line**: use pygame.draw.line  
 **map (⚠️: numpy library dependant)**: use pygame.Surface.subsurface and pygame.transform.scale  
 **mget & mset**: VRAM 2D array indexing, read/write  
@@ -48,10 +48,11 @@ To run the demo program, you can use a GNU/Linux shell or Windows shell
 **sfx (⚠️: note and speed parameters not supported by Pygame)**: use pygame.mixer.Sound, pygame.mixer.Channel and pygame.mixer.Sound.set_volume  
 **spr**: use pygame.Surface, pygame.Surface.subsurface, pygame.transform.flip, pygame.transform.scale and pygame.transform.rotate  
 **sync**: use pygame.image.load, pygame.image.save, numpy.loadtxt and numpy.savetxt  
+**textri**: use pygame.surfarray.array3d, pygame.Surface.get_size, pygame.surfarray.make_surface
 **time**: use pygame.time.get_ticks  
 **trace (⚠️: builtins built-in module dependant)**: use builtins.print with ANSI escape sequences for RGB color  
-**tstamp (⚠️: time built-in module dependant)**: use time.time  
-**tri & trib**: use pygame.draw.polygon
+**tri & trib**: use pygame.draw.polygon  
+**tstamp (⚠️: time built-in module dependant)**: use time.time
 
 ### Some excluded features:  
 **TIC, SCN, OVR, BDR**: Callbacks  
