@@ -48,7 +48,7 @@ To run the demo program, you can use a GNU/Linux shell or Windows shell
 **sfx (⚠️: note and speed parameters not supported by Pygame)**: use pygame.mixer.Sound, pygame.mixer.Channel and pygame.mixer.Sound.set_volume  
 **spr**: use pygame.Surface, pygame.Surface.subsurface, pygame.transform.flip, pygame.transform.scale and pygame.transform.rotate  
 **sync**: use pygame.image.load, pygame.image.save, numpy.loadtxt and numpy.savetxt  
-**textri**: use pygame.surfarray.array3d, pygame.Surface.get_size, pygame.surfarray.make_surface
+**textri**: use pygame.surfarray.array3d, pygame.Surface.get_size, pygame.surfarray.make_surface  
 **time**: use pygame.time.get_ticks  
 **trace (⚠️: builtins built-in module dependant)**: use builtins.print with ANSI escape sequences for RGB color  
 **tri & trib**: use pygame.draw.polygon  
