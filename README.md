@@ -61,4 +61,4 @@ To run the demo program, you can use a GNU/Linux shell or Windows shell
 **16 color palette**
 
 ### To do list:  
-- [ ] **wiki (30/32)**: for show examples and tutorials  
+- [ ] **handling of Assert Statement and Try Except Statement**
