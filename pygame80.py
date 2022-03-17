@@ -7,7 +7,7 @@ pygame.init()
 
 ###PARAMETERS###
 #WINDOW
-#pygame.display.set_icon(pygame.image.load_basic('assets/icon.bmp'))
+pygame.display.set_icon(pygame.image.load_basic('assets/icon.bmp'))
 pygame.display.set_caption("Pygame-80 by Kyuchumimo v211012")
 screen = pygame.display.set_mode([240,136],pygame.SCALED)
 
@@ -38,11 +38,11 @@ def btnp(id):
     Usage:
             btnp [[id, [hold][NOT SUPPORTED], [period][NOT SUPPORTED] ] -> pressed
     Parameters:
-            id : the id (0..7) of the button we wish to interrogate - see the key map for reference
+            id : the id (0..7) of the button we wish to interrogate
             hold [NOT SUPPORTED]
             period [NOT SUPPORTED]
     Description:
-            This function allows you to read the status of one of the buttons. It returns true only if the key has been pressed since the last frame.
+            This function allows you to read the status of one of the buttons. It returns True only if the key has been pressed since the last frame.
     """
     keymap = (pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT, pygame.K_z, pygame.K_x, pygame.K_a, pygame.K_s)
     
@@ -195,7 +195,7 @@ def key(code):
     Parameters:
             code : the key code we want to check (1..65)
     Returns:
-            pressed : key is currently pressed (true/false)
+            pressed : key is currently pressed (True/False)
     Description:
             The function returns True if the key denoted by keycode is pressed.
     """
@@ -212,9 +212,9 @@ def keyp(code):
             hold [NOT SUPPORTED]
             period [NOT SUPPORTED]
     Returns:
-            pressed : key is pressed (true/false)
+            pressed : key is pressed (True/False)
     Description:
-            This function returns true if the given key is pressed but wasn't pressed in the previous frame. Refer to btnp for an explanation of the optional hold and period parameters
+            This function returns True if the given key is pressed but wasn't pressed in the previous frame.
     """
     keycodes = [[None], [pygame.K_a], [pygame.K_b], [pygame.K_c], [pygame.K_d], [pygame.K_e], [pygame.K_f], [pygame.K_g], [pygame.K_h], [pygame.K_i], [pygame.K_j], [pygame.K_k], [pygame.K_l], [pygame.K_m], [pygame.K_n], [pygame.K_o], [pygame.K_p], [pygame.K_q], [pygame.K_r], [pygame.K_s], [pygame.K_t], [pygame.K_u], [pygame.K_v], [pygame.K_w], [pygame.K_x], [pygame.K_y], [pygame.K_z], [pygame.K_0], [pygame.K_1], [pygame.K_2], [pygame.K_3], [pygame.K_4], [pygame.K_5], [pygame.K_6], [pygame.K_7], [pygame.K_8], [pygame.K_9], [pygame.K_MINUS], [pygame.K_EQUALS], [pygame.K_LEFTBRACKET], [pygame.K_RIGHTBRACKET], [pygame.K_BACKSLASH], [pygame.K_SEMICOLON], [None], [pygame.K_BACKQUOTE], [pygame.K_COMMA], [pygame.K_PERIOD], [pygame.K_SLASH], [pygame.K_SPACE], [pygame.K_TAB], [pygame.K_RETURN], [pygame.K_BACKSPACE], [pygame.K_DELETE], [pygame.K_INSERT], [pygame.K_PAGEUP], [pygame.K_PAGEDOWN], [pygame.K_HOME], [pygame.K_END], [pygame.K_UP], [pygame.K_DOWN], [pygame.K_LEFT], [pygame.K_RIGHT], [pygame.K_CAPSLOCK], [pygame.K_LCTRL, pygame.K_RCTRL], [pygame.K_LSHIFT, pygame.K_RSHIFT], [pygame.K_LALT]]
     
@@ -386,6 +386,13 @@ def pmem(index,val32=None):
         try:
             with open("{}.sav".format(os.path.splitext(sys.argv[1])[0]), 'r') as file:
                 data = json.load(file)
+                prior_val32 = data["{}".format(int(index)%256)]
+        except (FileNotFoundError, json.decoder.JSONDecodeError, KeyError) as error:
+            prior_val32 = 0
+        
+        try:
+            with open("{}.sav".format(os.path.splitext(sys.argv[1])[0]), 'r') as file:
+                data = json.load(file)
                 data[str(int(index%256))] = int(val32)%2**32
             with open("{}.sav".format(os.path.splitext(sys.argv[1])[0]), 'w') as file:
                 json.dump(data,file)
@@ -394,6 +401,8 @@ def pmem(index,val32=None):
                 data = dict()
                 data["{}".format(int(index)%256)] = int(val32)%2**32
                 json.dump(data,file)
+        
+        return prior_val32
 
 #TIC-80'S PRINT() FUNCTION, https://github.com/nesbox/TIC-80/wiki/print
 def print(text,x=0,y=0,color=[0xf4,0xf4,0xf4],fixed=False,scale=1,smallfont=False):
