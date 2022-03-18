@@ -674,7 +674,7 @@ def trace(message,color=15):
             This is a service function, useful for debugging your code. It prints the message parameter to the console in the (optional) color specified.
     """
     import builtins
-    builtins.print("\033[38;2;{};{};{}m{}".format(*TIC["PALETTE"][color%len(TIC["PALETTE"])], message))
+    builtins.print("\033[38;2;{};{};{}m{} \033[38;2;255;255;255m".format(*TIC["PALETTE"][color%len(TIC["PALETTE"])], message))
 
 #TIC-80'S TRI() FUNCTION, https://github.com/nesbox/TIC-80/wiki/tri
 def tri(x1,y1,x2,y2,x3,y3,color):
