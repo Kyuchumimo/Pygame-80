@@ -63,4 +63,3 @@ To run the demo program, you can use a GNU/Linux shell or Windows shell
 
 ### To do list:  
 - [ ] **handling of Assert Statement and Try Except Statement**
-- [ ] **PALETTE key with Sweetie 16 palette + color variables, TIC dictionary**
