@@ -412,7 +412,7 @@ def print(text,x=0,y=0,color=15,fixed=False,scale=1,smallfont=False):
     Parameters:
             text : any string to be printed to the screen
             x, y : coordinates for printing the text
-            color : the RGB list or HEX color to use to draw the text to the screen
+            color : the color to use to draw the text to the screen
             fixed : a flag indicating whether fixed width printing is required
             scale : font scaling
             smallfont : use small font if True
