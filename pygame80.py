@@ -246,7 +246,7 @@ def map(x=0,y=0,w=30,h=17,sx=0,sy=0,colorkey=-1,scale=1,remap=None):
     h : The number of cells to draw vertically.
     sx : The screen x coordinate where drawing of the map section will start.
     sy : The screen y coordinate where drawing of the map section will start.
-    colorkey : RGB list or HEX color that will be used as transparent color. Not setting this parameter will make the map opaque.
+    colorkey : index of the color that will be used as transparent color. Not setting this parameter will make the map opaque.
     scale : Map scaling.
     remap [PARTIAL] : An optional function called before every tile is drawn. Using this callback function you can show or hide tiles, create tile animations or flip/rotate tiles during the map rendering stage: callback [tile [x y] ] -> [tile [flip [rotate] ] ] 
     """
@@ -347,9 +347,9 @@ def pix(x,y,color=None):
             pix x y -> color Retrieve a pixel's color
     Parameters:
             x, y : coordinates of the pixel
-            color : the the RGB list color to draw
+            color : the index of the palette color to draw
     Returns:
-            color : the RGB list at the specified coordinates.
+            color : the index (0-n) of the palette color at the specified coordinates.
     Description:
             This function can read or write individual pixel color values. When called with a color argument , the pixel at the specified coordinates is set to that color. When called with only x y arguments, the color of the pixel at the specified coordinates is returned.
     """
