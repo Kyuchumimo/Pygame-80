@@ -510,7 +510,7 @@ def sfx(id,note=None,duration=0,channel=0,volume=15,speed=0):
             Volume can be between 0 and 15.
     """
     if id != -1:
-        snd = pygame.mixer.Sound("assets/sfx/{}.ogg".format(int(id)))
+        snd = pygame.mixer.Sound("assets/sfx/{}.wav".format(int(id)))
         snd.set_volume((volume%16)/15)
         pygame.mixer.Channel(channel).play(snd,0,duration*(1000/60))
     else:
