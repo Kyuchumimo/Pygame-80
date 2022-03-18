@@ -7,7 +7,7 @@ pygame.init()
 
 ###PARAMETERS###
 #WINDOW
-#pygame.display.set_icon(pygame.image.load_basic('assets/icon.bmp'))
+pygame.display.set_icon(pygame.image.load_basic('assets/icon.bmp'))
 pygame.display.set_caption("Pygame-80 by Kyuchumimo v211012")
 screen = pygame.display.set_mode([240,136],pygame.SCALED)
 
@@ -137,7 +137,7 @@ def ellib(x,y,a,b,color):
             x, y : the coordinates of the ellipse's center
             a : the horizontal radius of the ellipse in pixels
             b : the vertical radius of the ellipse in pixels
-            color: the RGB list or HEX color of the desired color
+            color: the index of the desired color in the current palette
     Description:
             This function draws an ellipse border with the desired radiuses a b and color with its center at x, y.
     """
