@@ -309,9 +309,8 @@ def mouse():
             This function returns the mouse coordinates and a boolean value for the state of each mouse button, with True indicating that a button is pressed.
     """
     mw_xy = 0, 0
-    for event in pygame.event.get():
-        if event.type == MOUSEWHEEL:
-             mw_xy = event.x, event.y
+    for event in pygame.event.get(MOUSEWHEEL):
+        mw_xy = event.x, event.y
     
     return tuple((pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1],pygame.mouse.get_pressed()[0],pygame.mouse.get_pressed()[1],pygame.mouse.get_pressed()[2],mw_xy[0],mw_xy[1]))
 
