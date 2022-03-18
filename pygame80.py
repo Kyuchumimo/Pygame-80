@@ -454,7 +454,7 @@ def rect(x,y,w,h,color):
             x, y : coordinates of the top left corner of the rectangle
             w : the width the rectangle in pixels
             h : the height of the rectangle in pixels
-            color : the RGB list or HEX color that will be used to fill the rectangle
+            color : the index of the color in the palette that will be used to fill the rectangle
     Description:
             This function draws a filled rectangle of the desired size and color at the specified position.
     """
@@ -469,7 +469,7 @@ def rectb(x,y,w,h,color):
             x, y : coordinates of the top left corner of the rectangle
             w : the width the rectangle in pixels
             h : the height of the rectangle in pixels
-            color : the RGB list or HEX color that will be used to color the rectangle's border.
+            color : the index of the color in the palette that will be used to color the rectangle's border.
     Descripion:
             This function draws a one pixel thick rectangle border at the position requested.
     """
