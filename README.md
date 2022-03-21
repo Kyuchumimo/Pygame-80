@@ -58,8 +58,7 @@ To run the demo program, you can use a GNU/Linux shell or Windows shell
 **TIC, SCN, OVR, BDR**: Callbacks  
 **peek, peek4, peek1, peek2, poke, poke4, poke1, poke2, memcpy & memset, vbank**: Memory Mapping  
 **fset & fget**: Sprite flags  
-**Blit Segment / Low BPP graphics**: Bit depth  
-**16 color palette**
+**Blit Segment / Low BPP graphics**: Bit depth
 
 ### To do list:  
 - [ ] **handling of Assert Statement and Try Except Statement**
