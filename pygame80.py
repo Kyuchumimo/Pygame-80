@@ -7,14 +7,14 @@ pygame.init()
 
 ###PARAMETERS###
 #WINDOW
-pygame.display.set_icon(pygame.image.load_basic('assets/icon.bmp'))
+#pygame.display.set_icon(pygame.image.load('assets/tic80.png'))
 pygame.display.set_caption("Pygame-80 by Kyuchumimo v211012")
 screen = pygame.display.set_mode([240,136],pygame.SCALED)
 
 #MUSIC CHANNELS
 pygame.mixer.set_num_channels(4)
 
-TIC = {"TILES":pygame.image.load_basic("assets/map/0.bmp"), "SPRITES":pygame.image.load_basic("assets/spr/0.bmp"), "MAP":np.loadtxt("assets/map/0.csv",dtype='int',delimiter=','), "PALETTE":[[0x1a,0x1c,0x2c], [0x5d,0x27,0x5d], [0xb1,0x3e,0x53], [0xef,0x7d,0x57], [0xff,0xcd,0x75], [0xa7,0xf0,0x70], [0x38,0xb7,0x64], [0x25,0x71,0x79], [0x29,0x36,0x6f], [0x3b,0x5d,0xc9], [0x41,0xa6,0xf6], [0x73,0xef,0xf7], [0xf4,0xf4,0xf4], [0x94,0xb0,0xc2], [0x56,0x6c,0x86], [0x33,0x3c,0x57]],"font":(pygame.font.Font("assets/tic-80_regular.ttf", 8), pygame.font.Font("assets/tic-80_narrow.ttf", 8), pygame.font.Font("assets/tic-80_regular-mono.ttf", 8), pygame.font.Font("assets/tic-80_narrow-mono.ttf", 8)), "clock":pygame.time.Clock()}
+TIC = {"TILES":pygame.image.load("assets/map/0.png"), "SPRITES":pygame.image.load("assets/spr/0.png"), "MAP":np.loadtxt("assets/map/0.csv",dtype='int',delimiter=','), "PALETTE":[[0x1a,0x1c,0x2c], [0x5d,0x27,0x5d], [0xb1,0x3e,0x53], [0xef,0x7d,0x57], [0xff,0xcd,0x75], [0xa7,0xf0,0x70], [0x38,0xb7,0x64], [0x25,0x71,0x79], [0x29,0x36,0x6f], [0x3b,0x5d,0xc9], [0x41,0xa6,0xf6], [0x73,0xef,0xf7], [0xf4,0xf4,0xf4], [0x94,0xb0,0xc2], [0x56,0x6c,0x86], [0x33,0x3c,0x57]],"font":(pygame.font.Font("assets/tic-80_regular.ttf", 8), pygame.font.Font("assets/tic-80_narrow.ttf", 8), pygame.font.Font("assets/tic-80_regular-mono.ttf", 8), pygame.font.Font("assets/tic-80_narrow-mono.ttf", 8)), "clock":pygame.time.Clock()}
 
 #####################################
 
@@ -571,12 +571,12 @@ def sync(mask=0,bank=0,tocart=False):
     if mask == 0: mask = 0b111
     
     if tocart == False:
-        if (0b1 & mask) == 0b1: TIC["TILES"] = pygame.image.load_basic("assets/map/{}.bmp".format(bank)) #TILES
-        if (0b10 & mask) == 0b10: TIC["SPRITES"] = pygame.image.load_basic("assets/spr/{}.bmp".format(bank)) #SPRITES
+        if (0b1 & mask) == 0b1: TIC["TILES"] = pygame.image.load("assets/map/{}.png".format(bank)) #TILES
+        if (0b10 & mask) == 0b10: TIC["SPRITES"] = pygame.image.load("assets/spr/{}.png".format(bank)) #SPRITES
         if (0b100 & mask) == 0b100: TIC["MAP"] = np.loadtxt("assets/map/{}.csv".format(bank),dtype='int',delimiter=',')
     elif tocart == True:
-        if (0b1 & mask) == 0b1: pygame.image.save(TIC["TILES"],"assets/map/{}.bmp".format(bank)) #TILES
-        if (0b10 & mask) == 0b10: pygame.image.save(TIC["SPRITES"],"assets/spr/{}.bmp".format(bank)) #SPRITES
+        if (0b1 & mask) == 0b1: pygame.image.save(TIC["TILES"],"assets/map/{}.png".format(bank)) #TILES
+        if (0b10 & mask) == 0b10: pygame.image.save(TIC["SPRITES"],"assets/spr/{}.png".format(bank)) #SPRITES
         if (0b100 & mask) == 0b100: np.savetxt("assets/map/{}.csv".format(bank),TIC["MAP"],fmt='%d',delimiter=',')
 
 #TIC-80'S TEXTRI() FUNCTION, https://github.com/nesbox/TIC-80/wiki/textri
