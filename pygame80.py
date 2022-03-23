@@ -7,7 +7,7 @@ pygame.init()
 
 ###PARAMETERS###
 #WINDOW
-#pygame.display.set_icon(pygame.image.load('assets/tic80.png'))
+pygame.display.set_icon(pygame.image.load('assets/tic80.png'))
 pygame.display.set_caption("Pygame-80 by Kyuchumimo v211012")
 screen = pygame.display.set_mode([240,136],pygame.SCALED)
 
