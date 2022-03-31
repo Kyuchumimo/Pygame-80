@@ -338,6 +338,7 @@ def music(track=-1,frame=0,row=0,loop=True,sustain=False,tempo=-1,speed=-1):
         pygame.mixer.music.load("assets/music/{}.mod".format(int(track)))
         pygame.mixer.music.play(loop and -1 or 0,float(format((((frame*64)+1)*0.1)+((row)*0.1),'.1f')))
 
+#TIC-80'S PIX() FUNCTION, https://github.com/nesbox/TIC-80/wiki/pix
 def pix(x,y,color=None):
     """
     Usage:
