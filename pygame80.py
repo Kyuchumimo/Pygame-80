@@ -338,7 +338,6 @@ def music(track=-1,frame=0,row=0,loop=True,sustain=False,tempo=-1,speed=-1):
         pygame.mixer.music.load("assets/music/{}.mod".format(int(track)))
         pygame.mixer.music.play(loop and -1 or 0,float(format((((frame*64)+1)*0.1)+((row)*0.1),'.1f')))
 
-#TIC-80'S PIX() FUNCTION, https://github.com/nesbox/TIC-80/wiki/pix
 def pix(x,y,color=None):
     """
     Usage:
@@ -356,7 +355,7 @@ def pix(x,y,color=None):
     if color==None:
         return TIC["PALETTE"].index(scn[x,y].tolist()) #FASTER
         #return list(scn[x,y])
-    else:
+    elif x>=0 and x<pygame.Surface.get_size(screen)[0] and y>=0 and y<pygame.Surface.get_size(screen)[1]:
         scn[x,y] = TIC["PALETTE"][color%len(TIC["PALETTE"])]
 
 #TIC-80'S PMEM() FUNCTION, https://github.com/nesbox/TIC-80/wiki/pmem
