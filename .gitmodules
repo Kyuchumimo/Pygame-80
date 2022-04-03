@@ -1,0 +1,3 @@
+[submodule "tools/tic-tiled-map-converter"]
+	path = tools/tic-tiled-map-converter
+	url = https://github.com/Skaruts/tic-tiled-map-converter
