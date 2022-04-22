@@ -322,8 +322,8 @@ def music(track=-1,frame=0,row=0,loop=True,sustain=False,tempo=-1,speed=-1):
             ...or to stop the music:
             music
     Parameters:
-            track : the id of the track to play (0..7)
-            frame : the index of the frame to play from (0..15)
+            track : the id of the track to play (0..n)
+            frame : the index of the frame to play from (0..254)
             row : the index of the row to play from (0..63)
             loop : loop music (True) or play it once (False)
             sustain [NOT SUPPORTED]
