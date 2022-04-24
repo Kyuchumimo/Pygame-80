@@ -511,7 +511,7 @@ def sfx(id,note=None,duration=0,channel=0,volume=15,speed=0):
     if id != -1:
         snd = pygame.mixer.Sound("assets/sfx/{}.wav".format(int(id)))
         snd.set_volume((volume%16)/15)
-        pygame.mixer.Channel(channel).play(snd,0,duration*(1000/60))
+        pygame.mixer.Channel(channel).play(snd,0,int(duration*(1000/60)))
     else:
         pygame.mixer.Channel(channel).stop()
 
