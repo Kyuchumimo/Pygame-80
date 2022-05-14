@@ -407,7 +407,7 @@ def pmem(index,val32=None):
 def print(text,x=0,y=0,color=15,fixed=False,scale=1,smallfont=False):
     """
     Usage:
-            print text [x=0 y=0] [color=12] [fixed=False] [scale=1] [smallfont=False] -> text width
+            print text [x=0 y=0] [color=15] [fixed=False] [scale=1] [smallfont=False] -> text width
     Parameters:
             text : any string to be printed to the screen
             x, y : coordinates for printing the text
@@ -424,14 +424,14 @@ def print(text,x=0,y=0,color=15,fixed=False,scale=1,smallfont=False):
         if i>0: y += 6*scale
         if fixed==False:
             if smallfont==False:
-                screen.blit(pygame.transform.scale(TIC["font"][0].render(str(text).splitlines()[i],False,TIC["PALETTE"][color%len(TIC["PALETTE"])]),np.array(pygame.font.Font.size(TIC["font"][0],str(text)))*scale),[x,y]) #SYSTEM FONT
+                screen.blit(pygame.transform.scale(TIC["font"][0].render(str(text).splitlines()[i],False,TIC["PALETTE"][color%len(TIC["PALETTE"])]),np.array(pygame.font.Font.size(TIC["font"][0],str(text).splitlines()[i]))*scale),[x,y]) #SYSTEM FONT
             else:
-                screen.blit(pygame.transform.scale(TIC["font"][1].render(str(text).splitlines()[i],False,TIC["PALETTE"][color%len(TIC["PALETTE"])]),np.array(pygame.font.Font.size(TIC["font"][1],str(text)))*scale),[x,y]) #SYSTEM SMALLFONT
+                screen.blit(pygame.transform.scale(TIC["font"][1].render(str(text).splitlines()[i],False,TIC["PALETTE"][color%len(TIC["PALETTE"])]),np.array(pygame.font.Font.size(TIC["font"][1],str(text).splitlines()[i]))*scale),[x,y]) #SYSTEM SMALLFONT
         else:
             if smallfont==False:
-                screen.blit(pygame.transform.scale(TIC["font"][2].render(str(text).splitlines()[i],False,TIC["PALETTE"][color%len(TIC["PALETTE"])]),np.array(pygame.font.Font.size(TIC["font"][2],str(text)))*scale),[x,y]) #SYSTEM FONT FIXED
+                screen.blit(pygame.transform.scale(TIC["font"][2].render(str(text).splitlines()[i],False,TIC["PALETTE"][color%len(TIC["PALETTE"])]),np.array(pygame.font.Font.size(TIC["font"][2],str(text).splitlines()[i]))*scale),[x,y]) #SYSTEM FONT FIXED
             else:
-                screen.blit(pygame.transform.scale(TIC["font"][3].render(str(text).splitlines()[i],False,TIC["PALETTE"][color%len(TIC["PALETTE"])]),np.array(pygame.font.Font.size(TIC["font"][3],str(text)))*scale),[x,y]) #SYSTEM SMALLFONT FIXED
+                screen.blit(pygame.transform.scale(TIC["font"][3].render(str(text).splitlines()[i],False,TIC["PALETTE"][color%len(TIC["PALETTE"])]),np.array(pygame.font.Font.size(TIC["font"][3],str(text).splitlines()[i]))*scale),[x,y]) #SYSTEM SMALLFONT FIXED
     
     if fixed==False:
         if smallfont==False:
