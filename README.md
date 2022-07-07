@@ -61,4 +61,4 @@ To run the demo program, you can use a GNU/Linux shell or Windows shell
 **Blit Segment / Low BPP graphics**: Bit depth
 
 ### To do list:  
-- [ ] **handling of Assert Statement and Try Except Statement**
+- [ ] **Execute the TIC function as code globally**
