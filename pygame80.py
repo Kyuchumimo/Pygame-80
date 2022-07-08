@@ -741,7 +741,7 @@ setattr(builtins, 'mouse', mouse)
 setattr(builtins, 'music', music)
 setattr(builtins, 'pix', pix)
 setattr(builtins, 'pmem', pmem)
-setattr(builtins, 'print', print)
+#setattr(builtins, 'print', print)
 setattr(builtins, 'rect', rect)
 setattr(builtins, 'rectb', rectb)
 setattr(builtins, 'reset', reset)
@@ -772,7 +772,7 @@ try:
         exec(textwrap.dedent(inspect.getsource(TIC).split('\n', 1)[-1]))
 
         pygame.display.flip()
-except Exception:
+except Exception as e:
     import traceback
     
     traceback.print_exc()
