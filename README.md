@@ -59,6 +59,3 @@ To run the demo program, you can use a GNU/Linux shell or Windows shell
 **peek & peek4, poke & poke4, memcpy & memset**: Memory Mapping  
 **fset & fget**: Sprite flags  
 **Blit Segment / Low BPP graphics**: Bit depth
-
-### To do list:  
-- [ ] **Execute the TIC function as code globally**
