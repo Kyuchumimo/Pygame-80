@@ -772,7 +772,7 @@ try:
         exec(textwrap.dedent(inspect.getsource(TIC).split('\n', 1)[-1]))
 
         pygame.display.flip()
-except Exception as e:
+except Exception:
     import traceback
     
     traceback.print_exc()
