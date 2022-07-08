@@ -741,7 +741,7 @@ setattr(builtins, 'mouse', mouse)
 setattr(builtins, 'music', music)
 setattr(builtins, 'pix', pix)
 setattr(builtins, 'pmem', pmem)
-#setattr(builtins, 'print', print)
+setattr(builtins, 'print', print)
 setattr(builtins, 'rect', rect)
 setattr(builtins, 'rectb', rectb)
 setattr(builtins, 'reset', reset)
@@ -773,9 +773,12 @@ try:
 
         pygame.display.flip()
 except Exception:
-    import traceback
+    import logging, traceback
     
-    traceback.print_exc()
+    logging.basicConfig(level=logging.DEBUG)
+    logger = logging.getLogger(__name__)
+    
+    logger.debug(traceback.format_exc())
     
     pygame.quit()
     sys.exit()
