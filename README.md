@@ -22,8 +22,10 @@ pip install numpy
 
 To run the demo program, you can use a GNU/Linux shell or Windows shell
 
-- **GNU/Linux shell**:~$ python3 pygame80.py pythondemo.py
-- **Windows shell**: >python pygame80.py pythondemo.py
+**WINDOWS**  
+`>python pygame80.py pythondemo`  
+**GNU/LINUX**  
+`~@ python3 pygame80.py pythondemo`  
 
 ## Functions
 ### Functions available so far:  
