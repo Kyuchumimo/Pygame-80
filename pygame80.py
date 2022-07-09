@@ -719,7 +719,7 @@ def trib(x1, y1, x2, y2, x3, y3, color):
 #####################################
 try:
     
-    # do you usefull stuff here
+    # do you useful stuff here
     
     while True:
         _KEY = None
