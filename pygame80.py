@@ -22,6 +22,7 @@ _SCREEN = pygame.display.set_mode([240, 136], pygame.SCALED)
 pygame.mixer.set_num_channels(4)
 
 _TIC = {"TILES":pygame.image.load(os.path.join(_ASSET_PATH, 'map', '0.png')), "SPRITES":pygame.image.load(os.path.join(_ASSET_PATH, 'spr', '0.png')), "MAP":np.loadtxt(os.path.join(_ASSET_PATH, 'map', '0.csv'),dtype='int',delimiter=','), "PALETTE":[[0x1a,0x1c,0x2c], [0x5d,0x27,0x5d], [0xb1,0x3e,0x53], [0xef,0x7d,0x57], [0xff,0xcd,0x75], [0xa7,0xf0,0x70], [0x38,0xb7,0x64], [0x25,0x71,0x79], [0x29,0x36,0x6f], [0x3b,0x5d,0xc9], [0x41,0xa6,0xf6], [0x73,0xef,0xf7], [0xf4,0xf4,0xf4], [0x94,0xb0,0xc2], [0x56,0x6c,0x86], [0x33,0x3c,0x57]], "FONT":(pygame.font.Font(os.path.join(_ASSET_PATH, 'tic-80_regular.ttf'), 8), pygame.font.Font(os.path.join(_ASSET_PATH, 'tic-80_narrow.ttf'), 8), pygame.font.Font(os.path.join(_ASSET_PATH, 'tic-80_regular-mono.ttf'), 8), pygame.font.Font(os.path.join(_ASSET_PATH, 'tic-80_narrow-mono.ttf'), 8)), "CLOCK":pygame.time.Clock()}
+_SAVEFILE = "pygame-80"
 
 #####################################
 
@@ -381,31 +382,31 @@ def pmem(index, val32=None):
     Description:
             This function allows you to save and retrieve data in one of the 256 individual 32-bit slots available in the file's persistent memory. This is useful for saving high-scores, level advancement or achievements. Data is stored as unsigned 32-bit integer (from 0 to 4294967295).
     """
-    import json, sys
+    import json
     
     if val32==None:
         try:
-            with open(f"{sys.argv[1]}.sav", 'r') as file:
+            with open(f"{_SAVEFILE}.sav", 'r') as file:
                 data = json.load(file)
                 return data["{}".format(int(index)%256)]
         except (FileNotFoundError, json.decoder.JSONDecodeError, KeyError) as error:
             return 0
     else:
         try:
-            with open(f"{sys.argv[1]}.sav", 'r') as file:
+            with open(f"{_SAVEFILE}.sav", 'r') as file:
                 data = json.load(file)
                 prior_val32 = data["{}".format(int(index)%256)]
         except (FileNotFoundError, json.decoder.JSONDecodeError, KeyError) as error:
             prior_val32 = 0
         
         try:
-            with open(f"{sys.argv[1]}.sav", 'r') as file:
+            with open(f"{_SAVEFILE}.sav", 'r') as file:
                 data = json.load(file)
                 data[str(int(index%256))] = int(val32)%2**32
-            with open(f"{sys.argv[1]}.sav", 'w') as file:
+            with open(f"{_SAVEFILE}.sav", 'w') as file:
                 json.dump(data,file)
         except (FileNotFoundError, json.decoder.JSONDecodeError) as error:
-            with open(f"{sys.argv[1]}.sav", 'w') as file:
+            with open(f"{_SAVEFILE}.sav", 'w') as file:
                 data = dict()
                 data["{}".format(int(index)%256)] = int(val32)%2**32
                 json.dump(data,file)
