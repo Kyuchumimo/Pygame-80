@@ -17,7 +17,6 @@ Some of the highlights of using this library are:
 pip install pygame
 pip install numpy
 ```
-
 ## Functions
 ### Functions available so far:  
 **btn**: use pygame.key.get_pressed & **btnp**: use pygame.event.get(pygame.KEYDOWN)  
