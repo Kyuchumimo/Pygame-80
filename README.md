@@ -2,9 +2,7 @@
 
 ![](https://user-images.githubusercontent.com/74131798/159044855-2366e15f-3730-4eab-b7f9-bc2c800cb9f6.gif)
 
-A set of functions from TIC-80 tiny computer 0.90.1723 platform ported to Pygame 2. Many of them are designed to work with the NumPy library to improve performance, per pixel access and CSV files access.  
-
-**THIS LIBRARY IS STILL UNDER DEVELOPMENT, SO THE BEHAVIOR OF THE FUNCTIONS MAY CHANGE OVER TIME, WAIT UNTIL A STABLE VERSION IS RELEASED**  
+A set of functions from TIC-80 tiny computer 0.90.1723 platform ported to Pygame 2. Many of them are designed to work with the NumPy library to improve performance, per pixel access and CSV files access.   
 
 Some of the highlights of using this library are:  
 * TIC-80 friendly  
@@ -19,12 +17,6 @@ Some of the highlights of using this library are:
 pip install pygame
 pip install numpy
 ```
-
-To run the demo program, you can use a GNU/Linux shell or Windows shell
-**WINDOWS**  
-`>python pygame80.py pythondemo`  
-**GNU/LINUX**  
-`~@ python3 pygame80.py pythondemo`  
 
 ## Functions
 ### Functions available so far:  
