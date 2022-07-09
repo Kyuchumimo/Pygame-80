@@ -21,7 +21,12 @@ _screen = pygame.display.set_mode([240, 136], pygame.SCALED)
 #MUSIC CHANNELS
 pygame.mixer.set_num_channels(4)
 
-_TIC = {"TILES":pygame.image.load(os.path.join(_ASSET_PATH, 'map', '0.png')), "SPRITES":pygame.image.load(os.path.join(_ASSET_PATH, 'spr', '0.png')), "MAP":np.loadtxt(os.path.join(_ASSET_PATH, 'map', '0.csv'),dtype='int',delimiter=','), "PALETTE":[[0x1a,0x1c,0x2c], [0x5d,0x27,0x5d], [0xb1,0x3e,0x53], [0xef,0x7d,0x57], [0xff,0xcd,0x75], [0xa7,0xf0,0x70], [0x38,0xb7,0x64], [0x25,0x71,0x79], [0x29,0x36,0x6f], [0x3b,0x5d,0xc9], [0x41,0xa6,0xf6], [0x73,0xef,0xf7], [0xf4,0xf4,0xf4], [0x94,0xb0,0xc2], [0x56,0x6c,0x86], [0x33,0x3c,0x57]], "font":(pygame.font.Font(os.path.join(_ASSET_PATH, 'tic-80_regular.ttf'), 8), pygame.font.Font(os.path.join(_ASSET_PATH, 'tic-80_narrow.ttf'), 8), pygame.font.Font(os.path.join(_ASSET_PATH, 'tic-80_regular-mono.ttf'), 8), pygame.font.Font(os.path.join(_ASSET_PATH, 'tic-80_narrow-mono.ttf'), 8)), "clock":pygame.time.Clock()}
+_TIC_TILES = pygame.image.load(os.path.join(_ASSET_PATH, 'map', '0.png'))
+_TIC_SPRITES = pygame.image.load(os.path.join(_ASSET_PATH, 'spr', '0.png'))
+_TIC_MAP = np.loadtxt(os.path.join(_ASSET_PATH, 'map', '0.csv'),dtype='int',delimiter=',')
+_TIC_PALETTE = [[0x1a,0x1c,0x2c], [0x5d,0x27,0x5d], [0xb1,0x3e,0x53], [0xef,0x7d,0x57], [0xff,0xcd,0x75], [0xa7,0xf0,0x70], [0x38,0xb7,0x64], [0x25,0x71,0x79], [0x29,0x36,0x6f], [0x3b,0x5d,0xc9], [0x41,0xa6,0xf6], [0x73,0xef,0xf7], [0xf4,0xf4,0xf4], [0x94,0xb0,0xc2], [0x56,0x6c,0x86], [0x33,0x3c,0x57]]
+_TIC_FONT = (pygame.font.Font(os.path.join(_ASSET_PATH, 'tic-80_regular.ttf'), 8), pygame.font.Font(os.path.join(_ASSET_PATH, 'tic-80_narrow.ttf'), 8), pygame.font.Font(os.path.join(_ASSET_PATH, 'tic-80_regular-mono.ttf'), 8), pygame.font.Font(os.path.join(_ASSET_PATH, 'tic-80_narrow-mono.ttf'), 8))
+_TIC_CLOCK = pygame.time.Clock()
 
 #####################################
 
@@ -69,7 +74,7 @@ def circ(x, y, radius, color):
     Description:
             This function draws a filled circle of the desired radius and color with its center at x, y.
     """
-    pygame.draw.circle(_screen, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [x, y], radius)
+    pygame.draw.circle(_screen, _TIC_PALETTE[color%len(_TIC_PALETTE)], [x, y], radius)
 
 #TIC-80'S CIRCB() FUNCTION, https://github.com/nesbox/TIC-80/wiki/circ
 def circb(x, y, radius, color):
@@ -83,7 +88,7 @@ def circb(x, y, radius, color):
     Description:
             Draws the circumference of a circle with its center at x, y using the radius and color requested.
     """
-    pygame.draw.circle(_screen, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [x, y], radius, 1)
+    pygame.draw.circle(_screen, _TIC_PALETTE[color%len(_TIC_PALETTE)], [x, y], radius, 1)
 
 #TIC-80'S CLIP() FUNCTION, https://github.com/nesbox/TIC-80/wiki/clip
 def clip(*args):
@@ -117,7 +122,7 @@ def cls(color=0):
     Description:
             This function clears/fills the entire screen using color. If no parameter is passed, index 0 of the palette is used.
     """
-    _screen.fill(_TIC["PALETTE"][color%len(_TIC["PALETTE"])])
+    _screen.fill(_TIC_PALETTE[color%len(_TIC_PALETTE)])
 
 #TIC-80'S ELLI() FUNCTION
 def elli(x, y, a, b, color):
@@ -132,7 +137,7 @@ def elli(x, y, a, b, color):
     Description:
             This function draws a filled ellipse of the desired radiuses a b and color with its center at x, y.
     """
-    pygame.draw.ellipse(_screen, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [x-a, y-b, a*2, b*2])
+    pygame.draw.ellipse(_screen, _TIC_PALETTE[color%len(_TIC_PALETTE)], [x-a, y-b, a*2, b*2])
 
 #TIC-80'S ELLIB() FUNCTION
 def ellib(x, y, a, b, color):
@@ -147,7 +152,7 @@ def ellib(x, y, a, b, color):
     Description:
             This function draws an ellipse border with the desired radiuses a b and color with its center at x, y.
     """
-    pygame.draw.ellipse(_screen, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [x-a, y-b, a*2, b*2], 1)
+    pygame.draw.ellipse(_screen, _TIC_PALETTE[color%len(_TIC_PALETTE)], [x-a, y-b, a*2, b*2], 1)
 
 #TIC-80'S EXIT() FUNCTION, https://github.com/nesbox/TIC-80/wiki/exit
 def exit():
@@ -177,11 +182,11 @@ def font(text, x, y, transcolor=-1, w=9, h=8, fixed=False, scale=1):
     Description:
             This function will draw text to the screen using the foreground spritesheet as the font. Sprite #256 is used for ASCII code 0, #257 for code 1 and so on. The character 'A' has the ASCII code 65 so will be drawn using the sprite with sprite #321 (256+65).
     """
-    ts = _TIC["SPRITES"]
+    ts = _TIC_SPRITES
     text = str(text).encode('ascii')
     
     if scale != 1: ts = pygame.transform.scale(ts,[(pygame.Surface.get_size(ts)[0])*scale,(pygame.Surface.get_size(ts)[1])*scale])
-    if transcolor != -1: ts.set_colorkey(_TIC["PALETTE"][transcolor%len(_TIC["PALETTE"])])
+    if transcolor != -1: ts.set_colorkey(_TIC_PALETTE[transcolor%len(_TIC_PALETTE)])
     
     if fixed==False:
         w=9
@@ -240,7 +245,7 @@ def line(x0, y0, x1, y1, color):
     Description:
             Draws a straight line from point (x0,y0) to point (x1,y1) in the specified color.
     """
-    pygame.draw.line(_screen, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [x0, y0], [x1, y1])
+    pygame.draw.line(_screen, _TIC_PALETTE[color%len(_TIC_PALETTE)], [x0, y0], [x1, y1])
 
 #TIC-80'S MAP() FUNCTION, https://github.com/nesbox/TIC-80/wiki/map
 def map(x=0, y=0, w=30, h=17, sx=0, sy=0, colorkey=-1, scale=1, remap=None):
@@ -258,14 +263,14 @@ def map(x=0, y=0, w=30, h=17, sx=0, sy=0, colorkey=-1, scale=1, remap=None):
             scale : Map scaling.
             remap [PARTIAL] : An optional exec() function called before every tile is drawn. Using this callback function you can show or hide tiles or create tile animations during the map rendering stage: "PPU[(PPU == tile)] = tile" 
     """
-    ts = _TIC["TILES"] #[PATTERN TABLE]
-    PPU = np.copy(_TIC["MAP"])
+    ts = _TIC_TILES #[PATTERN TABLE]
+    PPU = np.copy(_TIC_MAP)
     
     if remap is not None: exec(remap)
     #if remap==None: remap=(VRAM,VRAM,VRAM)
     
     if scale != 1: ts = pygame.transform.scale(ts, [(pygame.Surface.get_size(ts)[0])*scale, (pygame.Surface.get_size(ts)[1])*scale])
-    if colorkey != -1: ts.set_colorkey(_TIC["PALETTE"][colorkey%len(_TIC["PALETTE"])])
+    if colorkey != -1: ts.set_colorkey(_TIC_PALETTE[colorkey%len(_TIC_PALETTE)])
     
     #TILE BASED BACKGROUND
     for i in range(y, y+h): #ROWS
@@ -286,7 +291,7 @@ def mget(x, y):
     Description:
             This function returns the tile at the specified TILEMAP coordinates, the top left cell of the tilemap being (0, 0).
     """
-    return _TIC["MAP"][y, x]
+    return _TIC_MAP[y, x]
 
 #TIC-80'S MSET() FUNCTION, https://github.com/nesbox/TIC-80/wiki/mget
 def mset(x, y, tile_id):
@@ -299,7 +304,7 @@ def mset(x, y, tile_id):
     Description:
             This function will change the tile at the specified TILEMAP coordinates. By default, changes made are only kept while the current game is running.
     """
-    _TIC["MAP"][y, x] = tile_id
+    _TIC_MAP[y, x] = tile_id
 
 #TIC-80'S MOUSE() FUNCTION, https://github.com/nesbox/TIC-80/wiki/mouse
 def mouse():
@@ -362,10 +367,10 @@ def pix(x, y, color=None):
     """
     scn = pygame.surfarray.pixels3d(_screen)
     if color==None:
-        return _TIC["PALETTE"].index(scn[x,y].tolist()) #FASTER
+        return _TIC_PALETTE.index(scn[x,y].tolist()) #FASTER
         #return list(scn[x,y])
     elif x>=0 and x<pygame.Surface.get_size(_screen)[0] and y>=0 and y<pygame.Surface.get_size(_screen)[1]:
-        scn[x,y] = _TIC["PALETTE"][color%len(_TIC["PALETTE"])]
+        scn[x,y] = _TIC_PALETTE[color%len(_TIC_PALETTE)]
 
 #TIC-80'S PMEM() FUNCTION, https://github.com/nesbox/TIC-80/wiki/pmem
 def pmem(index, val32=None):
@@ -433,25 +438,25 @@ def print(text, x=0, y=0, color=15, fixed=False, scale=1, smallfont=False):
         if i>0: y += 6*scale
         if fixed==False:
             if smallfont==False:
-                _screen.blit(pygame.transform.scale(_TIC["font"][0].render(str(text).splitlines()[i],False,_TIC["PALETTE"][color%len(_TIC["PALETTE"])]),np.array(pygame.font.Font.size(_TIC["font"][0],str(text).splitlines()[i]))*scale),[x,y]) #SYSTEM FONT
+                _screen.blit(pygame.transform.scale(_TIC_FONT[0].render(str(text).splitlines()[i],False,_TIC_PALETTE[color%len(_TIC_PALETTE)]),np.array(pygame.font.Font.size(_TIC_FONT[0],str(text).splitlines()[i]))*scale),[x,y]) #SYSTEM FONT
             else:
-                _screen.blit(pygame.transform.scale(_TIC["font"][1].render(str(text).splitlines()[i],False,_TIC["PALETTE"][color%len(_TIC["PALETTE"])]),np.array(pygame.font.Font.size(_TIC["font"][1],str(text).splitlines()[i]))*scale),[x,y]) #SYSTEM SMALLFONT
+                _screen.blit(pygame.transform.scale(_TIC_FONT[1].render(str(text).splitlines()[i],False,_TIC_PALETTE[color%len(_TIC_PALETTE)]),np.array(pygame.font.Font.size(_TIC_FONT[1],str(text).splitlines()[i]))*scale),[x,y]) #SYSTEM SMALLFONT
         else:
             if smallfont==False:
-                _screen.blit(pygame.transform.scale(_TIC["font"][2].render(str(text).splitlines()[i],False,_TIC["PALETTE"][color%len(_TIC["PALETTE"])]),np.array(pygame.font.Font.size(_TIC["font"][2],str(text).splitlines()[i]))*scale),[x,y]) #SYSTEM FONT FIXED
+                _screen.blit(pygame.transform.scale(_TIC_FONT[2].render(str(text).splitlines()[i],False,_TIC_PALETTE[color%len(_TIC_PALETTE)]),np.array(pygame.font.Font.size(_TIC_FONT[2],str(text).splitlines()[i]))*scale),[x,y]) #SYSTEM FONT FIXED
             else:
-                _screen.blit(pygame.transform.scale(_TIC["font"][3].render(str(text).splitlines()[i],False,_TIC["PALETTE"][color%len(_TIC["PALETTE"])]),np.array(pygame.font.Font.size(_TIC["font"][3],str(text).splitlines()[i]))*scale),[x,y]) #SYSTEM SMALLFONT FIXED
+                _screen.blit(pygame.transform.scale(_TIC_FONT[3].render(str(text).splitlines()[i],False,_TIC_PALETTE[color%len(_TIC_PALETTE)]),np.array(pygame.font.Font.size(_TIC_FONT[3],str(text).splitlines()[i]))*scale),[x,y]) #SYSTEM SMALLFONT FIXED
     
     if fixed==False:
         if smallfont==False:
-            return _TIC["font"][0].size(max(str(text).splitlines()))[0]*scale
+            return _TIC_FONT[0].size(max(str(text).splitlines()))[0]*scale
         else:
-            return _TIC["font"][1].size(max(str(text).splitlines()))[0]*scale
+            return _TIC_FONT[1].size(max(str(text).splitlines()))[0]*scale
     else:
         if smallfont==False:
-            return _TIC["font"][2].size(max(str(text).splitlines()))[0]*scale
+            return _TIC_FONT[2].size(max(str(text).splitlines()))[0]*scale
         else:
-            return _TIC["font"][3].size(max(str(text).splitlines()))[0]*scale
+            return _TIC_FONT[3].size(max(str(text).splitlines()))[0]*scale
 
 #TIC-80'S RECT() FUNCTION, https://github.com/nesbox/TIC-80/wiki/rect
 def rect(x, y, w, h, color):
@@ -466,7 +471,7 @@ def rect(x, y, w, h, color):
     Description:
             This function draws a filled rectangle of the desired size and color at the specified position.
     """
-    pygame.draw.rect(_screen, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [x, y, w, h])
+    pygame.draw.rect(_screen, _TIC_PALETTE[color%len(_TIC_PALETTE)], [x, y, w, h])
 
 #TIC-80'S RECTB() FUNCTION, https://github.com/nesbox/TIC-80/wiki/rect
 def rectb(x, y, w, h, color):
@@ -481,7 +486,7 @@ def rectb(x, y, w, h, color):
     Descripion:
             This function draws a one pixel thick rectangle border at the position requested.
     """
-    pygame.draw.rect(_screen, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [x, y, w, h], 1)
+    pygame.draw.rect(_screen, _TIC_PALETTE[color%len(_TIC_PALETTE)], [x, y, w, h], 1)
 
 #TIC-80'S RESET() FUNCTION, https://github.com/nesbox/TIC-80/wiki/reset
 def reset():
@@ -538,8 +543,8 @@ def spr(id, x, y, colorkey=-1, scale=1, flip=0, rotate=0, w=1, h=1):
             h : height of composite sprite
     """
     ts = pygame.Surface([128, 256])
-    ts.blit(_TIC["TILES"], [0, 0])
-    ts.blit(_TIC["SPRITES"], [0, 128])
+    ts.blit(_TIC_TILES, [0, 0])
+    ts.blit(_TIC_SPRITES, [0, 128])
     
     if scale != 1: ts = pygame.transform.scale(ts,[(pygame.Surface.get_size(ts)[0])*scale,(pygame.Surface.get_size(ts)[1])*scale])
     
@@ -551,7 +556,7 @@ def spr(id, x, y, colorkey=-1, scale=1, flip=0, rotate=0, w=1, h=1):
             
     if flip != 0: obj = pygame.transform.flip(obj,((flip >> 0 & 1) != 0),((flip >> 1 & 1) != 0))
     if rotate != 0: obj = pygame.transform.rotate(obj,rotate*-90)
-    if colorkey != -1: obj.set_colorkey(_TIC["PALETTE"][colorkey%len(_TIC["PALETTE"])])
+    if colorkey != -1: obj.set_colorkey(_TIC_PALETTE[colorkey%len(_TIC_PALETTE)])
     
     _screen.blit(obj,[x,y])
 
@@ -577,19 +582,19 @@ def sync(mask=0, bank=0, tocart=False):
     if mask == 0: mask = 0b111
     
     if tocart == False:
-        if (0b1 & mask) == 0b1: _TIC["TILES"] = pygame.image.load(os.path.join(_ASSET_PATH, 'map', f'{bank}.png')) #TILES
-        if (0b10 & mask) == 0b10: _TIC["SPRITES"] = pygame.image.load(os.path.join(_ASSET_PATH, 'spr', f'{bank}.png')) #SPRITES
-        if (0b100 & mask) == 0b100: _TIC["MAP"] = np.loadtxt(os.path.join(_ASSET_PATH, 'map', f'{bank}.csv'), dtype='int', delimiter=',')
+        if (0b1 & mask) == 0b1: _TIC_TILES = pygame.image.load(os.path.join(_ASSET_PATH, 'map', f'{bank}.png')) #TILES
+        if (0b10 & mask) == 0b10: _TIC_SPRITES = pygame.image.load(os.path.join(_ASSET_PATH, 'spr', f'{bank}.png')) #SPRITES
+        if (0b100 & mask) == 0b100: _TIC_MAP = np.loadtxt(os.path.join(_ASSET_PATH, 'map', f'{bank}.csv'), dtype='int', delimiter=',')
     elif tocart == True:
-        if (0b1 & mask) == 0b1: pygame.image.save(_TIC["TILES"], os.path.join(_ASSET_PATH, 'map', f'{bank}.png')) #TILES
-        if (0b10 & mask) == 0b10: pygame.image.save(_TIC["SPRITES"], os.path.join(_ASSET_PATH, 'spr', f'{bank}.png')) #SPRITES
-        if (0b100 & mask) == 0b100: np.savetxt(os.path.join(_ASSET_PATH, 'map', f'{bank}.csv'), _TIC["MAP"], fmt='%d', delimiter=',')
+        if (0b1 & mask) == 0b1: pygame.image.save(_TIC_TILES, os.path.join(_ASSET_PATH, 'map', f'{bank}.png')) #TILES
+        if (0b10 & mask) == 0b10: pygame.image.save(_TIC_SPRITES, os.path.join(_ASSET_PATH, 'spr', f'{bank}.png')) #SPRITES
+        if (0b100 & mask) == 0b100: np.savetxt(os.path.join(_ASSET_PATH, 'map', f'{bank}.csv'), _TIC_MAP, fmt='%d', delimiter=',')
 
 #TIC-80'S TEXTRI() FUNCTION, https://github.com/nesbox/TIC-80/wiki/textri
 def textri(x1, y1, x2, y2, x3, y3, u1, v1, u2, v2, u3, v3, use_map=False, trans=-1):
     """
     """
-    texture = pygame.surfarray.array3d(_TIC["SPRITES"])
+    texture = pygame.surfarray.array3d(_TIC_SPRITES)
     
     triangle = np.array([[x1,y1],[x2,y2],[x3,y3]])
     texture_uv = np.array([[u1,v1],[u2,v2],[u3,v3]])
@@ -639,7 +644,7 @@ def textri(x1, y1, x2, y2, x3, y3, u1, v1, u2, v2, u3, v3, use_map=False, trans=
             frame[x, y] = texture[u][v]
 
     surf = pygame.surfarray.make_surface(frame)
-    if trans != -1: surf.set_colorkey(_TIC["PALETTE"][trans%len(_TIC["PALETTE"])])
+    if trans != -1: surf.set_colorkey(_TIC_PALETTE[trans%len(_TIC_PALETTE)])
     _screen.blit(surf, (0,0))
 
 #TIC-80'S TIME() FUNCTION, https://github.com/nesbox/TIC-80/wiki/time
@@ -684,7 +689,7 @@ def trace(message, color=15):
     if os.name == 'nt':
         builtins.print(str(message))
     else:
-        builtins.print("\033[38;2;{};{};{}m{} \033[38;2;255;255;255m".format(*_TIC["PALETTE"][color%len(_TIC["PALETTE"])], str(message)))
+        builtins.print("\033[38;2;{};{};{}m{} \033[38;2;255;255;255m".format(*_TIC_PALETTE[color%len(_TIC_PALETTE)], str(message)))
 
 #TIC-80'S TRI() FUNCTION, https://github.com/nesbox/TIC-80/wiki/tri
 def tri(x1, y1, x2, y2, x3, y3, color):
@@ -699,7 +704,7 @@ def tri(x1, y1, x2, y2, x3, y3, color):
     Description:
             This function draws a triangle filled with color, using the supplied vertices.
     """
-    pygame.draw.polygon(_screen, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [(x1, y1), (x2, y2), (x3, y3)])
+    pygame.draw.polygon(_screen, _TIC_PALETTE[color%len(_TIC_PALETTE)], [(x1, y1), (x2, y2), (x3, y3)])
 
 #TIC-80'S TRIB() FUNCTION, https://github.com/nesbox/TIC-80/wiki/trib
 def trib(x1, y1, x2, y2, x3, y3, color):
@@ -714,7 +719,7 @@ def trib(x1, y1, x2, y2, x3, y3, color):
     Description:
             This function draws a triangle border with color, using the supplied vertices.
     """
-    pygame.draw.polygon(_screen, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [(x1, y1), (x2, y2), (x3, y3)], 1)
+    pygame.draw.polygon(_screen, _TIC_PALETTE[color%len(_TIC_PALETTE)], [(x1, y1), (x2, y2), (x3, y3)], 1)
 
 #####################################
 import builtins
@@ -767,7 +772,7 @@ try:
             elif event.type == pygame.KEYDOWN:
                 _key = pygame.key.name(event.key)
         
-        _TIC["clock"].tick(60)
+        _TIC_CLOCK.tick(60)
         
         exec(textwrap.dedent(inspect.getsource(TIC).split('\n', 1)[-1]))
 
