@@ -287,7 +287,7 @@ def mget(x, y):
     Description:
             This function returns the tile at the specified TILEMAP coordinates, the top left cell of the tilemap being (0, 0).
     """
-    return _TIC["MAP"][y, x]
+    return _TIC["MAP"][int(y), int(x)]
 
 #TIC-80'S MSET() FUNCTION, https://github.com/nesbox/TIC-80/wiki/mget
 def mset(x, y, tile_id):
@@ -300,7 +300,7 @@ def mset(x, y, tile_id):
     Description:
             This function will change the tile at the specified TILEMAP coordinates. By default, changes made are only kept while the current game is running.
     """
-    _TIC["MAP"][y, x] = tile_id
+    _TIC["MAP"][int(y), int(x)] = tile_id
 
 #TIC-80'S MOUSE() FUNCTION, https://github.com/nesbox/TIC-80/wiki/mouse
 def mouse():
