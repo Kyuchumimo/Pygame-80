@@ -14,7 +14,7 @@ Some of the highlights of using this library are:
 
 ## Dependencies
 ```
-pip install pygame
+pip install pygame==2.0.1
 pip install numpy
 ```
 ## Functions
