@@ -267,8 +267,7 @@ def map(x=0, y=0, w=30, h=17, sx=0, sy=0, colorkey=-1, scale=1, remap=None):
     #if remap==None: remap=(VRAM,VRAM,VRAM)
     
     if scale != 1: ts = pygame.transform.scale(ts, [(pygame.Surface.get_size(ts)[0])*scale, (pygame.Surface.get_size(ts)[1])*scale])
-    if colorkey != -1:
-        ts.set_colorkey(_TIC["PALETTE"][colorkey%len(_TIC["PALETTE"])])
+    if colorkey != -1: ts.set_colorkey(_TIC["PALETTE"][colorkey%len(_TIC["PALETTE"])])
     
     #TILE BASED BACKGROUND
     for i in range(y, y+h): #ROWS
