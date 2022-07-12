@@ -2,7 +2,6 @@ import pygame
 from pygame.locals import *
 import numpy as np
 import os, sys
-import copy
 
 if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
     #running in a PyInstaller bundle
@@ -260,7 +259,8 @@ def map(x=0, y=0, w=30, h=17, sx=0, sy=0, colorkey=-1, scale=1, remap=None):
             scale : Map scaling.
             remap [PARTIAL] : An optional exec() function called before every tile is drawn. Using this callback function you can show or hide tiles or create tile animations during the map rendering stage: "PPU[(PPU == tile)] = tile" 
     """
-    ts = copy.copy(_TIC["TILES"]) #[PATTERN TABLE]
+    ts = pygame.Surface([128, 128])
+    ts.blit(_TIC["TILES"], [0, 0]) #[PATTERN TABLE]
     PPU = np.copy(_TIC["MAP"])
     
     if remap is not None: exec(remap)
