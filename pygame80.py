@@ -14,7 +14,7 @@ pygame.init()
 
 ###PARAMETERS###
 #WINDOW
-pygame.display.set_icon(pygame.image.load(os.path.join(_ASSET_PATH, 'tic80.png')))
+pygame.display.set_icon(pygame.image.load(os.path.join(_ASSET_PATH, 'icon.png')))
 pygame.display.set_caption("Pygame-80 by Kyuchumimo vOut-of-the-Box (220708)")
 _SCREEN = pygame.display.set_mode([240, 136], pygame.SCALED)
 
@@ -22,7 +22,7 @@ _SCREEN = pygame.display.set_mode([240, 136], pygame.SCALED)
 pygame.mixer.set_num_channels(4)
 
 _TIC = {"TILES":pygame.image.load(os.path.join(_ASSET_PATH, 'map', '0.png')), "SPRITES":pygame.image.load(os.path.join(_ASSET_PATH, 'spr', '0.png')), "MAP":np.loadtxt(os.path.join(_ASSET_PATH, 'map', '0.csv'),dtype='int',delimiter=','), "PALETTE":[[0x1a,0x1c,0x2c], [0x5d,0x27,0x5d], [0xb1,0x3e,0x53], [0xef,0x7d,0x57], [0xff,0xcd,0x75], [0xa7,0xf0,0x70], [0x38,0xb7,0x64], [0x25,0x71,0x79], [0x29,0x36,0x6f], [0x3b,0x5d,0xc9], [0x41,0xa6,0xf6], [0x73,0xef,0xf7], [0xf4,0xf4,0xf4], [0x94,0xb0,0xc2], [0x56,0x6c,0x86], [0x33,0x3c,0x57]], "FONT":(pygame.font.Font(os.path.join(_ASSET_PATH, 'tic-80_regular.ttf'), 8), pygame.font.Font(os.path.join(_ASSET_PATH, 'tic-80_narrow.ttf'), 8), pygame.font.Font(os.path.join(_ASSET_PATH, 'tic-80_regular-mono.ttf'), 8), pygame.font.Font(os.path.join(_ASSET_PATH, 'tic-80_narrow-mono.ttf'), 8)), "CLOCK":pygame.time.Clock()}
-_SAVEFILE = "pygame-80"
+_SAVEFILE = "pygame80"
 
 #####################################
 
