@@ -560,7 +560,7 @@ def spr(id, x, y, colorkey=-1, scale=1, flip=0, rotate=0, w=1, h=1):
     if rotate != 0: obj = pygame.transform.rotate(obj, rotate*-90)
     if colorkey != -1: obj.set_colorkey(_TIC["PALETTE"][colorkey%len(_TIC["PALETTE"])])
     
-    _SCREEN.blit(obj,[x,y])
+    _SCREEN.blit(obj, [x,y])
 
 #TIC-80'S SYNC() FUNCTION, https://github.com/nesbox/TIC-80/wiki/sync
 def sync(mask=0, bank=0, tocart=False):
