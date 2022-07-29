@@ -556,8 +556,8 @@ def spr(id, x, y, colorkey=-1, scale=1, flip=0, rotate=0, w=1, h=1):
         for j in range(0,w): #COLUMNS
             obj.blit(ts.subsurface([(int(id)+((i*16)+j))%16*(8*scale),(int(id)+((i*16)+j))%512//16*(8*scale),scale*8,scale*8]),[j*(8*scale),i*(8*scale)])
             
-    if flip != 0: obj = pygame.transform.flip(obj,((flip >> 0 & 1) != 0),((flip >> 1 & 1) != 0))
-    if rotate != 0: obj = pygame.transform.rotate(obj,rotate*-90)
+    if flip != 0: obj = pygame.transform.flip(obj, flip >> 0 & 1, flip >> 1 & 1)
+    if rotate != 0: obj = pygame.transform.rotate(obj, rotate*-90)
     if colorkey != -1: obj.set_colorkey(_TIC["PALETTE"][colorkey%len(_TIC["PALETTE"])])
     
     _SCREEN.blit(obj,[x,y])
