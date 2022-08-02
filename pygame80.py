@@ -20,7 +20,7 @@ pygame.init()
 ###PARAMETERS###
 #WINDOW
 pygame.display.set_icon(pygame.image.load(os.path.join(_ASSET_PATH, 'icon.png')))
-pygame.display.set_caption("Pygame-80 by Kyuchumimo vOut-of-the-Box (220708)")
+pygame.display.set_caption("Pygame-80 by Kyuchumimo v220802")
 _SCREEN = pygame.display.set_mode([240, 136], pygame.SCALED)
 
 #MUSIC CHANNELS
