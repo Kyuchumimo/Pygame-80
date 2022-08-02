@@ -163,7 +163,6 @@ def exit():
     Description:
             This function causes program execution to be interrupted.
     """
-    pygame.quit()
     sys.exit()
 
 #TIC-80'S FONT() FUNCTION, https://github.com/nesbox/TIC-80/wiki/font
@@ -734,7 +733,6 @@ try:
         _KEY = None
         for event in pygame.event.get():
             if event.type == pygame.QUIT or pygame.key.get_pressed()[pygame.K_ESCAPE]:
-                pygame.quit()
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
                 _KEY = pygame.key.name(event.key)
@@ -749,5 +747,4 @@ except Exception:
     
     traceback.print_exc()
     
-    pygame.quit()
     sys.exit()
