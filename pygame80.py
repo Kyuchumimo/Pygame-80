@@ -366,7 +366,7 @@ def music(track=-1, frame=-1, row=-1, loop=True, sustain=False, tempo=-1, speed=
             timeperrow = 2500 / T * M
             
             pygame.mixer.music.load(io.BytesIO(data))
-            pygame.mixer.music.play(loop and -1 or 0, (timeperrow*(max(0, row) + (max(0, frame) * 63))) / 1000)
+            pygame.mixer.music.play(loop and -1 or 0, (timeperrow * (max(0, row) + (max(0, frame) * 63))) / 1000)
 
 #TIC-80'S PIX() FUNCTION, https://github.com/nesbox/TIC-80/wiki/pix
 def pix(x, y, color=None):
@@ -466,14 +466,14 @@ def print(text, x=0, y=0, color=15, fixed=False, scale=1, smallfont=False):
     
     if fixed==False:
         if smallfont==False:
-            return _TIC["FONT"][0].size(max(str(text).splitlines()))[0]*scale
+            return _TIC["FONT"][0].size(max(str(text).splitlines()))[0] * scale
         else:
-            return _TIC["FONT"][1].size(max(str(text).splitlines()))[0]*scale
+            return _TIC["FONT"][1].size(max(str(text).splitlines()))[0] * scale
     else:
         if smallfont==False:
-            return _TIC["FONT"][2].size(max(str(text).splitlines()))[0]*scale
+            return _TIC["FONT"][2].size(max(str(text).splitlines()))[0] * scale
         else:
-            return _TIC["FONT"][3].size(max(str(text).splitlines()))[0]*scale
+            return _TIC["FONT"][3].size(max(str(text).splitlines()))[0] * scale
 
 #TIC-80'S RECT() FUNCTION, https://github.com/nesbox/TIC-80/wiki/rect
 def rect(x, y, w, h, color):
@@ -539,7 +539,7 @@ def sfx(id, note=None, duration=0, channel=0, volume=15, speed=0):
     if id != -1:
         snd = pygame.mixer.Sound(os.path.join(_ASSET_PATH, 'sfx', f'{int(id)}.wav'))
         snd.set_volume((volume%16)/15)
-        pygame.mixer.Channel(channel).play(snd, 0, int(duration*(1000/60)))
+        pygame.mixer.Channel(channel).play(snd, 0, int(duration * (1000 / 60)))
     else:
         pg.mixer.Channel(channel).stop()
 
