@@ -331,7 +331,7 @@ def mouse():
     return tuple((pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1],pygame.mouse.get_pressed()[0],pygame.mouse.get_pressed()[1],pygame.mouse.get_pressed()[2],mw_xy[0],mw_xy[1]))
 
 #TIC-80'S MUSIC() FUNCTION, https://github.com/nesbox/TIC-80/wiki/music
-def music(track=-1, frame=0, row=0, loop=True, sustain=False, tempo=-1, speed=-1):
+def music(track=-1, frame=-1, row=-1, loop=True, sustain=False, tempo=-1, speed=-1):
     """
     Usage:
             music [track=-1] [frame=0] [row=0] [loop=True] [sustain=False][NOT SUPPORTED] [tempo=-1][NOT SUPPORTED] [speed=-1][NOT SUPPORTED]
@@ -366,7 +366,7 @@ def music(track=-1, frame=0, row=0, loop=True, sustain=False, tempo=-1, speed=-1
             timeperrow = 2500 / T * M
             
             pygame.mixer.music.load(io.BytesIO(data))
-            pygame.mixer.music.play(loop and -1 or 0, (timeperrow*(row+(frame*63)))/1000)
+            pygame.mixer.music.play(loop and -1 or 0, (timeperrow*(max(0, row) + (max(0, frame) * 63))) / 1000)
 
 #TIC-80'S PIX() FUNCTION, https://github.com/nesbox/TIC-80/wiki/pix
 def pix(x, y, color=None):
