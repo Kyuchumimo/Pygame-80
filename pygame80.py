@@ -334,7 +334,7 @@ def mouse():
 def music(track=-1, frame=-1, row=-1, loop=True, sustain=False, tempo=-1, speed=-1):
     """
     Usage:
-            music [track=-1] [frame=0] [row=0] [loop=True] [sustain=False][NOT SUPPORTED] [tempo=-1][NOT SUPPORTED] [speed=-1][NOT SUPPORTED]
+            music [track=-1] [frame=-1] [row=-1] [loop=True] [sustain=False][NOT SUPPORTED] [tempo=-1][NOT SUPPORTED] [speed=-1][NOT SUPPORTED]
             ...or to stop the music:
             music
     Parameters:
