@@ -343,16 +343,30 @@ def music(track=-1, frame=0, row=0, loop=True, sustain=False, tempo=-1, speed=-1
             row : the index of the row to play from (0..63)
             loop : loop music (True) or play it once (False)
             sustain [NOT SUPPORTED]
-            tempo [NOT SUPPORTED]
-            speed [NOT SUPPORTED]
+            tempo : play track with the specified tempo
+            speed : play track with the specified speed
     Description:
             This function starts playing a track.
     """
+    import struct, io
+    
+    filename = os.path.join(_ASSET_PATH, 'music', f'{int(track)}.xm')
+    
     if track < 0:
         pygame.mixer.music.stop()
     else:
-        pygame.mixer.music.load(os.path.join(_ASSET_PATH, 'music', f'{int(track)}.xm'))
-        pygame.mixer.music.play(loop and -1 or 0, float(format((((frame*64)+1)*0.1)+((row)*0.1), '.1f')))
+        with open(filename, "rb") as file:
+            data = bytearray(file.read())
+            
+            if tempo >= 32: struct.pack_into("<H", data, 0x4E, tempo)
+            if speed > 0: struct.pack_into("<H", data, 0x4C, speed)
+            
+            T = struct.unpack_from("<H", data, 0x4E)[0]
+            M = struct.unpack_from("<H", data, 0x4C)[0]
+            timeperrow = 2500 / T * M
+            
+            pygame.mixer.music.load(io.BytesIO(data))
+            pygame.mixer.music.play(loop and -1 or 0, (timeperrow*(row+(frame*63)))/1000)
 
 #TIC-80'S PIX() FUNCTION, https://github.com/nesbox/TIC-80/wiki/pix
 def pix(x, y, color=None):
