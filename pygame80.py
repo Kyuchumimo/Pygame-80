@@ -20,7 +20,7 @@ pygame.init()
 ###PARAMETERS###
 #WINDOW
 pygame.display.set_icon(pygame.image.load(os.path.join(_ASSET_PATH, 'icon.png')))
-pygame.display.set_caption("Pygame-80 by Kyuchumimo v220802")
+pygame.display.set_caption("Pygame-80 by Kyuchumimo vOut-of-the-Box (220708)")
 _SCREEN = pygame.display.set_mode([240, 136], pygame.SCALED)
 
 #MUSIC CHANNELS
@@ -163,6 +163,7 @@ def exit():
     Description:
             This function causes program execution to be interrupted.
     """
+    pygame.quit()
     sys.exit()
 
 #TIC-80'S FONT() FUNCTION, https://github.com/nesbox/TIC-80/wiki/font
@@ -279,7 +280,7 @@ def map(x=0, y=0, w=30, h=17, sx=0, sy=0, colorkey=-1, scale=1, remap=None):
     for i in range(y, y+h): #ROWS
         for j in range(x, x+w): #COLUMNS
             
-            _SCREEN.blit(ts.subsurface([PPU[i][j]%16*(8*scale),PPU[i][j]%256//16*(8*scale),(8*scale),(8*scale)]),[(sx+(j*(8*scale)))-(x*(8*scale)),(sy+(i*(8*scale)))-(y*(8*scale))]) #DRAW A MAP FROM A SPRITE SHEET/TILESET (FASTEST) (NEEDS 3 ARRAYS)
+            _SCREEN.blit(ts.subsurface([PPU[i%PPU.shape[0]][j%PPU.shape[1]]%16*(8*scale),PPU[i%PPU.shape[0]][j%PPU.shape[1]]%256//16*(8*scale),(8*scale),(8*scale)]),[(sx+(j*(8*scale)))-(x*(8*scale)),(sy+(i*(8*scale)))-(y*(8*scale))]) #DRAW A MAP FROM A SPRITE SHEET/TILESET (FASTEST) (NEEDS 3 ARRAYS)
             #_SCREEN.blit(ts.subsurface([(np.where(*remap))[i,j]%16*8,(np.where(*remap))[i,j]%256//16*8,8,8]),[(sx+(j*8))-(x*8),sy+(i*8)]) #DRAW A MAP FROM A SPRITE SHEET/TILESET WITH NUMPY ARRAYS (FAST) (NEEDS 2 ARRAYS)
             #_SCREEN.blit(chr[m0[i][j]],[(j*16)-xm,(i*16)+ym]) #DRAW A MAP THROUGH A LIST OF INDEPENDENT IMAGES (MEDIUM)
             #spr(m0[i][j],(sx+(j*8))-(x*8),sy+(i*8),'#FFFFFF',1,0,0,1,1) #DRAW A MAP FROM A SPRITE SHEET/TILESET WITH SPR
@@ -294,7 +295,9 @@ def mget(x, y):
     Description:
             This function returns the tile at the specified TILEMAP coordinates, the top left cell of the tilemap being (0, 0).
     """
-    return _TIC["MAP"][int(y), int(x)]
+    if ((x < 0) | (x >= _TIC['MAP'].shape[1]) | (y < 0) | (y >= _TIC['MAP'].shape[0])): return 0
+        
+    return _TIC["MAP"][y, x]
 
 #TIC-80'S MSET() FUNCTION, https://github.com/nesbox/TIC-80/wiki/mget
 def mset(x, y, tile_id):
@@ -307,7 +310,9 @@ def mset(x, y, tile_id):
     Description:
             This function will change the tile at the specified TILEMAP coordinates. By default, changes made are only kept while the current game is running.
     """
-    _TIC["MAP"][int(y), int(x)] = tile_id
+    if ((x < 0) | (x >= _TIC['MAP'].shape[1]) | (y < 0) | (y >= _TIC['MAP'].shape[0])): return
+    
+    _TIC["MAP"][y, x] = tile_id
 
 #TIC-80'S MOUSE() FUNCTION, https://github.com/nesbox/TIC-80/wiki/mouse
 def mouse():
@@ -747,6 +752,7 @@ try:
         _KEY = None
         for event in pygame.event.get():
             if event.type == pygame.QUIT or pygame.key.get_pressed()[pygame.K_ESCAPE]:
+                pygame.quit()
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
                 _KEY = pygame.key.name(event.key)
@@ -761,4 +767,5 @@ except Exception:
     
     traceback.print_exc()
     
+    pygame.quit()
     sys.exit()
