@@ -9,21 +9,21 @@ import numpy as np
 import os, sys
 
 if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
-    #running in a PyInstaller bundle
+    # running in a PyInstaller bundle
     _ASSET_PATH = os.path.join(sys._MEIPASS, 'assets')
 else:
-    #running in a normal Python process
+    # running in a normal Python process
     _ASSET_PATH = 'assets'
 
 pygame.init()
 
 ###PARAMETERS###
-#WINDOW
+# WINDOW
 pygame.display.set_icon(pygame.image.load(os.path.join(_ASSET_PATH, 'icon.png')))
 pygame.display.set_caption("Pygame-80 by Kyuchumimo v230115")
 _SCREEN = pygame.display.set_mode([240, 136], pygame.SCALED)
 
-#MUSIC CHANNELS
+# MUSIC CHANNELS
 pygame.mixer.set_num_channels(4)
 
 _TIC = {"TILES":pygame.image.load(os.path.join(_ASSET_PATH, 'map', '0.png')), "SPRITES":pygame.image.load(os.path.join(_ASSET_PATH, 'spr', '0.png')), "MAP":np.loadtxt(os.path.join(_ASSET_PATH, 'map', '0.csv'),dtype='int',delimiter=','), "PALETTE":[[0x1a,0x1c,0x2c], [0x5d,0x27,0x5d], [0xb1,0x3e,0x53], [0xef,0x7d,0x57], [0xff,0xcd,0x75], [0xa7,0xf0,0x70], [0x38,0xb7,0x64], [0x25,0x71,0x79], [0x29,0x36,0x6f], [0x3b,0x5d,0xc9], [0x41,0xa6,0xf6], [0x73,0xef,0xf7], [0xf4,0xf4,0xf4], [0x94,0xb0,0xc2], [0x56,0x6c,0x86], [0x33,0x3c,0x57]], "FONT":(pygame.font.Font(os.path.join(_ASSET_PATH, 'tic-80_regular.ttf'), 8), pygame.font.Font(os.path.join(_ASSET_PATH, 'tic-80_narrow.ttf'), 8), pygame.font.Font(os.path.join(_ASSET_PATH, 'tic-80_regular-mono.ttf'), 8), pygame.font.Font(os.path.join(_ASSET_PATH, 'tic-80_narrow-mono.ttf'), 8)), "CLOCK":pygame.time.Clock()}
@@ -31,7 +31,7 @@ _SAVEFILE = "pygame80"
 
 #####################################
 
-#TIC-80'S BTN() FUNCTION, https://github.com/nesbox/TIC-80/wiki/btn
+# TIC-80'S BTN() FUNCTION, https://github.com/nesbox/TIC-80/wiki/btn
 def btn(id):
     """
     Usage:
@@ -45,7 +45,7 @@ def btn(id):
     
     return pygame.key.get_pressed()[keymap[id]]
 
-#TIC-80'S BTNP() FUNCTION, https://github.com/nesbox/TIC-80/wiki/btnp
+# TIC-80'S BTNP() FUNCTION, https://github.com/nesbox/TIC-80/wiki/btnp
 def btnp(id):
     """
     Usage:
@@ -63,7 +63,7 @@ def btnp(id):
             
     return _KEY == keymap[id]
 
-#TIC-80'S CIRC() FUNCTION, https://github.com/nesbox/TIC-80/wiki/circ
+# TIC-80'S CIRC() FUNCTION, https://github.com/nesbox/TIC-80/wiki/circ
 def circ(x, y, radius, color):
     """
     Usage:
@@ -77,7 +77,7 @@ def circ(x, y, radius, color):
     """
     pygame.draw.circle(_SCREEN, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [x, y], radius)
 
-#TIC-80'S CIRCB() FUNCTION, https://github.com/nesbox/TIC-80/wiki/circ
+# TIC-80'S CIRCB() FUNCTION, https://github.com/nesbox/TIC-80/wiki/circ
 def circb(x, y, radius, color):
     """
     Usage:
@@ -91,7 +91,7 @@ def circb(x, y, radius, color):
     """
     pygame.draw.circle(_SCREEN, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [x, y], radius, 1)
 
-#TIC-80'S CLIP() FUNCTION, https://github.com/nesbox/TIC-80/wiki/clip
+# TIC-80'S CLIP() FUNCTION, https://github.com/nesbox/TIC-80/wiki/clip
 def clip(*args):
     """
     Usage:
@@ -113,7 +113,7 @@ def clip(*args):
     else:
         raise Exception("invalid parameters, use clip(x, y, w, h) or clip()\n")
 
-#TIC-80'S CLS() FUNCTION, https://github.com/nesbox/TIC-80/wiki/cls
+# TIC-80'S CLS() FUNCTION, https://github.com/nesbox/TIC-80/wiki/cls
 def cls(color=0):
     """
     Usage:
@@ -125,7 +125,7 @@ def cls(color=0):
     """
     _SCREEN.fill(_TIC["PALETTE"][color%len(_TIC["PALETTE"])])
 
-#TIC-80'S ELLI() FUNCTION
+# TIC-80'S ELLI() FUNCTION
 def elli(x, y, a, b, color):
     """
     Usage:
@@ -140,7 +140,7 @@ def elli(x, y, a, b, color):
     """
     pygame.draw.ellipse(_SCREEN, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [x-a, y-b, a*2, b*2])
 
-#TIC-80'S ELLIB() FUNCTION
+# TIC-80'S ELLIB() FUNCTION
 def ellib(x, y, a, b, color):
     """
     Usage:
@@ -155,7 +155,7 @@ def ellib(x, y, a, b, color):
     """
     pygame.draw.ellipse(_SCREEN, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [x-a, y-b, a*2, b*2], 1)
 
-#TIC-80'S EXIT() FUNCTION, https://github.com/nesbox/TIC-80/wiki/exit
+# TIC-80'S EXIT() FUNCTION, https://github.com/nesbox/TIC-80/wiki/exit
 def exit():
     """
     Usage:
@@ -166,7 +166,7 @@ def exit():
     pygame.quit()
     sys.exit()
 
-#TIC-80'S FONT() FUNCTION, https://github.com/nesbox/TIC-80/wiki/font
+# TIC-80'S FONT() FUNCTION, https://github.com/nesbox/TIC-80/wiki/font
 def font(text, x, y, transcolor=-1, w=9, h=8, fixed=False, scale=1):
     """
     Usage:
@@ -201,7 +201,7 @@ def font(text, x, y, transcolor=-1, w=9, h=8, fixed=False, scale=1):
         else:
             _SCREEN.blit(ts.subsurface([text[i]%16*(8*scale),text[i]%256//16*(8*scale),(8*scale),(8*scale)]),[x+((i-i_line_offset)*w)*scale,y])
 
-#TIC-80'S KEY() FUNCTION, https://github.com/nesbox/TIC-80/wiki/key
+# TIC-80'S KEY() FUNCTION, https://github.com/nesbox/TIC-80/wiki/key
 def key(code):
     """
     Usage:
@@ -216,7 +216,7 @@ def key(code):
     keycodes = [[None], [pygame.K_a], [pygame.K_b], [pygame.K_c], [pygame.K_d], [pygame.K_e], [pygame.K_f], [pygame.K_g], [pygame.K_h], [pygame.K_i], [pygame.K_j], [pygame.K_k], [pygame.K_l], [pygame.K_m], [pygame.K_n], [pygame.K_o], [pygame.K_p], [pygame.K_q], [pygame.K_r], [pygame.K_s], [pygame.K_t], [pygame.K_u], [pygame.K_v], [pygame.K_w], [pygame.K_x], [pygame.K_y], [pygame.K_z], [pygame.K_0], [pygame.K_1], [pygame.K_2], [pygame.K_3], [pygame.K_4], [pygame.K_5], [pygame.K_6], [pygame.K_7], [pygame.K_8], [pygame.K_9], [pygame.K_MINUS], [pygame.K_EQUALS], [pygame.K_LEFTBRACKET], [pygame.K_RIGHTBRACKET], [pygame.K_BACKSLASH], [pygame.K_SEMICOLON], [None], [pygame.K_BACKQUOTE], [pygame.K_COMMA], [pygame.K_PERIOD], [pygame.K_SLASH], [pygame.K_SPACE], [pygame.K_TAB], [pygame.K_RETURN], [pygame.K_BACKSPACE], [pygame.K_DELETE], [pygame.K_INSERT], [pygame.K_PAGEUP], [pygame.K_PAGEDOWN], [pygame.K_HOME], [pygame.K_END], [pygame.K_UP], [pygame.K_DOWN], [pygame.K_LEFT], [pygame.K_RIGHT], [pygame.K_CAPSLOCK], [pygame.K_LCTRL, pygame.K_RCTRL], [pygame.K_LSHIFT, pygame.K_RSHIFT], [pygame.K_LALT]]
     return any(pygame.key.get_pressed()[i] for i in keycodes[code])
 
-#TIC-80'S KEYP() FUNCTION, https://github.com/nesbox/TIC-80/wiki/keyp
+# TIC-80'S KEYP() FUNCTION, https://github.com/nesbox/TIC-80/wiki/keyp
 def keyp(code):
     """
     Usage:
@@ -236,7 +236,7 @@ def keyp(code):
     
     return any(_KEY == i for i in keycodes[code])
 
-#TIC-80'S LINE() FUNCTION, https://github.com/nesbox/TIC-80/wiki/line
+# TIC-80'S LINE() FUNCTION, https://github.com/nesbox/TIC-80/wiki/line
 def line(x0, y0, x1, y1, color):
     """
     Usage:
@@ -250,7 +250,7 @@ def line(x0, y0, x1, y1, color):
     """
     pygame.draw.line(_SCREEN, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [x0, y0], [x1, y1])
 
-#TIC-80'S MAP() FUNCTION, https://github.com/nesbox/TIC-80/wiki/map
+# TIC-80'S MAP() FUNCTION, https://github.com/nesbox/TIC-80/wiki/map
 def map(x=0, y=0, w=30, h=17, sx=0, sy=0, colorkey=-1, scale=1, remap=None):
     """
     Usage:
@@ -266,26 +266,35 @@ def map(x=0, y=0, w=30, h=17, sx=0, sy=0, colorkey=-1, scale=1, remap=None):
             scale : Map scaling.
             remap [PARTIAL] : An optional exec() function called before every tile is drawn. Using this callback function you can show or hide tiles or create tile animations during the map rendering stage: "PPU[(PPU == tile)] = tile" 
     """
+    x = int(x)
+    y = int(y)
+    w = int(w)
+    h = int(h)
+    sx = int(sx)
+    sy = int(sy)
+    colorkey = int(colorkey)
+    scale = int(scale)
+    
     ts = pygame.Surface([128, 128])
-    ts.blit(_TIC["TILES"], [0, 0]) #[PATTERN TABLE]
+    ts.blit(_TIC["TILES"], [0, 0]) # [PATTERN TABLE]
     PPU = np.copy(_TIC["MAP"])
     
     if remap is not None: exec(remap)
-    #if remap==None: remap=(VRAM,VRAM,VRAM)
+    # if remap==None: remap=(VRAM,VRAM,VRAM)
     
     if scale != 1: ts = pygame.transform.scale(ts, [(pygame.Surface.get_size(ts)[0])*scale, (pygame.Surface.get_size(ts)[1])*scale])
-    if colorkey != -1: ts.set_colorkey(_TIC["PALETTE"][colorkey%len(_TIC["PALETTE"])])
+    if colorkey > -1: ts.set_colorkey(_TIC["PALETTE"][colorkey%len(_TIC["PALETTE"])])
     
-    #TILE BASED BACKGROUND
-    for i in range(y, y+h): #ROWS
-        for j in range(x, x+w): #COLUMNS
+    # TILE BASED BACKGROUND
+    for i in range(y, y+h): # ROWS
+        for j in range(x, x+w): # COLUMNS
             
             _SCREEN.blit(ts.subsurface([PPU[i%PPU.shape[0]][j%PPU.shape[1]]%16*(8*scale),PPU[i%PPU.shape[0]][j%PPU.shape[1]]%256//16*(8*scale),(8*scale),(8*scale)]),[(sx+(j*(8*scale)))-(x*(8*scale)),(sy+(i*(8*scale)))-(y*(8*scale))]) #DRAW A MAP FROM A SPRITE SHEET/TILESET (FASTEST) (NEEDS 3 ARRAYS)
-            #_SCREEN.blit(ts.subsurface([(np.where(*remap))[i,j]%16*8,(np.where(*remap))[i,j]%256//16*8,8,8]),[(sx+(j*8))-(x*8),sy+(i*8)]) #DRAW A MAP FROM A SPRITE SHEET/TILESET WITH NUMPY ARRAYS (FAST) (NEEDS 2 ARRAYS)
-            #_SCREEN.blit(chr[m0[i][j]],[(j*16)-xm,(i*16)+ym]) #DRAW A MAP THROUGH A LIST OF INDEPENDENT IMAGES (MEDIUM)
-            #spr(m0[i][j],(sx+(j*8))-(x*8),sy+(i*8),'#FFFFFF',1,0,0,1,1) #DRAW A MAP FROM A SPRITE SHEET/TILESET WITH SPR
+            # _SCREEN.blit(ts.subsurface([(np.where(*remap))[i,j]%16*8,(np.where(*remap))[i,j]%256//16*8,8,8]),[(sx+(j*8))-(x*8),sy+(i*8)]) #DRAW A MAP FROM A SPRITE SHEET/TILESET WITH NUMPY ARRAYS (FAST) (NEEDS 2 ARRAYS)
+            # _SCREEN.blit(chr[m0[i][j]],[(j*16)-xm,(i*16)+ym]) #DRAW A MAP THROUGH A LIST OF INDEPENDENT IMAGES (MEDIUM)
+            # spr(m0[i][j],(sx+(j*8))-(x*8),sy+(i*8),'#FFFFFF',1,0,0,1,1) #DRAW A MAP FROM A SPRITE SHEET/TILESET WITH SPR
 
-#TIC-80'S MGET() FUNCTION, https://github.com/nesbox/TIC-80/wiki/mget
+# TIC-80'S MGET() FUNCTION, https://github.com/nesbox/TIC-80/wiki/mget
 def mget(x, y):
     """
     Usage:
@@ -295,11 +304,14 @@ def mget(x, y):
     Description:
             This function returns the tile at the specified TILEMAP coordinates, the top left cell of the tilemap being (0, 0).
     """
+    x = int(x)
+    y = int(y)
+    
     if ((x < 0) | (x >= _TIC['MAP'].shape[1]) | (y < 0) | (y >= _TIC['MAP'].shape[0])): return 0
         
     return _TIC["MAP"][y, x]
 
-#TIC-80'S MSET() FUNCTION, https://github.com/nesbox/TIC-80/wiki/mget
+# TIC-80'S MSET() FUNCTION, https://github.com/nesbox/TIC-80/wiki/mget
 def mset(x, y, tile_id):
     """
     Usage:
@@ -310,11 +322,15 @@ def mset(x, y, tile_id):
     Description:
             This function will change the tile at the specified TILEMAP coordinates. By default, changes made are only kept while the current game is running.
     """
+    x = int(x)
+    y = int(y)
+    tile_id = int(tile_id)
+
     if ((x < 0) | (x >= _TIC['MAP'].shape[1]) | (y < 0) | (y >= _TIC['MAP'].shape[0])): return
     
     _TIC["MAP"][y, x] = tile_id
 
-#TIC-80'S MOUSE() FUNCTION, https://github.com/nesbox/TIC-80/wiki/mouse
+# TIC-80'S MOUSE() FUNCTION, https://github.com/nesbox/TIC-80/wiki/mouse
 def mouse():
     """
     Usage:
@@ -335,7 +351,7 @@ def mouse():
     
     return tuple((pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1],pygame.mouse.get_pressed()[0],pygame.mouse.get_pressed()[1],pygame.mouse.get_pressed()[2],mw_xy[0],mw_xy[1]))
 
-#TIC-80'S MUSIC() FUNCTION, https://github.com/nesbox/TIC-80/wiki/music
+# TIC-80'S MUSIC() FUNCTION, https://github.com/nesbox/TIC-80/wiki/music
 def music(track=-1, frame=-1, row=-1, loop=True, sustain=False, tempo=-1, speed=-1):
     """
     Usage:
@@ -373,7 +389,7 @@ def music(track=-1, frame=-1, row=-1, loop=True, sustain=False, tempo=-1, speed=
             pygame.mixer.music.load(io.BytesIO(data))
             pygame.mixer.music.play(loop and -1 or 0, (timeperrow * (max(0, row) + (max(0, frame) * 63))) / 1000)
 
-#TIC-80'S PIX() FUNCTION, https://github.com/nesbox/TIC-80/wiki/pix
+# TIC-80'S PIX() FUNCTION, https://github.com/nesbox/TIC-80/wiki/pix
 def pix(x, y, color=None):
     """
     Usage:
@@ -387,14 +403,18 @@ def pix(x, y, color=None):
     Description:
             This function can read or write individual pixel color values. When called with a color argument , the pixel at the specified coordinates is set to that color. When called with only x y arguments, the color of the pixel at the specified coordinates is returned.
     """
+    x = int(x)
+    y = int(y)
+    if type(color) != None: int(color)
+    
     scn = pygame.surfarray.pixels3d(_SCREEN)
-    if color==None:
-        return _TIC["PALETTE"].index(scn[x,y].tolist()) #FASTER
-        #return list(scn[x,y])
-    elif x>=0 and x<pygame.Surface.get_size(_SCREEN)[0] and y>=0 and y<pygame.Surface.get_size(_SCREEN)[1]:
-        scn[x,y] = _TIC["PALETTE"][color%len(_TIC["PALETTE"])]
+    if color == None:
+        return _TIC["PALETTE"].index(scn[x, y].tolist()) #FASTER
+        #return list(scn[x, y])
+    elif x >= 0 and x < _SCREEN.get_size[0] and y >= 0 and y < _SCREEN.get_size[1]:
+        scn[x, y] = _TIC["PALETTE"][color%len(_TIC["PALETTE"])]
 
-#TIC-80'S PMEM() FUNCTION, https://github.com/nesbox/TIC-80/wiki/pmem
+# TIC-80'S PMEM() FUNCTION, https://github.com/nesbox/TIC-80/wiki/pmem
 def pmem(index, val32=None):
     """
     Usage:
@@ -439,7 +459,7 @@ def pmem(index, val32=None):
         
         return prior_val32
 
-#TIC-80'S PRINT() FUNCTION, https://github.com/nesbox/TIC-80/wiki/print
+# TIC-80'S PRINT() FUNCTION, https://github.com/nesbox/TIC-80/wiki/print
 def print(text, x=0, y=0, color=15, fixed=False, scale=1, smallfont=False):
     """
     Usage:
@@ -480,7 +500,7 @@ def print(text, x=0, y=0, color=15, fixed=False, scale=1, smallfont=False):
         else:
             return _TIC["FONT"][3].size(max(str(text).splitlines()))[0] * scale
 
-#TIC-80'S RECT() FUNCTION, https://github.com/nesbox/TIC-80/wiki/rect
+# TIC-80'S RECT() FUNCTION, https://github.com/nesbox/TIC-80/wiki/rect
 def rect(x, y, w, h, color):
     """
     Usage:
@@ -495,7 +515,7 @@ def rect(x, y, w, h, color):
     """
     pygame.draw.rect(_SCREEN, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [x, y, w, h])
 
-#TIC-80'S RECTB() FUNCTION, https://github.com/nesbox/TIC-80/wiki/rect
+# TIC-80'S RECTB() FUNCTION, https://github.com/nesbox/TIC-80/wiki/rect
 def rectb(x, y, w, h, color):
     """
     Usage:
@@ -510,7 +530,7 @@ def rectb(x, y, w, h, color):
     """
     pygame.draw.rect(_SCREEN, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [x, y, w, h], 1)
 
-#TIC-80'S RESET() FUNCTION, https://github.com/nesbox/TIC-80/wiki/reset
+# TIC-80'S RESET() FUNCTION, https://github.com/nesbox/TIC-80/wiki/reset
 def reset():
     """
     Usage:
@@ -520,7 +540,7 @@ def reset():
     """
     os.execv(sys.executable, ['python3'] + sys.argv)
 
-#TIC-80'S SFX() FUNCTION, https://github.com/nesbox/TIC-80/wiki/sfx
+# TIC-80'S SFX() FUNCTION, https://github.com/nesbox/TIC-80/wiki/sfx
 def sfx(id, note=None, duration=0, channel=0, volume=15, speed=0):
     """
     Usage:
@@ -548,7 +568,7 @@ def sfx(id, note=None, duration=0, channel=0, volume=15, speed=0):
     else:
         pg.mixer.Channel(channel).stop()
 
-#TIC-80'S SPR() FUNCTION, https://github.com/nesbox/TIC-80/wiki/spr
+# TIC-80'S SPR() FUNCTION, https://github.com/nesbox/TIC-80/wiki/spr
 def spr(id, x, y, colorkey=-1, scale=1, flip=0, rotate=0, w=1, h=1):
     """
     Usage:
@@ -582,7 +602,7 @@ def spr(id, x, y, colorkey=-1, scale=1, flip=0, rotate=0, w=1, h=1):
     
     _SCREEN.blit(obj, [x,y])
 
-#TIC-80'S SYNC() FUNCTION, https://github.com/nesbox/TIC-80/wiki/sync
+# TIC-80'S SYNC() FUNCTION, https://github.com/nesbox/TIC-80/wiki/sync
 def sync(mask=0, bank=0, tocart=False):
     """
     Usage:
@@ -612,7 +632,7 @@ def sync(mask=0, bank=0, tocart=False):
         if (0b10 & mask) == 0b10: pygame.image.save(_TIC["SPRITES"], os.path.join(_ASSET_PATH, 'spr', f'{bank}.png')) #SPRITES
         if (0b100 & mask) == 0b100: np.savetxt(os.path.join(_ASSET_PATH, 'map', f'{bank}.csv'), _TIC["MAP"], fmt='%d', delimiter=',')
 
-#TIC-80'S TEXTRI() FUNCTION, https://github.com/nesbox/TIC-80/wiki/textri
+# TIC-80'S TEXTRI() FUNCTION, https://github.com/nesbox/TIC-80/wiki/textri
 def textri(x1, y1, x2, y2, x3, y3, u1, v1, u2, v2, u3, v3, use_map=False, trans=-1):
     """
     """
@@ -669,7 +689,7 @@ def textri(x1, y1, x2, y2, x3, y3, u1, v1, u2, v2, u3, v3, use_map=False, trans=
     if trans != -1: surf.set_colorkey(_TIC["PALETTE"][trans%len(_TIC["PALETTE"])])
     _SCREEN.blit(surf, (0,0))
 
-#TIC-80'S TIME() FUNCTION, https://github.com/nesbox/TIC-80/wiki/time
+# TIC-80'S TIME() FUNCTION, https://github.com/nesbox/TIC-80/wiki/time
 def time():
     """
     Usage:
@@ -681,7 +701,7 @@ def time():
     """
     return pygame.time.get_ticks()
 
-#TIC-80'S TSTAMP() FUNCTION, https://github.com/nesbox/TIC-80/wiki/tstamp
+# TIC-80'S TSTAMP() FUNCTION, https://github.com/nesbox/TIC-80/wiki/tstamp
 def tstamp():
     """
     Usage:
@@ -695,7 +715,7 @@ def tstamp():
     
     return time.time()//1
 
-#TIC-80'S TRACE() FUNCTION, https://github.com/nesbox/TIC-80/wiki/trace
+# TIC-80'S TRACE() FUNCTION, https://github.com/nesbox/TIC-80/wiki/trace
 def trace(message, color=15):
     """
     Usage:
@@ -713,7 +733,7 @@ def trace(message, color=15):
     else:
         builtins.print("\033[38;2;{};{};{}m{} \033[38;2;255;255;255m".format(*_TIC["PALETTE"][color%len(_TIC["PALETTE"])], str(message)))
 
-#TIC-80'S TRI() FUNCTION, https://github.com/nesbox/TIC-80/wiki/tri
+# TIC-80'S TRI() FUNCTION, https://github.com/nesbox/TIC-80/wiki/tri
 def tri(x1, y1, x2, y2, x3, y3, color):
     """
     Usage:
@@ -728,7 +748,7 @@ def tri(x1, y1, x2, y2, x3, y3, color):
     """
     pygame.draw.polygon(_SCREEN, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [(x1, y1), (x2, y2), (x3, y3)])
 
-#TIC-80'S TRIB() FUNCTION, https://github.com/nesbox/TIC-80/wiki/trib
+# TIC-80'S TRIB() FUNCTION, https://github.com/nesbox/TIC-80/wiki/trib
 def trib(x1, y1, x2, y2, x3, y3, color):
     """
     Usage:
