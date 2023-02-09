@@ -20,7 +20,7 @@ pygame.init()
 ###PARAMETERS###
 # WINDOW
 pygame.display.set_icon(pygame.image.load(os.path.join(_ASSET_PATH, 'icon.png')))
-pygame.display.set_caption("Pygame-80 by Kyuchumimo v230115")
+pygame.display.set_caption("Pygame-80 by Kyuchumimo v230209")
 _SCREEN = pygame.display.set_mode([240, 136], pygame.SCALED)
 
 # MUSIC CHANNELS
@@ -411,7 +411,7 @@ def pix(x, y, color=None):
     if color == None:
         return _TIC["PALETTE"].index(scn[x, y].tolist()) #FASTER
         #return list(scn[x, y])
-    elif x >= 0 and x < _SCREEN.get_size[0] and y >= 0 and y < _SCREEN.get_size[1]:
+    elif x >= 0 and x < _SCREEN.get_size()[0] and y >= 0 and y < _SCREEN.get_size()[1]:
         scn[x, y] = _TIC["PALETTE"][color%len(_TIC["PALETTE"])]
 
 # TIC-80'S PMEM() FUNCTION, https://github.com/nesbox/TIC-80/wiki/pmem
