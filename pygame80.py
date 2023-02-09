@@ -41,6 +41,8 @@ def btn(id):
     Description:
             This function allows you to read the status of one of the buttons attached to TIC. The function returns True if the key with the supplied id is currently in the pressed state. It remains True for as long as the key is held down.
     """
+    id = int(id)
+
     keymap = (pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT, pygame.K_z, pygame.K_x, pygame.K_a, pygame.K_s)
     
     return pygame.key.get_pressed()[keymap[id]]
@@ -58,6 +60,8 @@ def btnp(id):
             This function allows you to read the status of one of the buttons. It returns True only if the key has been pressed since the last frame.
     """
     global _KEY
+
+    id = int(id)
     
     keymap = ("up", "down", "left", "right", "z", "x", "a", "s")
             
@@ -75,6 +79,8 @@ def circ(x, y, radius, color):
     Description:
             This function draws a filled circle of the desired radius and color with its center at x, y.
     """
+    color = int(color)
+    
     pygame.draw.circle(_SCREEN, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [x, y], radius)
 
 # TIC-80'S CIRCB() FUNCTION, https://github.com/nesbox/TIC-80/wiki/circ
@@ -89,6 +95,8 @@ def circb(x, y, radius, color):
     Description:
             Draws the circumference of a circle with its center at x, y using the radius and color requested.
     """
+    color = int(color)
+
     pygame.draw.circle(_SCREEN, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [x, y], radius, 1)
 
 # TIC-80'S CLIP() FUNCTION, https://github.com/nesbox/TIC-80/wiki/clip
@@ -123,6 +131,8 @@ def cls(color=0):
     Description:
             This function clears/fills the entire screen using color. If no parameter is passed, index 0 of the palette is used.
     """
+    color = int(color)
+
     _SCREEN.fill(_TIC["PALETTE"][color%len(_TIC["PALETTE"])])
 
 # TIC-80'S ELLI() FUNCTION
@@ -138,6 +148,8 @@ def elli(x, y, a, b, color):
     Description:
             This function draws a filled ellipse of the desired radiuses a b and color with its center at x, y.
     """
+    color = int(color)
+
     pygame.draw.ellipse(_SCREEN, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [x-a, y-b, a*2, b*2])
 
 # TIC-80'S ELLIB() FUNCTION
@@ -153,6 +165,8 @@ def ellib(x, y, a, b, color):
     Description:
             This function draws an ellipse border with the desired radiuses a b and color with its center at x, y.
     """
+    color = int(color)
+    
     pygame.draw.ellipse(_SCREEN, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [x-a, y-b, a*2, b*2], 1)
 
 # TIC-80'S EXIT() FUNCTION, https://github.com/nesbox/TIC-80/wiki/exit
@@ -213,6 +227,8 @@ def key(code):
     Description:
             The function returns True if the key denoted by keycode is pressed.
     """
+    code = int(code)
+
     keycodes = [[None], [pygame.K_a], [pygame.K_b], [pygame.K_c], [pygame.K_d], [pygame.K_e], [pygame.K_f], [pygame.K_g], [pygame.K_h], [pygame.K_i], [pygame.K_j], [pygame.K_k], [pygame.K_l], [pygame.K_m], [pygame.K_n], [pygame.K_o], [pygame.K_p], [pygame.K_q], [pygame.K_r], [pygame.K_s], [pygame.K_t], [pygame.K_u], [pygame.K_v], [pygame.K_w], [pygame.K_x], [pygame.K_y], [pygame.K_z], [pygame.K_0], [pygame.K_1], [pygame.K_2], [pygame.K_3], [pygame.K_4], [pygame.K_5], [pygame.K_6], [pygame.K_7], [pygame.K_8], [pygame.K_9], [pygame.K_MINUS], [pygame.K_EQUALS], [pygame.K_LEFTBRACKET], [pygame.K_RIGHTBRACKET], [pygame.K_BACKSLASH], [pygame.K_SEMICOLON], [None], [pygame.K_BACKQUOTE], [pygame.K_COMMA], [pygame.K_PERIOD], [pygame.K_SLASH], [pygame.K_SPACE], [pygame.K_TAB], [pygame.K_RETURN], [pygame.K_BACKSPACE], [pygame.K_DELETE], [pygame.K_INSERT], [pygame.K_PAGEUP], [pygame.K_PAGEDOWN], [pygame.K_HOME], [pygame.K_END], [pygame.K_UP], [pygame.K_DOWN], [pygame.K_LEFT], [pygame.K_RIGHT], [pygame.K_CAPSLOCK], [pygame.K_LCTRL, pygame.K_RCTRL], [pygame.K_LSHIFT, pygame.K_RSHIFT], [pygame.K_LALT]]
     return any(pygame.key.get_pressed()[i] for i in keycodes[code])
 
@@ -232,6 +248,8 @@ def keyp(code):
     """
     global _KEY
     
+    code = int(code)
+
     keycodes = [[None], ["a"], ["b"], ["c"], ["d"], ["e"], ["f"], ["g"], ["h"], ["i"], ["j"], ["k"], ["l"], ["m"], ["n"], ["o"], ["p"], ["q"], ["r"], ["s"], ["t"], ["u"], ["v"], ["w"], ["x"], ["y"], ["z"], ["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["-"], ["="], ["["], ["]"], ["\\"], [";"], [None], ["`"], [","], ["."], ["/"], [" "], ["tab"], ["return"], ["backspace"], ["delete"], ["insert"], ["page up"], ["page down"], ["home"], ["end"], ["up"], ["down"], ["left"], ["right"], ["caps lock"], ["left ctrl", "right ctrl"], ["left shift", "right shift"], ["left alt"]]
     
     return any(_KEY == i for i in keycodes[code])
@@ -248,6 +266,8 @@ def line(x0, y0, x1, y1, color):
     Description:
             Draws a straight line from point (x0,y0) to point (x1,y1) in the specified color.
     """
+    color = int(color)
+
     pygame.draw.line(_SCREEN, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [x0, y0], [x1, y1])
 
 # TIC-80'S MAP() FUNCTION, https://github.com/nesbox/TIC-80/wiki/map
@@ -513,6 +533,8 @@ def rect(x, y, w, h, color):
     Description:
             This function draws a filled rectangle of the desired size and color at the specified position.
     """
+    color = int(color)
+    
     pygame.draw.rect(_SCREEN, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [x, y, w, h])
 
 # TIC-80'S RECTB() FUNCTION, https://github.com/nesbox/TIC-80/wiki/rect
@@ -528,6 +550,8 @@ def rectb(x, y, w, h, color):
     Descripion:
             This function draws a one pixel thick rectangle border at the position requested.
     """
+    color = int(color)
+
     pygame.draw.rect(_SCREEN, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [x, y, w, h], 1)
 
 # TIC-80'S RESET() FUNCTION, https://github.com/nesbox/TIC-80/wiki/reset
@@ -592,15 +616,15 @@ def spr(id, x, y, colorkey=-1, scale=1, flip=0, rotate=0, w=1, h=1):
     
     obj = pygame.Surface([w*(8*scale), h*(8*scale)])
     
-    for i in range(0,h): #ROWS
-        for j in range(0,w): #COLUMNS
+    for i in range(0,h): # ROWS
+        for j in range(0,w): # COLUMNS
             obj.blit(ts.subsurface([(int(id)+((i*16)+j))%16*(8*scale),(int(id)+((i*16)+j))%512//16*(8*scale),scale*8,scale*8]),[j*(8*scale),i*(8*scale)])
             
     if flip != 0: obj = pygame.transform.flip(obj, flip >> 0 & 1, flip >> 1 & 1)
     if rotate != 0: obj = pygame.transform.rotate(obj, rotate*-90)
     if colorkey != -1: obj.set_colorkey(_TIC["PALETTE"][colorkey%len(_TIC["PALETTE"])])
     
-    _SCREEN.blit(obj, [x,y])
+    _SCREEN.blit(obj, [x, y])
 
 # TIC-80'S SYNC() FUNCTION, https://github.com/nesbox/TIC-80/wiki/sync
 def sync(mask=0, bank=0, tocart=False):
@@ -746,6 +770,8 @@ def tri(x1, y1, x2, y2, x3, y3, color):
     Description:
             This function draws a triangle filled with color, using the supplied vertices.
     """
+    color = int(color)
+
     pygame.draw.polygon(_SCREEN, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [(x1, y1), (x2, y2), (x3, y3)])
 
 # TIC-80'S TRIB() FUNCTION, https://github.com/nesbox/TIC-80/wiki/trib
@@ -761,6 +787,8 @@ def trib(x1, y1, x2, y2, x3, y3, color):
     Description:
             This function draws a triangle border with color, using the supplied vertices.
     """
+    color = int(color)
+
     pygame.draw.polygon(_SCREEN, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [(x1, y1), (x2, y2), (x3, y3)], 1)
 
 #####################################
