@@ -302,7 +302,7 @@ def map(x=0, y=0, w=30, h=17, sx=0, sy=0, colorkey=-1, scale=1, remap=None):
     if remap is not None: exec(remap)
     # if remap==None: remap=(VRAM,VRAM,VRAM)
     
-    if scale != 1: ts = pygame.transform.scale(ts, [(pygame.Surface.get_size(ts)[0])*scale, (pygame.Surface.get_size(ts)[1])*scale])
+    if scale != 1: ts = pygame.transform.scale(ts, [ts.get_size()[0]*scale, ts.get_size()[1]*scale])
     if colorkey > -1: ts.set_colorkey(_TIC["PALETTE"][colorkey%len(_TIC["PALETTE"])])
     
     # TILE BASED BACKGROUND
@@ -450,31 +450,34 @@ def pmem(index, val32=None):
     """
     import json
     
-    if val32==None:
+    index = int(index)
+    if type(val32) != None: int(val32)
+    
+    if val32 == None:
         try:
             with open(f"{_SAVEFILE}.sav", 'r') as file:
                 data = json.load(file)
-                return data["{}".format(int(index)%256)]
+                return data[f"{index%256}"]
         except (FileNotFoundError, json.decoder.JSONDecodeError, KeyError) as error:
             return 0
     else:
         try:
             with open(f"{_SAVEFILE}.sav", 'r') as file:
                 data = json.load(file)
-                prior_val32 = data["{}".format(int(index)%256)]
+                prior_val32 = data[f"{index%256}"]
         except (FileNotFoundError, json.decoder.JSONDecodeError, KeyError) as error:
             prior_val32 = 0
         
         try:
             with open(f"{_SAVEFILE}.sav", 'r') as file:
                 data = json.load(file)
-                data[str(int(index%256))] = int(val32)%2**32
+                data[f"{index%256}"] = val32%2**32
             with open(f"{_SAVEFILE}.sav", 'w') as file:
                 json.dump(data,file)
         except (FileNotFoundError, json.decoder.JSONDecodeError) as error:
             with open(f"{_SAVEFILE}.sav", 'w') as file:
                 data = dict()
-                data["{}".format(int(index)%256)] = int(val32)%2**32
+                data[f"{index%256}"] = val32%2**32
                 json.dump(data,file)
         
         return prior_val32
@@ -612,7 +615,7 @@ def spr(id, x, y, colorkey=-1, scale=1, flip=0, rotate=0, w=1, h=1):
     ts.blit(_TIC["TILES"], [0, 0])
     ts.blit(_TIC["SPRITES"], [0, 128])
     
-    if scale != 1: ts = pygame.transform.scale(ts,[(pygame.Surface.get_size(ts)[0])*scale,(pygame.Surface.get_size(ts)[1])*scale])
+    if scale != 1: ts = pygame.transform.scale(ts, [ts.get_size()[0]*scale, ts.get_size()[1]*scale])
     
     obj = pygame.Surface([w*(8*scale), h*(8*scale)])
     
