@@ -812,7 +812,7 @@ try:
         
         # do you TIC() stuff here
 
-        pygame.display.flip()
+        pygame.display.update()
 except Exception:
     import traceback
     
