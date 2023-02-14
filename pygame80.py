@@ -651,13 +651,13 @@ def sync(mask=0, bank=0, tocart=False):
     if mask == 0: mask = 0b111
     
     if tocart == False:
-        if (0b1 & mask) == 0b1: _TIC["TILES"] = pygame.image.load(os.path.join(_ASSET_PATH, 'map', f'{bank}.png')) #TILES
-        if (0b10 & mask) == 0b10: _TIC["SPRITES"] = pygame.image.load(os.path.join(_ASSET_PATH, 'spr', f'{bank}.png')) #SPRITES
-        if (0b100 & mask) == 0b100: _TIC["MAP"] = np.loadtxt(os.path.join(_ASSET_PATH, 'map', f'{bank}.csv'), dtype='int', delimiter=',')
+        if 1<<0 & mask: _TIC["TILES"] = pygame.image.load(os.path.join(_ASSET_PATH, 'map', f'{bank}.png')) #TILES
+        if 1<<1 & mask: _TIC["SPRITES"] = pygame.image.load(os.path.join(_ASSET_PATH, 'spr', f'{bank}.png')) #SPRITES
+        if 1<<2 & mask: _TIC["MAP"] = np.loadtxt(os.path.join(_ASSET_PATH, 'map', f'{bank}.csv'), dtype='int', delimiter=',')
     elif tocart == True:
-        if (0b1 & mask) == 0b1: pygame.image.save(_TIC["TILES"], os.path.join(_ASSET_PATH, 'map', f'{bank}.png')) #TILES
-        if (0b10 & mask) == 0b10: pygame.image.save(_TIC["SPRITES"], os.path.join(_ASSET_PATH, 'spr', f'{bank}.png')) #SPRITES
-        if (0b100 & mask) == 0b100: np.savetxt(os.path.join(_ASSET_PATH, 'map', f'{bank}.csv'), _TIC["MAP"], fmt='%d', delimiter=',')
+        if 1<<0 & mask: pygame.image.save(_TIC["TILES"], os.path.join(_ASSET_PATH, 'map', f'{bank}.png')) #TILES
+        if 1<<1 & mask: pygame.image.save(_TIC["SPRITES"], os.path.join(_ASSET_PATH, 'spr', f'{bank}.png')) #SPRITES
+        if 1<<2 & mask: np.savetxt(os.path.join(_ASSET_PATH, 'map', f'{bank}.csv'), _TIC["MAP"], fmt='%d', delimiter=',')
 
 # TIC-80'S TEXTRI() FUNCTION, https://github.com/nesbox/TIC-80/wiki/textri
 def textri(x1, y1, x2, y2, x3, y3, u1, v1, u2, v2, u3, v3, use_map=False, trans=-1):
