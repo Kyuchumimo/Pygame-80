@@ -52,7 +52,7 @@ pip install numpy
 **fset & fget**: Sprite flags  
 **Blit Segment / Low BPP graphics**: Bit depth
 
-## Special thanks:  
+## Special thanks  
 This library and other projects would not have been possible without the generous help of Pygame Community Discord members, either directly or indirectly:  
 **@Starbuck**  
 **@Ghast**  
