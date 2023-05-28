@@ -451,7 +451,7 @@ def pmem(index, val32=None):
     import json
     
     index = int(index)
-    if type(val32) != None: int(val32)
+    if val32 is not None: int(val32)
     
     if val32 == None:
         try:
