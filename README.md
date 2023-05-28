@@ -14,8 +14,8 @@ Some of the highlights of using this library are:
 
 ## Dependencies
 ```
-pip install pygame==2.1.3.dev6
-pip install numpy
+pygame-ce or pygame>=2.1.3.dev6
+numpy
 ```
 ## Functions
 ### Functions available so far:  
@@ -53,9 +53,11 @@ pip install numpy
 **Blit Segment / Low BPP graphics**: Bit depth
 
 ## Special thanks  
-This library and other projects would not have been possible without the generous help of Pygame Community Discord members, either directly or indirectly:  
-**@Starbuck**  
-**@Ghast**  
-**@blubberquark**  
-**@Matt**  
-**@Axis**
+This library and other projects would not have been possible without the generous help of Pygame Community Discord helpfulie members, either directly or indirectly:  
+**Starbuck**  
+**Ghast**  
+**blubberquark**  
+**Matiiss**  
+**Axis**  
+**Andrew Coffey**  
+**polastyn2030**  
