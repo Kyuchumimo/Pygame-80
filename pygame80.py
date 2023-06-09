@@ -425,7 +425,7 @@ def pix(x, y, color=None):
     """
     x = int(x)
     y = int(y)
-    if type(color) != None: int(color)
+    if color is not None: int(color)
     
     scn = pygame.surfarray.pixels3d(_SCREEN)
     if color == None:
