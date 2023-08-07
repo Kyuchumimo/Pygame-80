@@ -32,7 +32,7 @@ numpy
 **mget & mset**: VRAM 2D array indexing, read/write  
 **mouse**: use pygame.mouse.get_pos, pygame.mouse.get_pressed and MOUSEWHEEL event  
 **music (⚠️: sustain parameter not supported)**: use pygame.mixer.music.load, pygame.mixer.music.play and pygame.mixer.music.stop  
-**pix (⚠️: numpy library dependant)**: use pygame.surfarray.pixels3d  
+**pix**: use pygame.Surface.get_at and pygame.Surface.set_at  
 **pmem (⚠️: os, sys, json module dependant)**: use os.path.splitext, sys.argv, json.load and json.dump  
 **print**: use pygame.font.Font  
 **rect & rectb**: use pygame.draw.rect  
