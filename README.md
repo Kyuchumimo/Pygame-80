@@ -53,7 +53,7 @@ numpy
 **Blit Segment / Low BPP graphics**: Bit depth
 
 ### To do list:  
-- [ ] **btn & btnp returning GAMEPADS data (unsigned char) for id parameter omision**
+- [x] **btn & btnp returning GAMEPADS data (unsigned char) for id parameter omision**
 - [ ] **resizable window**
 - [ ] **visible border color for non-integer scale window sizes**
 
