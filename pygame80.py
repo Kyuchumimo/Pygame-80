@@ -32,10 +32,11 @@ _SAVEFILE = "pygame80"
 #####################################
 
 # TIC-80'S BTN() FUNCTION, https://github.com/nesbox/TIC-80/wiki/btn
-def btn(id):
+def btn(id=-1):
     """
     Usage:
-            btn [id] -> pressed
+            btn(id) -> pressed
+            btn() -> GAMEPADS data
     Parameters:
             id : id (0..7) of the key we want to interrogate (see the key map for reference)
     Description:
@@ -45,13 +46,23 @@ def btn(id):
 
     keymap = (pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT, pygame.K_z, pygame.K_x, pygame.K_a, pygame.K_s)
     
-    return pygame.key.get_pressed()[keymap[id]]
+    if id < 0:
+        hex_val = 0
+        
+        for i, button in enumerate(keymap):
+            hex_val |= (pygame.key.get_pressed()[button] << i)
+
+        return hex_val
+        
+    else:
+        return pygame.key.get_pressed()[keymap[id]]
 
 # TIC-80'S BTNP() FUNCTION, https://github.com/nesbox/TIC-80/wiki/btnp
-def btnp(id):
+def btnp(id=-1):
     """
     Usage:
-            btnp [[id, [hold][NOT SUPPORTED], [period][NOT SUPPORTED] ] -> pressed
+            btnp(id, [hold][NOT SUPPORTED], [period][NOT SUPPORTED]) -> pressed
+            btnp() -> GAMEPADS data
     Parameters:
             id : the id (0..7) of the button we wish to interrogate
             hold [NOT SUPPORTED]
@@ -64,8 +75,17 @@ def btnp(id):
     id = int(id)
     
     keymap = ("up", "down", "left", "right", "z", "x", "a", "s")
-            
-    return _KEY == keymap[id]
+    
+    if id < 0:
+        hex_val = 0
+        
+        for i, button in enumerate(keymap):
+            hex_val |= ((_KEY == button) << i)
+
+        return hex_val
+    
+    else:
+        return _KEY == keymap[id]
 
 # TIC-80'S CIRC() FUNCTION, https://github.com/nesbox/TIC-80/wiki/circ
 def circ(x, y, radius, color):
