@@ -52,6 +52,11 @@ numpy
 **fset & fget**: Sprite flags  
 **Blit Segment / Low BPP graphics**: Bit depth
 
+### To do list:  
+- [ ] **btn & btnp returning GAMEPADS data (unsigned char) for id parameter omision**
+- [ ] **resizable window**
+- [ ] **visible border color for non-integer scale window sizes**
+
 ## Special thanks  
 This library and other projects would not have been possible without the generous help of Pygame Community Discord helpfulie members, either directly or indirectly:  
 **Starbuck**  
