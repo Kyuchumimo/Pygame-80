@@ -410,8 +410,10 @@ def music(track=-1, frame=-1, row=-1, loop=True, sustain=False, tempo=-1, speed=
             This function starts playing a track.
     """
     import struct, io
+
+    track = int(track)
     
-    filename = os.path.join(_ASSET_PATH, 'music', f'{int(track)}.xm')
+    filename = os.path.join(_ASSET_PATH, 'music', f'{track}.xm')
     
     if track < 0:
         pygame.mixer.music.stop()
@@ -473,6 +475,7 @@ def pmem(index, val32=None):
     import json
     
     index = int(index)
+    
     if val32 is not None: int(val32)
     
     if val32 == None:
@@ -610,8 +613,10 @@ def sfx(id, note=None, duration=0, channel=0, volume=15, speed=0):
 
             Volume can be between 0 and 15.
     """
+    id = int(id)
+    
     if id != -1:
-        snd = pygame.mixer.Sound(os.path.join(_ASSET_PATH, 'sfx', f'{int(id)}.wav'))
+        snd = pygame.mixer.Sound(os.path.join(_ASSET_PATH, 'sfx', f'{id}.wav'))
         snd.set_volume((volume%16)/15)
         pygame.mixer.Channel(channel).play(snd, 0, int(duration * (1000 / 60)))
     else:
