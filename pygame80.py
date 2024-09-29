@@ -834,6 +834,10 @@ try:
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
                 _KEY = pygame.key.name(event.key)
+
+                if pygame.key.get_pressed()[pygame.K_LALT]:
+                    if event.key == pygame.K_RETURN:
+                        pygame.display.toggle_fullscreen()
         
         _TIC["CLOCK"].tick(60)
         
