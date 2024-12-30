@@ -14,7 +14,7 @@ Some of the highlights of using this library are:
 
 ## Dependencies
 ```
-pygame-ce or pygame>=2.1.3.dev6
+pygame-ce>=2.4.0
 numpy
 ```
 ## Functions
