@@ -20,7 +20,7 @@ pygame.init()
 ###PARAMETERS###
 # WINDOW
 pygame.display.set_icon(pygame.image.load(os.path.join(_ASSET_PATH, 'icon.png')))
-pygame.display.set_caption("Pygame-80 by Kyuchumimo v240928")
+pygame.display.set_caption("Pygame-80 by Kyuchumimo v2024.12.30")
 _SCREEN = pygame.display.set_mode([240, 136], pygame.SCALED)
 
 # MUSIC CHANNELS
@@ -32,7 +32,7 @@ _SAVEID = "pygame80"
 #####################################
 
 # TIC-80'S BTN() FUNCTION, https://github.com/nesbox/TIC-80/wiki/btn
-def btn(id=-1):
+def btn(*args):
     """
     Usage:
             btn(id) -> pressed
@@ -42,23 +42,24 @@ def btn(id=-1):
     Description:
             This function allows you to read the status of one of the buttons attached to TIC. The function returns True if the key with the supplied id is currently in the pressed state. It remains True for as long as the key is held down.
     """
-    id = int(id)
-
     keymap = (pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT, pygame.K_z, pygame.K_x, pygame.K_a, pygame.K_s)
     
-    if id < 0:
+    if len(args) == 0:
         hex_val = 0
         
         for i, button in enumerate(keymap):
             hex_val |= (pygame.key.get_pressed()[button] << i)
 
         return hex_val
+    elif len(args) == 1:
+        id = int(args[0]%8)
         
-    else:
         return pygame.key.get_pressed()[keymap[id]]
+    else:
+        raise Exception("invalid params, btn [ id ]\n")
 
 # TIC-80'S BTNP() FUNCTION, https://github.com/nesbox/TIC-80/wiki/btnp
-def btnp(id=-1):
+def btnp(*args):
     """
     Usage:
             btnp(id, [hold][NOT SUPPORTED], [period][NOT SUPPORTED]) -> pressed
@@ -69,26 +70,25 @@ def btnp(id=-1):
             period [NOT SUPPORTED]
     Description:
             This function allows you to read the status of one of the buttons. It returns True only if the key has been pressed since the last frame.
-    """
-    global _KEY
-
-    id = int(id)
+    """    
+    keymap = (pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT, pygame.K_z, pygame.K_x, pygame.K_a, pygame.K_s)
     
-    keymap = ("up", "down", "left", "right", "z", "x", "a", "s")
-    
-    if id < 0:
+    if len(args) == 0:
         hex_val = 0
         
         for i, button in enumerate(keymap):
-            hex_val |= ((_KEY == button) << i)
+            hex_val |= pygame.key.get_just_pressed()[keymap[i]] << i
 
         return hex_val
-    
+    elif len(args) == 1:
+        id = int(args[0]%8)
+        
+        return pygame.key.get_just_pressed()[keymap[id]]
     else:
-        return _KEY == keymap[id]
+        raise Exception("invalid params, btnp [ id ]\n")
 
 # TIC-80'S CIRC() FUNCTION, https://github.com/nesbox/TIC-80/wiki/circ
-def circ(x, y, radius, color):
+def circ(*args):
     """
     Usage:
             circ x y radius color
@@ -99,12 +99,15 @@ def circ(x, y, radius, color):
     Description:
             This function draws a filled circle of the desired radius and color with its center at x, y.
     """
-    color = int(color)
-    
-    pygame.draw.circle(_SCREEN, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [x, y], radius)
+    if len(args) == 4:
+        color = int(args[3])%len(_TIC["PALETTE"])
+        
+        pygame.draw.circle(_SCREEN, _TIC["PALETTE"][color], [args[0], args[1]], args[2])
+    else:
+        raise Exception("invalid parameters, circ(x,y,radius,color)\n")
 
 # TIC-80'S CIRCB() FUNCTION, https://github.com/nesbox/TIC-80/wiki/circ
-def circb(x, y, radius, color):
+def circb(*args):
     """
     Usage:
             circb x y radius color
@@ -115,9 +118,12 @@ def circb(x, y, radius, color):
     Description:
             Draws the circumference of a circle with its center at x, y using the radius and color requested.
     """
-    color = int(color)
-
-    pygame.draw.circle(_SCREEN, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [x, y], radius, 1)
+    if len(args) == 4:
+        color = int(args[3])%len(_TIC["PALETTE"])
+        
+        pygame.draw.circle(_SCREEN, _TIC["PALETTE"][color], [args[0], args[1]], args[2], 1)
+    else:
+        raise Exception("invalid parameters, circb(x,y,radius,color)\n")
 
 # TIC-80'S CLIP() FUNCTION, https://github.com/nesbox/TIC-80/wiki/clip
 def clip(*args):
@@ -236,7 +242,7 @@ def font(text, x, y, transcolor=-1, w=9, h=8, fixed=False, scale=1):
             _SCREEN.blit(ts.subsurface([text[i]%16*(8*scale),text[i]%256//16*(8*scale),(8*scale),(8*scale)]),[x+((i-i_line_offset)*w)*scale,y])
 
 # TIC-80'S KEY() FUNCTION, https://github.com/nesbox/TIC-80/wiki/key
-def key(code):
+def key(*args):
     """
     Usage:
             key [code] -> pressed
@@ -247,13 +253,22 @@ def key(code):
     Description:
             The function returns True if the key denoted by keycode is pressed.
     """
-    code = int(code)
-
-    keycodes = [[None], [pygame.K_a], [pygame.K_b], [pygame.K_c], [pygame.K_d], [pygame.K_e], [pygame.K_f], [pygame.K_g], [pygame.K_h], [pygame.K_i], [pygame.K_j], [pygame.K_k], [pygame.K_l], [pygame.K_m], [pygame.K_n], [pygame.K_o], [pygame.K_p], [pygame.K_q], [pygame.K_r], [pygame.K_s], [pygame.K_t], [pygame.K_u], [pygame.K_v], [pygame.K_w], [pygame.K_x], [pygame.K_y], [pygame.K_z], [pygame.K_0], [pygame.K_1], [pygame.K_2], [pygame.K_3], [pygame.K_4], [pygame.K_5], [pygame.K_6], [pygame.K_7], [pygame.K_8], [pygame.K_9], [pygame.K_MINUS], [pygame.K_EQUALS], [pygame.K_LEFTBRACKET], [pygame.K_RIGHTBRACKET], [pygame.K_BACKSLASH], [pygame.K_SEMICOLON], [None], [pygame.K_BACKQUOTE], [pygame.K_COMMA], [pygame.K_PERIOD], [pygame.K_SLASH], [pygame.K_SPACE], [pygame.K_TAB], [pygame.K_RETURN], [pygame.K_BACKSPACE], [pygame.K_DELETE], [pygame.K_INSERT], [pygame.K_PAGEUP], [pygame.K_PAGEDOWN], [pygame.K_HOME], [pygame.K_END], [pygame.K_UP], [pygame.K_DOWN], [pygame.K_LEFT], [pygame.K_RIGHT], [pygame.K_CAPSLOCK], [pygame.K_LCTRL, pygame.K_RCTRL], [pygame.K_LSHIFT, pygame.K_RSHIFT], [pygame.K_LALT]]
-    return any(pygame.key.get_pressed()[i] for i in keycodes[code])
+    keycodes = (False, pygame.K_a, pygame.K_b, pygame.K_c, pygame.K_d, pygame.K_e, pygame.K_f, pygame.K_g, pygame.K_h, pygame.K_i, pygame.K_j, pygame.K_k, pygame.K_l, pygame.K_m, pygame.K_n, pygame.K_o, pygame.K_p, pygame.K_q, pygame.K_r, pygame.K_s, pygame.K_t, pygame.K_u, pygame.K_v, pygame.K_w, pygame.K_x, pygame.K_y, pygame.K_z, pygame.K_0, pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4, pygame.K_5, pygame.K_6, pygame.K_7, pygame.K_8, pygame.K_9, pygame.K_MINUS, pygame.K_EQUALS, pygame.K_LEFTBRACKET, pygame.K_RIGHTBRACKET, pygame.K_BACKSLASH, pygame.K_SEMICOLON, None, pygame.K_BACKQUOTE, pygame.K_COMMA, pygame.K_PERIOD, pygame.K_SLASH, pygame.K_SPACE, pygame.K_TAB, pygame.K_RETURN, pygame.K_BACKSPACE, pygame.K_DELETE, pygame.K_INSERT, pygame.K_PAGEUP, pygame.K_PAGEDOWN, pygame.K_HOME, pygame.K_END, pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT, pygame.K_CAPSLOCK, pygame.KMOD_CTRL, pygame.KMOD_SHIFT, pygame.K_LALT)
+    
+    if len(args) == 0:
+        return pygame.key.get_pressed().count(True) > 0
+    elif len(args) == 1:
+        try:
+            code = int(args[0])
+            
+            return pygame.key.get_pressed()[keycodes[code]]
+        except IndexError:
+            raise Exception("unknown keyboard code\n")
+    else:
+        raise Exception("invalid params, key [code]\n")
 
 # TIC-80'S KEYP() FUNCTION, https://github.com/nesbox/TIC-80/wiki/keyp
-def keyp(code):
+def keyp(*args):
     """
     Usage:
             keyp [code [hold[NOT SUPPORTED] period[NOT SUPPORTED]] ] -> pressed
@@ -266,13 +281,19 @@ def keyp(code):
     Description:
             This function returns True if the given key is pressed but wasn't pressed in the previous frame.
     """
-    global _KEY
+    keycodes = (False, pygame.K_a, pygame.K_b, pygame.K_c, pygame.K_d, pygame.K_e, pygame.K_f, pygame.K_g, pygame.K_h, pygame.K_i, pygame.K_j, pygame.K_k, pygame.K_l, pygame.K_m, pygame.K_n, pygame.K_o, pygame.K_p, pygame.K_q, pygame.K_r, pygame.K_s, pygame.K_t, pygame.K_u, pygame.K_v, pygame.K_w, pygame.K_x, pygame.K_y, pygame.K_z, pygame.K_0, pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4, pygame.K_5, pygame.K_6, pygame.K_7, pygame.K_8, pygame.K_9, pygame.K_MINUS, pygame.K_EQUALS, pygame.K_LEFTBRACKET, pygame.K_RIGHTBRACKET, pygame.K_BACKSLASH, pygame.K_SEMICOLON, None, pygame.K_BACKQUOTE, pygame.K_COMMA, pygame.K_PERIOD, pygame.K_SLASH, pygame.K_SPACE, pygame.K_TAB, pygame.K_RETURN, pygame.K_BACKSPACE, pygame.K_DELETE, pygame.K_INSERT, pygame.K_PAGEUP, pygame.K_PAGEDOWN, pygame.K_HOME, pygame.K_END, pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT, pygame.K_CAPSLOCK, pygame.KMOD_CTRL, pygame.KMOD_SHIFT, pygame.K_LALT)
     
-    code = int(code)
-
-    keycodes = [[None], ["a"], ["b"], ["c"], ["d"], ["e"], ["f"], ["g"], ["h"], ["i"], ["j"], ["k"], ["l"], ["m"], ["n"], ["o"], ["p"], ["q"], ["r"], ["s"], ["t"], ["u"], ["v"], ["w"], ["x"], ["y"], ["z"], ["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["-"], ["="], ["["], ["]"], ["\\"], [";"], [None], ["`"], [","], ["."], ["/"], [" "], ["tab"], ["return"], ["backspace"], ["delete"], ["insert"], ["page up"], ["page down"], ["home"], ["end"], ["up"], ["down"], ["left"], ["right"], ["caps lock"], ["left ctrl", "right ctrl"], ["left shift", "right shift"], ["left alt"]]
-    
-    return any(_KEY == i for i in keycodes[code])
+    if len(args) == 0:
+        return pygame.key.get_just_pressed().count(True) > 0
+    elif len(args) == 1:
+        try:
+            code = int(args[0])
+            
+            return pygame.key.get_just_pressed()[keycodes[code]]
+        except IndexError:
+            raise Exception("unknown keyboard code\n")
+    else:
+        raise Exception("invalid params, keyp [code]\n")
 
 # TIC-80'S LINE() FUNCTION, https://github.com/nesbox/TIC-80/wiki/line
 def line(x0, y0, x1, y1, color):
@@ -286,9 +307,12 @@ def line(x0, y0, x1, y1, color):
     Description:
             Draws a straight line from point (x0,y0) to point (x1,y1) in the specified color.
     """
-    color = int(color)
+    if len(args) >= 5:
+        color = int(args[4])
 
-    pygame.draw.line(_SCREEN, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [x0, y0], [x1, y1])
+        pygame.draw.line(_SCREEN, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [args[0], args[1]], [args[2], args[3]])
+    else:
+        raise Exception("invalid parameters, line(x0,y0,x1,y1,color)\n")
 
 # TIC-80'S MAP() FUNCTION, https://github.com/nesbox/TIC-80/wiki/map
 def map(x=0, y=0, w=30, h=17, sx=0, sy=0, colorkey=-1, scale=1, remap=None):
@@ -330,12 +354,12 @@ def map(x=0, y=0, w=30, h=17, sx=0, sy=0, colorkey=-1, scale=1, remap=None):
         for j in range(x, x+w): # COLUMNS
             
             _SCREEN.blit(ts.subsurface([PPU[i%PPU.shape[0]][j%PPU.shape[1]]%16*(8*scale),PPU[i%PPU.shape[0]][j%PPU.shape[1]]%256//16*(8*scale),(8*scale),(8*scale)]),[(sx+(j*(8*scale)))-(x*(8*scale)),(sy+(i*(8*scale)))-(y*(8*scale))]) #DRAW A MAP FROM A SPRITE SHEET/TILESET (FASTEST) (NEEDS 3 ARRAYS)
-            # _SCREEN.blit(ts.subsurface([(np.where(*remap))[i,j]%16*8,(np.where(*remap))[i,j]%256//16*8,8,8]),[(sx+(j*8))-(x*8),sy+(i*8)]) #DRAW A MAP FROM A SPRITE SHEET/TILESET WITH NUMPY ARRAYS (FAST) (NEEDS 2 ARRAYS)
-            # _SCREEN.blit(chr[m0[i][j]],[(j*16)-xm,(i*16)+ym]) #DRAW A MAP THROUGH A LIST OF INDEPENDENT IMAGES (MEDIUM)
+            # _SCREEN.blit(ts.subsurface([(np.where(*remap))[i,j]%16*8,(np.where(*remap))[i,j]%256//16*8,8,8]),[(sx+(j*8))-(x*8),sy+(i*8)]) #DRAW A MAP FROM A SPRITE SHEET/TILESET WITH NUMPY ARRAYS (EVEN FASTER) (NEEDS 2 ARRAYS)
+            # _SCREEN.blit(chr[m0[i][j]],[(j*16)-xm,(i*16)+ym]) #DRAW A MAP THROUGH A LIST OF INDEPENDENT IMAGES (FASTER)
             # spr(m0[i][j],(sx+(j*8))-(x*8),sy+(i*8),'#FFFFFF',1,0,0,1,1) #DRAW A MAP FROM A SPRITE SHEET/TILESET WITH SPR
 
 # TIC-80'S MGET() FUNCTION, https://github.com/nesbox/TIC-80/wiki/mget
-def mget(x, y):
+def mget(*args):
     """
     Usage:
             mget x y -> tile_id
@@ -344,15 +368,18 @@ def mget(x, y):
     Description:
             This function returns the tile at the specified TILEMAP coordinates, the top left cell of the tilemap being (0, 0).
     """
-    x = int(x)
-    y = int(y)
-    
-    if ((x < 0) | (x >= _TIC['MAP'].shape[1]) | (y < 0) | (y >= _TIC['MAP'].shape[0])): return 0
+    if len(args) == 2:
+        x = int(args[0])
+        y = int(args[1])
         
-    return _TIC["MAP"][y, x]
+        if ((x < 0) | (x >= _TIC['MAP'].shape[1]) | (y < 0) | (y >= _TIC['MAP'].shape[0])): return 0
+            
+        return _TIC["MAP"][y, x]
+    else:
+        raise Exception("invalid params, mget(x,y)\n")
 
 # TIC-80'S MSET() FUNCTION, https://github.com/nesbox/TIC-80/wiki/mget
-def mset(x, y, tile_id):
+def mset(*args):
     """
     Usage:
             mset x y tile_id
@@ -362,13 +389,16 @@ def mset(x, y, tile_id):
     Description:
             This function will change the tile at the specified TILEMAP coordinates. By default, changes made are only kept while the current game is running.
     """
-    x = int(x)
-    y = int(y)
-    tile_id = int(tile_id)
+    if len(args) == 3:
+        x = int(args[0])
+        y = int(args[1])
+        tile_id = int(args[2])
 
-    if ((x < 0) | (x >= _TIC['MAP'].shape[1]) | (y < 0) | (y >= _TIC['MAP'].shape[0])): return
-    
-    _TIC["MAP"][y, x] = tile_id
+        if ((x < 0) | (x >= _TIC['MAP'].shape[1]) | (y < 0) | (y >= _TIC['MAP'].shape[0])): return
+        
+        _TIC["MAP"][y, x] = tile_id
+    else:
+        raise Exception("invalid params, mset(x,y,tile_id)\n")
 
 # TIC-80'S MOUSE() FUNCTION, https://github.com/nesbox/TIC-80/wiki/mouse
 def mouse():
@@ -432,7 +462,7 @@ def music(track=-1, frame=-1, row=-1, loop=True, sustain=False, tempo=-1, speed=
             pygame.mixer.music.play(loop and -1 or 0, (timeperrow * (max(0, row) + (max(0, frame) * 63))) / 1000)
 
 # TIC-80'S PIX() FUNCTION, https://github.com/nesbox/TIC-80/wiki/pix
-def pix(x, y, color=None):
+def pix(*args):
     """
     Usage:
             pix x y color Draw a pixel in the specified color
@@ -445,21 +475,25 @@ def pix(x, y, color=None):
     Description:
             This function can read or write individual pixel color values. When called with a color argument , the pixel at the specified coordinates is set to that color. When called with only x y arguments, the color of the pixel at the specified coordinates is returned.
     """
-    x = int(x)
-    y = int(y)
-    if color is not None: int(color)
-    
-    # scn = pygame.surfarray.pixels3d(_SCREEN)
-    if color == None:
-        return _TIC["PALETTE"].index(list(_SCREEN.get_at([x, y])[0:3])) # FASTEST
-        # return _TIC["PALETTE"].index(scn[x, y].tolist()) #FAST
-        # return list(scn[x, y])
-    elif x >= 0 and x < _SCREEN.get_size()[0] and y >= 0 and y < _SCREEN.get_size()[1]:
-        _SCREEN.set_at([x, y], _TIC["PALETTE"][color%len(_TIC["PALETTE"])])
-        # scn[x, y] = _TIC["PALETTE"][color%len(_TIC["PALETTE"])]
+    if len(args) >= 2:
+        x = int(args[0])
+        y = int(args[1])
+        
+        if len(args) >= 3:
+            color = int(args[2])
+            
+            if x >= 0 and x < _SCREEN.get_size()[0] and y >= 0 and y < _SCREEN.get_size()[1]:
+                _SCREEN.set_at([x, y], _TIC["PALETTE"][color%len(_TIC["PALETTE"])]) # FASTEST
+                # scn[x, y] = _TIC["PALETTE"][color%len(_TIC["PALETTE"])]
+        else:
+            return _TIC["PALETTE"].index(list(_SCREEN.get_at([x, y])[0:3])) # FASTEST
+            # return _TIC["PALETTE"].index(scn[x, y].tolist()) #FASTER
+            # return list(scn[x, y])
+    else:
+        raise Exception("invalid parameters, pix(x y [color])\n")
 
 # TIC-80'S PMEM() FUNCTION, https://github.com/nesbox/TIC-80/wiki/pmem
-def pmem(index, val32=None):
+def pmem(index, val32):
     """
     Usage:
             pmem index -> val32 Retrieve data from persistent memory file
@@ -549,7 +583,7 @@ def print(text, x=0, y=0, color=15, fixed=False, scale=1, smallfont=False):
             return _TIC["FONT"][3].size(max(str(text).splitlines()))[0] * scale
 
 # TIC-80'S RECT() FUNCTION, https://github.com/nesbox/TIC-80/wiki/rect
-def rect(x, y, w, h, color):
+def rect(*args):
     """
     Usage:
             rect x y w h color
@@ -561,12 +595,16 @@ def rect(x, y, w, h, color):
     Description:
             This function draws a filled rectangle of the desired size and color at the specified position.
     """
-    color = int(color)
     
-    pygame.draw.rect(_SCREEN, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [x, y, w, h])
+    if len(args) == 5:
+        color = int(args[4])
+        
+        pygame.draw.rect(_SCREEN, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [args[0], args[1], args[2], args[3]])
+    else:
+        raise Exception("invalid parameters, rect(x,y,w,h,color)\n")
 
 # TIC-80'S RECTB() FUNCTION, https://github.com/nesbox/TIC-80/wiki/rect
-def rectb(x, y, w, h, color):
+def rectb(*args):
     """
     Usage:
             rectb x y w h color
@@ -578,9 +616,12 @@ def rectb(x, y, w, h, color):
     Descripion:
             This function draws a one pixel thick rectangle border at the position requested.
     """
-    color = int(color)
-
-    pygame.draw.rect(_SCREEN, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [x, y, w, h], 1)
+    if len(args) == 5:
+        color = int(args[4])
+        
+        pygame.draw.rect(_SCREEN, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [args[0], args[1], args[2], args[3]], 1)
+    else:
+        raise Exception("invalid parameters, rectb(x,y,w,h,color)\n")
 
 # TIC-80'S RESET() FUNCTION, https://github.com/nesbox/TIC-80/wiki/reset
 def reset():
@@ -770,7 +811,7 @@ def tstamp():
     return time.time()//1
 
 # TIC-80'S TRACE() FUNCTION, https://github.com/nesbox/TIC-80/wiki/trace
-def trace(message, color=15):
+def trace(*args):
     """
     Usage:
             trace message [color]
@@ -780,15 +821,24 @@ def trace(message, color=15):
     Description:
             This is a service function, useful for debugging your code. It prints the message parameter to the console in the (optional) color specified.
     """
-    import builtins
     
-    if os.name == 'nt':
-        builtins.print(str(message))
+    if len(args) >= 1:
+        import builtins
+        
+        color=15
+        
+        if len(args) >= 2:
+            color=int(args[1])%len(_TIC["PALETTE"])
+        
+        if os.name == 'nt':
+            builtins.print(str(message))
+        else:
+            builtins.print("\033[38;2;{};{};{}m{} \033[38;2;255;255;255m".format(*_TIC["PALETTE"][color], str(args[0])))
     else:
-        builtins.print("\033[38;2;{};{};{}m{} \033[38;2;255;255;255m".format(*_TIC["PALETTE"][color%len(_TIC["PALETTE"])], str(message)))
+        raise Exception("invalid params, trace(text,[color])\n")
 
 # TIC-80'S TRI() FUNCTION, https://github.com/nesbox/TIC-80/wiki/tri
-def tri(x1, y1, x2, y2, x3, y3, color):
+def tri(*args):
     """
     Usage:
             tri x1 y1 x2 y2 x3 y3 color
@@ -800,12 +850,15 @@ def tri(x1, y1, x2, y2, x3, y3, color):
     Description:
             This function draws a triangle filled with color, using the supplied vertices.
     """
-    color = int(color)
+    if len(args) == 7:
+        color = int(args[6])%len(_TIC["PALETTE"])
 
-    pygame.draw.polygon(_SCREEN, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [(x1, y1), (x2, y2), (x3, y3)])
+        pygame.draw.polygon(_SCREEN, _TIC["PALETTE"][color], [(args[0], args[1]), (args[2], args[3]), (args[4], args[5])])
+    else:
+        raise Exception("invalid parameters, tri(x1,y1,x2,y2,x3,y3,color)\n")
 
 # TIC-80'S TRIB() FUNCTION, https://github.com/nesbox/TIC-80/wiki/trib
-def trib(x1, y1, x2, y2, x3, y3, color):
+def trib(*args):
     """
     Usage:
             trib x1 y1 x2 y2 x3 y3 color
@@ -817,9 +870,12 @@ def trib(x1, y1, x2, y2, x3, y3, color):
     Description:
             This function draws a triangle border with color, using the supplied vertices.
     """
-    color = int(color)
+    if len(args) == 7:
+        color = int(args[6])%len(_TIC["PALETTE"])
 
-    pygame.draw.polygon(_SCREEN, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [(x1, y1), (x2, y2), (x3, y3)], 1)
+        pygame.draw.polygon(_SCREEN, _TIC["PALETTE"][color], [(args[0], args[1]), (args[2], args[3]), (args[4], args[5])], 1)
+    else:
+        raise Exception("invalid parameters, trib(x1,y1,x2,y2,x3,y3,color)\n")
 
 #####################################
 try:
@@ -827,14 +883,11 @@ try:
     # do you useful stuff here
     
     while True:
-        _KEY = None
         for event in pygame.event.get():
             if event.type == pygame.QUIT or pygame.key.get_pressed()[pygame.K_ESCAPE]:
                 pygame.quit()
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
-                _KEY = pygame.key.name(event.key)
-
                 if pygame.key.get_pressed()[pygame.K_LALT]:
                     if event.key == pygame.K_RETURN:
                         pygame.display.toggle_fullscreen()
