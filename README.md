@@ -19,7 +19,7 @@ numpy
 ```
 ## Functions
 ### Functions available so far:  
-**btn**: use pygame.key.get_pressed & **btnp**: use pygame.event.get(pygame.KEYDOWN)  
+**btn**: use pygame.key.get_pressed & **btnp**: use pygame.key.get_just_pressed  
 **clip**: use pygame.Surface.set_clip  
 **cls**: use pygame.Surface.fill  
 **circ & circb**: use pygame.draw.circle  
