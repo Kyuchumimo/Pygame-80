@@ -26,7 +26,7 @@ numpy
 **elli & ellib**: use pygame.draw.elipse  
 **exit (⚠️: sys built-in module dependant)**: use sys.exit  
 **font**: use pygame.Surface.subsurface and pygame.transform.scale  
-**key**: use pygame.key.get_pressed & **keyp**: use pygame.event.get(pygame.KEYDOWN)  
+**key**: use pygame.key.get_pressed & **keyp**: use pygame.key.get_just_pressed  
 **line**: use pygame.draw.line  
 **map (⚠️: numpy library dependant)**: use pygame.Surface.subsurface and pygame.transform.scale  
 **mget & mset**: VRAM 2D array indexing, read/write  
