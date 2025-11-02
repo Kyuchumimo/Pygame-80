@@ -54,8 +54,9 @@ numpy
 
 ### To do list:  
 - [x] **btn & btnp returning GAMEPADS data (unsigned char) for id parameter omision**
-- [ ] **resizable window**
-- [ ] **visible border color for non-integer scale window sizes**
+- [x] **resizable window**
+- [x] **visible border color for non-integer scale window sizes**
+- [ ] **sfx note parameter**
 
 ## Special thanks  
 This library and other projects would not have been possible without the generous help of Pygame Community Discord helpfulie members, either directly or indirectly:  
