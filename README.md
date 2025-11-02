@@ -37,7 +37,7 @@ numpy
 **print**: use pygame.font.Font  
 **rect & rectb**: use pygame.draw.rect  
 **reset (⚠️: os, sys module dependant)**: use os.execv  
-**sfx (⚠️: speed parameter not supported)**: use standard-library wave module, io.BytesIO, pygame.mixer.Sound, pygame.mixer.Channel and pygame.mixer.Sound.set_volume  
+**sfx (⚠️: wave, io module dependant. speed parameter not supported)**: use standard-library wave module, io.BytesIO, pygame.mixer.Sound, pygame.mixer.Channel and pygame.mixer.Sound.set_volume  
 **spr**: use pygame.Surface, pygame.Surface.subsurface, pygame.transform.flip, pygame.transform.scale and pygame.transform.rotate  
 **sync**: use pygame.image.load, pygame.image.save, numpy.loadtxt and numpy.savetxt  
 **textri**: use pygame.surfarray.array3d, pygame.Surface.get_size, pygame.surfarray.make_surface  
