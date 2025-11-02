@@ -6,6 +6,8 @@
 import pygame
 from pygame.locals import *
 import numpy as np
+import wave
+import io
 import os, sys
 
 if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
@@ -296,7 +298,7 @@ def keyp(*args):
         raise Exception("invalid params, keyp [code]\n")
 
 # TIC-80'S LINE() FUNCTION, https://github.com/nesbox/TIC-80/wiki/line
-def line(x0, y0, x1, y1, color):
+def line(*args):
     """
     Usage:
             line x0 y0 x1 y1 color
@@ -634,13 +636,13 @@ def reset():
     os.execv(sys.executable, ['python3'] + sys.argv)
 
 # TIC-80'S SFX() FUNCTION, https://github.com/nesbox/TIC-80/wiki/sfx
-def sfx(id, note=None, duration=0, channel=0, volume=15, speed=0):
+def sfx(id, note=36, duration=0, channel=0, volume=15, speed=0):
     """
     Usage:
-            sfx id [note][NOT SUPPORTED] [duration=0] [channel=0] [volume=15] [speed=0][NOT SUPPORTED]
+            sfx id [note=36] [duration=0] [channel=0] [volume=15] [speed=0][NOT SUPPORTED]
     Parameters:
             id : the SFX id (0..n), or -1 to stop playing
-            note [NOT SUPPORTED]
+            note : the note number to play
             duration : the duration (number of frames) (0 by default, which plays continuously)
             channel : the audio channel to use (0..defaults to 3)
             volume : the volume (0..15) (defaults to 15)
@@ -657,7 +659,40 @@ def sfx(id, note=None, duration=0, channel=0, volume=15, speed=0):
     id = int(id)
     
     if id != -1:
-        snd = pygame.mixer.Sound(os.path.join(_ASSET_PATH, 'sfx', f'{id}.wav'))
+        if note != 36:
+            base_freq = 261.63  # C4 frequency
+            
+            with wave.open(os.path.join(_ASSET_PATH, 'sfx', f'{id}.wav'), "rb") as wf:
+                framerate = wf.getframerate()
+                nframes = wf.getnframes()
+                nchannels = wf.getnchannels()
+                sampwidth = wf.getsampwidth()
+                audio = np.frombuffer(wf.readframes(nframes), dtype=np.int16)
+
+            # Check if audio is mono
+            if nchannels > 1:
+                audio = audio[::nchannels]
+
+            # Change the frequency by adjusting the length of the audio (without changing the frame rate).
+            factor = 2 ** ((note-36) / 12)
+            new_length = int(len(audio) / factor)
+            indices = np.linspace(0, len(audio) - 1, new_length)
+            new_audio = np.interp(indices, np.arange(len(audio)), audio).astype(np.int16)
+
+            # Maintain the original frame rate
+            buffer = io.BytesIO()
+            with wave.open(buffer, "wb") as wf:
+                wf.setnchannels(1)
+                wf.setsampwidth(sampwidth)
+                wf.setframerate(framerate)
+                wf.writeframes(new_audio.tobytes())
+
+            buffer.seek(0)
+            snd = pygame.mixer.Sound(file=buffer)
+        else:
+            snd = pygame.mixer.Sound(os.path.join(_ASSET_PATH, 'sfx', f'{id}.wav'))
+        
+        
         snd.set_volume((volume%16)/15)
         pygame.mixer.Channel(channel).play(snd, 0, int(duration * (1000 / 60)))
     else:
