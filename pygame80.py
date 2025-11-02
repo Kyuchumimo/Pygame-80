@@ -20,8 +20,8 @@ pygame.init()
 ###PARAMETERS###
 # WINDOW
 pygame.display.set_icon(pygame.image.load(os.path.join(_ASSET_PATH, 'icon.png')))
-pygame.display.set_caption("Pygame-80 by Kyuchumimo v2024.12.30")
-_SCREEN = pygame.display.set_mode([240, 136], pygame.SCALED)
+pygame.display.set_caption("Pygame-80 by Kyuchumimo v2025.11.01")
+_SCREEN = pygame.display.set_mode([240, 136], pygame.RESIZABLE | pygame.SCALED)
 
 # MUSIC CHANNELS
 pygame.mixer.set_num_channels(4)
@@ -597,9 +597,9 @@ def rect(*args):
     """
     
     if len(args) == 5:
-        color = int(args[4])
+        color = int(args[4])%len(_TIC["PALETTE"])
         
-        pygame.draw.rect(_SCREEN, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [args[0], args[1], args[2], args[3]])
+        pygame.draw.rect(_SCREEN, _TIC["PALETTE"][color], [args[0], args[1], args[2], args[3]])
     else:
         raise Exception("invalid parameters, rect(x,y,w,h,color)\n")
 
@@ -617,9 +617,9 @@ def rectb(*args):
             This function draws a one pixel thick rectangle border at the position requested.
     """
     if len(args) == 5:
-        color = int(args[4])
+        color = int(args[4])%len(_TIC["PALETTE"])
         
-        pygame.draw.rect(_SCREEN, _TIC["PALETTE"][color%len(_TIC["PALETTE"])], [args[0], args[1], args[2], args[3]], 1)
+        pygame.draw.rect(_SCREEN, _TIC["PALETTE"][color], [args[0], args[1], args[2], args[3]], 1)
     else:
         raise Exception("invalid parameters, rectb(x,y,w,h,color)\n")
 
@@ -884,19 +884,26 @@ try:
     
     while True:
         for event in pygame.event.get():
-            if event.type == pygame.QUIT or pygame.key.get_pressed()[pygame.K_ESCAPE]:
+            if event.type == pygame.QUIT:
+                # EXIT
                 pygame.quit()
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
-                if pygame.key.get_pressed()[pygame.K_LALT]:
+                # EXIT
+                if event.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    sys.exit()
+                # FULLSCREEN
+                elif pygame.key.get_pressed()[pygame.K_LALT]:
                     if event.key == pygame.K_RETURN:
                         pygame.display.toggle_fullscreen()
         
         _TIC["CLOCK"].tick(60)
         
         # do you TIC() stuff here
-
-        pygame.display.update()
+    
+        pygame.display.flip()
+        
 except Exception:
     import traceback
     
