@@ -50,7 +50,7 @@ numpy
 **TIC, SCN, OVR, BDR**: Callbacks  
 **peek & peek4, poke & poke4, memcpy & memset**: Memory Mapping  
 **fset & fget**: Sprite flags  
-**Blit Segment / Low BPP graphics**: Bit depth
+**Blit Segment / Low BPP graphics**: Bit depth  
 **poke@0x03FF8**: Border color
 
 ### To do list:  
